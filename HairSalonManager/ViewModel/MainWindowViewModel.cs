@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HairSalonManager.Model.Util;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,6 +12,16 @@ namespace HairSalonManager.ViewModel
     {
         private WindowState _windowState;
 
+        private string navigationUri;
+        public string NavigationUri
+        {
+            get { return navigationUri; }
+            set { navigationUri = value;
+                OnPropertyChanged("NavigationUri");
+            }
+        }
+
+
         public WindowState WindowState
         {
             get { return _windowState; }
@@ -21,14 +32,17 @@ namespace HairSalonManager.ViewModel
             }
         }
 
-
         public Command MinimizeCommand { get; set; }
         public Command CloseCommand { get; set; }
 
         public MainWindowViewModel()
         {
+            //Command 객체 생성
             MinimizeCommand = new Command(MinimizeMethod, CanExecuteMethod);
             CloseCommand = new Command(CloseMethod, CanExecuteMethod);
+
+            //NavigationServiceProvider 등록
+            NavigationServiceProvider._mainWindowInstance = this;
         }
 
         private void MinimizeMethod(object parameter)
