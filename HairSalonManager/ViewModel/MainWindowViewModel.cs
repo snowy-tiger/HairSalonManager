@@ -1,18 +1,43 @@
-﻿using System;
+﻿using HairSalonManager.Model.Vo;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace HairSalonManager.ViewModel
 {
-    class MainWindowViewModel
+    class MainWindowViewModel : Notifier
     {
-        public Command MyProperty { get; set; }
+        private ObservableCollection<ReservationVo> _resList;
+
+        public ObservableCollection<ReservationVo> ResList
+        {
+            get { return _resList; }
+            set {
+                _resList = value;
+                OnPropertyChanged("ResList");
+            }
+        }
+        
+        public Command LoadCommand { get; set; }
 
         public MainWindowViewModel()
         {
+            LoadCommand = new Command(ExecuteLoadMethod, CanExecuteMethod);
 
+
+        }
+
+        private bool CanExecuteMethod(object arg)
+        {
+            return true;
+        }
+
+        private void ExecuteLoadMethod(object obj)
+        {
+            throw new NotImplementedException();
         }
     }
 }
