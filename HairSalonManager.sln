@@ -5,12 +5,6 @@ VisualStudioVersion = 15.0.28307.136
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HairSalonManager", "HairSalonManager\HairSalonManager.csproj", "{724057F6-DDAE-4E98-86E7-60F7A5DFACC6}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Model", "Model", "{F8E8E47C-3E8D-4D48-904C-6F7E50184A1A}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "View", "View", "{4264CB75-7650-4561-B155-E2032F14F235}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ViewModel", "ViewModel", "{60B56992-53EB-4126-A379-60F49B53C3F1}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
