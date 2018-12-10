@@ -75,8 +75,12 @@
   <ItemGroup>
     <Compile Include="Model\Vo\LedgerVo.cs" />
     <Compile Include="Model\Vo\ReservationVo.cs" />
+    <Compile Include="Model\Vo\ReservedServiceVo.cs" />
     <Compile Include="Model\Vo\ServiceVo.cs" />
+    <Compile Include="Model\Vo\SettingVo.cs" />
+    <Compile Include="Model\Vo\StylistVo.cs" />
     <Compile Include="Model\Vo\TimeTableVo.cs" />
+    <Compile Include="Model\Vo\UserVo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
