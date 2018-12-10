@@ -1,43 +1,61 @@
-﻿using HairSalonManager.Model.Vo;
+﻿using HairSalonManager.Model.Util;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace HairSalonManager.ViewModel
 {
-    class MainWindowViewModel : Notifier
+    class MainWindowViewModel:Notifier
     {
-        private ObservableCollection<ReservationVo> _resList;
+        private WindowState _windowState;
 
-        public ObservableCollection<ReservationVo> ResList
+        private string navigationUri;
+        public string NavigationUri
         {
-            get { return _resList; }
-            set {
-                _resList = value;
-                OnPropertyChanged("ResList");
+            get { return navigationUri; }
+            set { navigationUri = value;
+                OnPropertyChanged("NavigationUri");
             }
         }
-        
-        public Command LoadCommand { get; set; }
+
+
+        public WindowState WindowState
+        {
+            get { return _windowState; }
+            set
+            {
+                _windowState = value;
+                OnPropertyChanged("WindowState");
+            }
+        }
+
+        public Command MinimizeCommand { get; set; }
+        public Command CloseCommand { get; set; }
 
         public MainWindowViewModel()
         {
-            LoadCommand = new Command(ExecuteLoadMethod, CanExecuteMethod);
+            //Command 객체 생성
+            MinimizeCommand = new Command(MinimizeMethod, CanExecuteMethod);
+            CloseCommand = new Command(CloseMethod, CanExecuteMethod);
 
-
+            //NavigationServiceProvider 등록
+            NavigationServiceProvider._mainWindowInstance = this;
         }
 
-        private bool CanExecuteMethod(object arg)
+        private void MinimizeMethod(object parameter)
+        {
+            WindowState = WindowState.Minimized;
+        }
+        private void CloseMethod(object parameter)
+        {
+            Environment.Exit(0);
+        }
+        private bool CanExecuteMethod(object parameter)
         {
             return true;
-        }
-
-        private void ExecuteLoadMethod(object obj)
-        {
-            throw new NotImplementedException();
         }
     }
 }

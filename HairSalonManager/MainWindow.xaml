@@ -4,11 +4,18 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HairSalonManager"
+        xmlns:local1="clr-namespace:HairSalonManager.ViewModel"
         mc:Ignorable="d"
-        Title="미용실 관리 프로그램" Height="480" Width="845" Background="#FF2D2D30" WindowStyle="None" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+        Title="미용실 관리 프로그램" Height="480" Width="845" Background="#FF2D2D30" WindowStyle="None" WindowState="{Binding WindowState}" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+    <Window.DataContext>
+        <local1:MainWindowViewModel/>
+    </Window.DataContext>
     <Grid>
         <Frame Source="/View/MainPage.xaml"/>
-        <Button Content="X" HorizontalAlignment="Left" Margin="817,10,0,0" VerticalAlignment="Top" Width="18" Background="#FFA82323" Foreground="#FFF3F3F3" ForceCursor="True" IsTabStop="False" Focusable="False" Height="18" BorderBrush="{x:Null}" FontFamily="Segoe UI" FontSize="10" FontWeight="Bold"/>
+        <Button Content="━" HorizontalAlignment="Left" Margin="794,10,0,0" VerticalAlignment="Top" Width="18" Background="#FF2D2D30" Foreground="#FFF3F3F3" IsTabStop="False" Focusable="False" Height="18" BorderBrush="{x:Null}" FontFamily="Segoe UI" FontSize="11" FontWeight="ExtraBold" Command="{Binding MinimizeCommand}"/>
+        <Button Content="X" HorizontalAlignment="Left" Margin="817,10,0,0" VerticalAlignment="Top" Width="18" Background="#FFA82323" Foreground="#FFF3F3F3" IsTabStop="False" Focusable="False" Height="18" BorderBrush="{x:Null}" FontFamily="Segoe UI" FontSize="10" FontWeight="Bold" Command="{Binding CloseCommand}"/>
+        
+
     </Grid>
     
 </Window>
