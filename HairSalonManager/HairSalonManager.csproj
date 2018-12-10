@@ -69,10 +69,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Model\Vo\ReservedServiceVo.cs" />
-    <Compile Include="Model\Vo\SettingVo.cs" />
-    <Compile Include="Model\Vo\StylistVo.cs" />
-    <Compile Include="Model\Vo\UserVo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
