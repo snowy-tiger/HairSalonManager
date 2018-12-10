@@ -5,30 +5,28 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace HairSalonManager
+namespace HairSalonManager.ViewModel
 {
     class Command : ICommand
     {
-        Action<object> action;
+        private Action<object> _action;
+        private Func<object, bool> _func;
 
-        Func<object, bool> func;
-
-        public Command(Action<object> action,Func<object, bool> func)
+        public Command(Action<object> action, Func<object, bool> func)
         {
-            this.action = action;
-            this.func = func;
+            this._action = action;
+            this._func = func;
         }
 
         public event EventHandler CanExecuteChanged;
 
         public bool CanExecute(object parameter)
         {
-            return func(parameter);
+            return _func(parameter);
         }
-
         public void Execute(object parameter)
         {
-            action(parameter);
+            _action(parameter);
         }
     }
 }

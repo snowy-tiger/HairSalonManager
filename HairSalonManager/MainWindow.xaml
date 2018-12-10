@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HairSalonManager"
         mc:Ignorable="d"
-        Title="미용실 관리 프로그램" Height="480" Width="845" Background="#FF2D2D30" MinWidth="800" MinHeight="450" WindowStyle="None" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+        Title="미용실 관리 프로그램" Height="480" Width="845" Background="#FF2D2D30" WindowStyle="None" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Grid>
         <Frame Source="/View/MainPage.xaml"/>
         <Button Content="X" HorizontalAlignment="Left" Margin="817,10,0,0" VerticalAlignment="Top" Width="18" Background="#FFA82323" Foreground="#FFF3F3F3" ForceCursor="True" IsTabStop="False" Focusable="False" Height="18" BorderBrush="{x:Null}" FontFamily="Segoe UI" FontSize="10" FontWeight="Bold"/>
