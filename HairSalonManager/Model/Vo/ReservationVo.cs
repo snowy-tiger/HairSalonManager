@@ -10,22 +10,22 @@ namespace HairSalonManager.Model.Vo
     {
         public int ResNum { get; set; }
 
-        public int StylistId { get; set; }
+        public int? StylistId { get; set; }
 
-        public string userTel { get; set; }
+        public string UserTel { get; set; }
 
-        public string Note { get; set; }
+        public string Note { get; set; }       
 
-        public int MyProperty { get; set; }
+        public int? Gender { get; set; }
 
-        public int Gender { get; set; }
+        public DateTime? UserBirthday { get; set; }
 
-        public DateTime UserBirthday { get; set; }
+        public DateTime? StartAt { get; set; }
 
-        public DateTime StartAt { get; set; }
-
-        public DateTime EndAt { get; set; }
+        public DateTime? EndAt { get; set; }
 
         public string UserName { get; set; }
+
+        public bool IsPaid { get; set; }
     }
 }
