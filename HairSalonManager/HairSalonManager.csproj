@@ -70,6 +70,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Model\Vo\LedgerVo.cs" />
+    <Compile Include="Model\Vo\ReservationVo.cs" />
+    <Compile Include="Model\Vo\ServiceVo.cs" />
+    <Compile Include="Model\Vo\TimeTableVo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
