@@ -57,6 +57,7 @@
     </ApplicationDefinition>
     <Compile Include="Model\Util\NavigationServiceProvider.cs" />
     <Compile Include="ViewModel\Command.cs" />
+    <Compile Include="ViewModel\MainPageViewModel.cs" />
     <Compile Include="ViewModel\MainWindowViewModel.cs" />
     <Compile Include="ViewModel\Notifier.cs" />
     <Page Include="MainWindow.xaml">
