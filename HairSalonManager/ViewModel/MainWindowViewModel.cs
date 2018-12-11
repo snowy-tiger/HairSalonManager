@@ -21,7 +21,6 @@ namespace HairSalonManager.ViewModel
             }
         }
 
-
         public WindowState WindowState
         {
             get { return _windowState; }
@@ -51,7 +50,7 @@ namespace HairSalonManager.ViewModel
         }
         private void CloseMethod(object parameter)
         {
-            Environment.Exit(0);
+            
         }
         private bool CanExecuteMethod(object parameter)
         {
