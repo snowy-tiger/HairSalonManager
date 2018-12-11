@@ -34,6 +34,34 @@ namespace HairSalonManager.ViewModel
         public Command MinimizeCommand { get; set; }
         public Command CloseCommand { get; set; }
 
+        public string StaticTitle { get; set; }
+
+        private string _windowTitle;
+
+        public string WindowTitle
+        {
+            get { return _windowTitle; }
+            set
+            {
+                _windowTitle = value;
+                OnPropertyChanged("WindowTitle");
+            }
+        }
+
+        private string _title;
+
+        public string Title
+        {
+            get { return _title; }
+            set
+            {
+                _title = value;
+                OnPropertyChanged("Title");
+                WindowTitle = _title + "::" + StaticTitle;
+            }
+        }
+
+
         public MainWindowViewModel()
         {
             //Command 객체 생성
@@ -42,6 +70,10 @@ namespace HairSalonManager.ViewModel
 
             //NavigationServiceProvider 등록
             NavigationServiceProvider._mainWindowInstance = this;
+
+            StaticTitle = "미용실 관리 프로그램";
+            _title = "메인";
+            _windowTitle = _title + "::" + StaticTitle;
         }
 
         private void MinimizeMethod(object parameter)
