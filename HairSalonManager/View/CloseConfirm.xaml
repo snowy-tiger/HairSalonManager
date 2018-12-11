@@ -1,0 +1,25 @@
+﻿<Window x:Class="HairSalonManager.View.CloseConfirm"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:HairSalonManager.View"
+        mc:Ignorable="d"
+        Title="종료 확인" Height="250" Width="845" Background="#FFD3312E" ResizeMode="NoResize" ShowInTaskbar="False" Topmost="True" WindowStartupLocation="CenterScreen" WindowStyle="None">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Button Content="X" HorizontalAlignment="Left" Margin="817,10,0,0" VerticalAlignment="Top" Width="18" Background="#FFA82323" Foreground="#FFF3F3F3" IsTabStop="False" Focusable="False" Height="18" BorderBrush="{x:Null}" FontFamily="Segoe UI" FontSize="10" FontWeight="Bold" Command="{Binding CloseCommand}"/>
+        <TextBlock Text="경고" Margin="30 0" VerticalAlignment="Bottom" Foreground="White" FontSize="20" FontWeight="Bold" Grid.Row="0" FontFamily="Segoe UI"/>
+        <StackPanel VerticalAlignment="Center" Grid.Row="1">
+            <TextBlock Text="정말 미용실 관리 프로그램을 종료하시겠습니까?" Margin="0 0 0 10" FontWeight="Bold" TextAlignment="Center" FontSize="20" Foreground="White"/>
+            <TextBlock Text="프로그램이 종료된 상태에서도 예약은 받을 수 있지만, " TextAlignment="Center" FontSize="20" Foreground="White"/>
+            <TextBlock Text="알림이 울리지 않습니다." TextAlignment="Center" FontSize="20" Foreground="White"/>
+        </StackPanel>
+        <Button Content="종료" Foreground="White"  Width="75" Height="25" Background="#FF404040" Margin="660,28,110,10" Grid.Row="2"/>
+        <Button Content="취소" Foreground="Black"  Width="75" Height="25" Background="White" Margin="740,28,30,10" Grid.Row="2"/>
+    </Grid>
+</Window>
