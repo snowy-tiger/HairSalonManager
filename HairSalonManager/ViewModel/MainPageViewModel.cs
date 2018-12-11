@@ -27,8 +27,6 @@ namespace HairSalonManager.ViewModel
         public MainPageViewModel()
         {
             LoadCommand = new Command(ExecuteLoadMethod, CanExecuteMethod);
-
-
         }
 
         private bool CanExecuteMethod(object arg)
