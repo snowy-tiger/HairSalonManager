@@ -11,16 +11,16 @@ namespace HairSalonManager.ViewModel
 {
     class MenuViewModel
     {        
-        private ReadOnlyCollection<CommandViewModel> _menuCommands;
+        private ReadOnlyCollection<ButtonCommandViewModel> _menuCommands;
 
-        public IReadOnlyCollection<CommandViewModel> _MenuCommands
+        public IReadOnlyCollection<ButtonCommandViewModel> _MenuCommands
         {
             get
             {
                 if (_menuCommands == null)
                 {
-                    List<CommandViewModel> list = this.CreateCommands();
-                    _menuCommands = new ReadOnlyCollection<CommandViewModel>(list);
+                    List<ButtonCommandViewModel> list = this.CreateCommands();
+                    _menuCommands = new ReadOnlyCollection<ButtonCommandViewModel>(list);
                 }
                 return _menuCommands;
 
@@ -29,13 +29,13 @@ namespace HairSalonManager.ViewModel
         }
        
 
-        private List<CommandViewModel> CreateCommands()
+        private List<ButtonCommandViewModel> CreateCommands()
         {
-            return new List<CommandViewModel>()
+            return new List<ButtonCommandViewModel>()
             {
-                new CommandViewModel("메인",new RelayCommand(GoMainWindowPage)),
-                new CommandViewModel("미용사",new RelayCommand(GoStylistPage)),
-                new CommandViewModel("결제",new RelayCommand(GoPayPage))
+                new ButtonCommandViewModel("메인",new RelayCommand(GoMainWindowPage),"red"),
+                new ButtonCommandViewModel("미용사",new RelayCommand(GoStylistPage),"yellow"),
+                new ButtonCommandViewModel("결제",new RelayCommand(GoPayPage),"blue")
             };
 
         }
