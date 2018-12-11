@@ -64,9 +64,6 @@
     <Compile Include="ViewModel\MainPageViewModel.cs" />
     <Compile Include="ViewModel\MainWindowViewModel.cs" />
     <Compile Include="ViewModel\Notifier.cs" />
-    <Compile Include="View\CloseConfirm.xaml.cs">
-      <DependentUpon>CloseConfirm.xaml</DependentUpon>
-    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
