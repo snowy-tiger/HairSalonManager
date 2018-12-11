@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:HairSalonManager"
         xmlns:local1="clr-namespace:HairSalonManager.ViewModel"
         mc:Ignorable="d"
-        Title="미용실 관리 프로그램" Height="480" Width="845" Background="#FF2D2D30" WindowStyle="None" WindowState="{Binding WindowState}" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+        Title="미용실 관리 프로그램" Height="480" Width="845" Background="#2D2F31" WindowStyle="None" WindowState="{Binding WindowState}" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Window.DataContext>
         <local1:MainWindowViewModel/>
     </Window.DataContext>
