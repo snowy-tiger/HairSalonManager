@@ -52,6 +52,7 @@ namespace HairSalonManager.Model.Repository
             return list;
         }
 
+        
 
     }
 }
