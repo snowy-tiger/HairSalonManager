@@ -7,8 +7,11 @@ using System.Threading.Tasks;
 
 namespace HairSalonManager.ViewModel
 {
-    class ViewModelBase : INotifyPropertyChanged
+    public abstract class ViewModelBase : INotifyPropertyChanged
     {
+        public virtual string DisplayName { get; protected set; }
+
         public event PropertyChangedEventHandler PropertyChanged;
+
     }
 }
