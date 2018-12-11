@@ -59,6 +59,7 @@
     <Compile Include="Model\Repository\Connection.cs" />
     <Compile Include="Model\Repository\ReservationRepository.cs" />
     <Compile Include="Model\Util\NavigationServiceProvider.cs" />
+    <Compile Include="ViewModel\AllReservationViewModel.cs" />
     <Compile Include="ViewModel\CloseConfirmViewModel.cs" />
     <Compile Include="ViewModel\Command.cs" />
     <Compile Include="ViewModel\MainPageViewModel.cs" />

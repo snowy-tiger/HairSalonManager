@@ -36,7 +36,7 @@ namespace HairSalonManager.ViewModel
 
         private void ExecuteLoadMethod(object obj)
         {
-            throw new NotImplementedException();
+            
         }
     }
 }
