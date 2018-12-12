@@ -38,8 +38,12 @@ namespace HairSalonManager.ViewModel
         public Command ModifyCommand { get; set; }
         public Command DeleteCommand { get; set; }
 
+
+        
+
         public MainPageViewModel()
         {
+            
             InsertCommand = new Command(ExecuteInsertMethod, CanExecuteMethod);
             ModifyCommand = new Command(ExecuteModifyMethod, CanExecuteMethod);
             DeleteCommand = new Command(ExecuteDeleteMethod, CanExecuteMethod);
@@ -47,7 +51,7 @@ namespace HairSalonManager.ViewModel
 
         private void ExecuteDeleteMethod(object obj)
         {
-            
+            ResList.Remove(SelectedRes);
         }
 
         private void ExecuteModifyMethod(object obj)
@@ -57,7 +61,7 @@ namespace HairSalonManager.ViewModel
 
         private void ExecuteInsertMethod(object obj)
         {
-            
+            ResList.Add(SelectedRes);
         }
 
         private bool CanExecuteMethod(object arg)
