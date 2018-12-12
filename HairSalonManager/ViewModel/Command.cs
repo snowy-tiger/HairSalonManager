@@ -12,6 +12,11 @@ namespace HairSalonManager.ViewModel
         private Action<object> _action;
         private Func<object, bool> _func;
 
+        public Command(Action<object> action) : this(action,null)
+        {
+            _action = action;
+        }
+
         public Command(Action<object> action, Func<object, bool> func)
         {
             this._action = action;
