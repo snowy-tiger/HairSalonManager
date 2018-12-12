@@ -33,12 +33,13 @@ namespace HairSalonManager.ViewModel
         {
             return new List<ButtonCommandViewModel>()
             {
-                new ButtonCommandViewModel("메인",new RelayCommand(GoMainWindowPage),"red"),
-                new ButtonCommandViewModel("미용사",new RelayCommand(GoStylistPage),"yellow"),
-                new ButtonCommandViewModel("결제",new RelayCommand(GoPayPage),"blue"),
-                new ButtonCommandViewModel("서비스",new RelayCommand(GoPayPage),"blue"),
-                new ButtonCommandViewModel("전체 일정",new RelayCommand(GoPayPage),"blue"),
-                new ButtonCommandViewModel("설정",new RelayCommand(GoPayPage),"blue")
+                new ButtonCommandViewModel("메인",new Command(GoMainWindowPage),"red"),
+                new ButtonCommandViewModel("미용사",new Command(GoStylistPage),"yellow"),
+                new ButtonCommandViewModel("결제",new Command(GoPayPage),"blue"),
+                new ButtonCommandViewModel("서비스",new Command(GoPayPage),"blue"),
+                new ButtonCommandViewModel("전체 일정",new Command(GoPayPage),"blue"),
+                new ButtonCommandViewModel("설정",new Command(GoPayPage),"blue")
+
             };
 
         }
