@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace HairSalonManager.ViewModel
 {
-    class AllReservationViewModel : Notifier
+    class AllReservationViewModel : ViewModelBase
     {
         private int _resNum;
 

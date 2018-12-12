@@ -8,7 +8,7 @@ using System.Text;
 
 namespace HairSalonManager.ViewModel
 {
-    class MainPageViewModel : Notifier
+    class MainPageViewModel : ViewModelBase
     {
         private ObservableCollection<ReservationVo> _resList;
 
@@ -22,21 +22,47 @@ namespace HairSalonManager.ViewModel
             }
         }
 
-        public Command LoadCommand { get; set; }
+        private ReservationVo _selectedRes;
+
+        public ReservationVo SelectedRes
+        {
+            get { return _selectedRes; }
+            set {
+                _selectedRes = value;
+                OnPropertyChanged("SelectedRes");
+            }
+        }
+
+        
+        public Command InsertCommand { get; set; }
+        public Command ModifyCommand { get; set; }
+        public Command DeleteCommand { get; set; }
 
         public MainPageViewModel()
         {
-            LoadCommand = new Command(ExecuteLoadMethod, CanExecuteMethod);
+            InsertCommand = new Command(ExecuteInsertMethod, CanExecuteMethod);
+            ModifyCommand = new Command(ExecuteModifyMethod, CanExecuteMethod);
+            DeleteCommand = new Command(ExecuteDeleteMethod, CanExecuteMethod);
+        }
+
+        private void ExecuteDeleteMethod(object obj)
+        {
+            
+        }
+
+        private void ExecuteModifyMethod(object obj)
+        {
+            
+        }
+
+        private void ExecuteInsertMethod(object obj)
+        {
+            
         }
 
         private bool CanExecuteMethod(object arg)
         {
             return true;
-        }
-
-        private void ExecuteLoadMethod(object obj)
-        {
-            
         }
     }
 }
