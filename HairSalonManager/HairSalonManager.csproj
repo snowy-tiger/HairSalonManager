@@ -56,8 +56,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Model\Repository\BaseRepository.cs" />
     <Compile Include="Model\Repository\Connection.cs" />
     <Compile Include="Model\Repository\ReservationRepository.cs" />
+    <Compile Include="Model\Repository\ReservedServiceRepository.cs" />
+    <Compile Include="Model\Repository\StylistRepository.cs" />
+    <Compile Include="Model\Repository\TimetableRepository.cs" />
     <Compile Include="Model\Util\NavigationServiceProvider.cs" />
     <Compile Include="Model\Util\NoticeService.cs" />
     <Compile Include="RelayCommand.cs" />
