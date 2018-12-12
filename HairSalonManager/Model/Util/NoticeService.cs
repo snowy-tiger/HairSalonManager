@@ -57,7 +57,7 @@ namespace HairSalonManager.Model.Util
             ReservationRepository rr = ReservationRepository.Rr;
 
             List<ReservationVo> recentList;
-
+           
             if ((recentList = rr.GetReservations(rr.RecentResNum)) != null)
             {
                 foreach (ReservationVo rv in recentList)

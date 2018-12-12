@@ -12,16 +12,22 @@ namespace HairSalonManager.Model.Vo
 
         public int ResNum { get; set; }
 
-        public DateTime StartAt { get; set; }
+        public DateTime? StartAt { get; set; }
 
-        public DateTime EndAt { get; set; }
+        public DateTime? EndAt { get; set; }
 
         public int OperationTime
         {
             get
             {
-                TimeSpan ts = EndAt - StartAt;
-                return ts.Days;
+                if (StartAt == null || EndAt == null) //startAt , endAt 안들어갈시 처리
+                    return -1;
+                else
+                {
+                    TimeSpan ts = EndAt.Value - StartAt.Value;
+                    return ts.Days;
+                }
+                
             }
             
         }
