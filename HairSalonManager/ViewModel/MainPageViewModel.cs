@@ -1,4 +1,5 @@
-﻿using HairSalonManager.Model.Vo;
+﻿using HairSalonManager.Model.Repository;
+using HairSalonManager.Model.Vo;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -10,6 +11,8 @@ namespace HairSalonManager.ViewModel
 {
     class MainPageViewModel : ViewModelBase
     {
+        readonly ReservationRepository _reservationRepository;
+
         private ObservableCollection<ReservationVo> _resList;
 
         public ObservableCollection<ReservationVo> ResList
@@ -32,12 +35,10 @@ namespace HairSalonManager.ViewModel
                 OnPropertyChanged("SelectedRes");
             }
         }
-
         
         public Command InsertCommand { get; set; }
         public Command ModifyCommand { get; set; }
         public Command DeleteCommand { get; set; }
-
 
         
 
@@ -52,16 +53,18 @@ namespace HairSalonManager.ViewModel
         private void ExecuteDeleteMethod(object obj)
         {
             ResList.Remove(SelectedRes);
+            _reservationRepository.RemoveReservation(SelectedRes.ResNum);
         }
 
         private void ExecuteModifyMethod(object obj)
         {
-            
+            _reservationRepository.UpdateReservation(SelectedRes);
         }
 
         private void ExecuteInsertMethod(object obj)
         {
             ResList.Add(SelectedRes);
+            _reservationRepository.InsertReservation(SelectedRes);
         }
 
         private bool CanExecuteMethod(object arg)
