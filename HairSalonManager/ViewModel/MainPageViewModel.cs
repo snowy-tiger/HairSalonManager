@@ -44,7 +44,8 @@ namespace HairSalonManager.ViewModel
 
         public MainPageViewModel()
         {
-            
+            _reservationRepository = _reservationRepository = ReservationRepository.Rr; ;
+            ResList = new ObservableCollection<ReservationVo>(_reservationRepository.GetReservations());
             InsertCommand = new Command(ExecuteInsertMethod, CanExecuteMethod);
             ModifyCommand = new Command(ExecuteModifyMethod, CanExecuteMethod);
             DeleteCommand = new Command(ExecuteDeleteMethod, CanExecuteMethod);
