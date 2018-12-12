@@ -18,12 +18,17 @@ namespace HairSalonManager.ViewModel
             this._func = func;
         }
 
-        public event EventHandler CanExecuteChanged;
+        public event EventHandler CanExecuteChanged
+        {
+            add { CommandManager.RequerySuggested += value; }
+            remove { CommandManager.RequerySuggested -= value; }
+        }
 
         public bool CanExecute(object parameter)
         {
             return _func(parameter);
         }
+
         public void Execute(object parameter)
         {
             _action(parameter);
