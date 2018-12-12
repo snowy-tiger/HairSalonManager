@@ -35,7 +35,10 @@ namespace HairSalonManager.ViewModel
             {
                 new ButtonCommandViewModel("메인",new RelayCommand(GoMainWindowPage),"red"),
                 new ButtonCommandViewModel("미용사",new RelayCommand(GoStylistPage),"yellow"),
-                new ButtonCommandViewModel("결제",new RelayCommand(GoPayPage),"blue")
+                new ButtonCommandViewModel("결제",new RelayCommand(GoPayPage),"blue"),
+                new ButtonCommandViewModel("서비스",new RelayCommand(GoPayPage),"blue"),
+                new ButtonCommandViewModel("전체 일정",new RelayCommand(GoPayPage),"blue"),
+                new ButtonCommandViewModel("설정",new RelayCommand(GoPayPage),"blue")
             };
 
         }
