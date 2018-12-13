@@ -31,12 +31,11 @@ namespace HairSalonManager.ViewModel
         {
             return new List<ButtonCommandViewModel>()
             {
-                new ButtonCommandViewModel("메인",new Command(GoMainWindowPage),"red"),
-                new ButtonCommandViewModel("미용사",new Command(GoStylistPage),"yellow"),
-                new ButtonCommandViewModel("결제",new Command(GoPayPage),"blue"),
-                new ButtonCommandViewModel("서비스",new Command(GoServicePage),"blue"),
-                new ButtonCommandViewModel("전체 일정",new Command(GoSchedulePage),"blue"),
-                new ButtonCommandViewModel("설정",new Command(GoSettingPage),"blue")
+                new ButtonCommandViewModel("메인",new Command(GoMainPage),"#2D2F31"),
+                new ButtonCommandViewModel("결제",new Command(GoPayPage),"#2D2F31"),
+                new ButtonCommandViewModel("통계",new Command(GoStatisticsPage),"#2D2F31"),
+                new ButtonCommandViewModel("관리",new Command(GoManagePage),"#2D2F31"),
+                new ButtonCommandViewModel("설정",new Command(GoSettingPage),"#2D2F31")
             };
         }
         #endregion
@@ -44,42 +43,37 @@ namespace HairSalonManager.ViewModel
         #region Navigator xaml
         private void GoSettingPage(object obj)
         {
-
+            //NavigationUri = "/View/SettingPage.xaml";
         }
 
-        private void GoSchedulePage(object obj)
+        private void GoStatisticsPage(object obj)
         {
-
+            Navigate("/View/StatisticsPage.xaml", "통계");
         }
 
-        private void GoServicePage(object obj)
+        private void GoManagePage(object parameter)
         {
-
+            //NavigationUri = "/View/ManagePage.xaml";
         }
 
-        private void GoPayPage(object obj)
+        private void GoPayPage(object parameter)
         {
             //NavigationServiceProvider.Navigate("/PayPage.xaml");
         }
 
-        private void GoStylistPage(object obj)
+        private void GoMainPage(object parameter)
         {
-            NavigationServiceProvider.Navigate("/StatisticsPage.xaml");
-        }
-
-        private void GoMainWindowPage(object o)
-        {
-            NavigationServiceProvider.Navigate("/MainPage.xaml");
+            Navigate("/View/MainPage.xaml", "메인");
         }
         #endregion
 
         private WindowState _windowState;
 
-        private string navigationUri;
+        private string _navigationUri;
         public string NavigationUri
         {
-            get { return navigationUri; }
-            set { navigationUri = value;
+            get { return _navigationUri; }
+            set { _navigationUri = value;
                 OnPropertyChanged("NavigationUri");
             }
         }
@@ -134,6 +128,7 @@ namespace HairSalonManager.ViewModel
             //NavigationServiceProvider 등록
             NavigationServiceProvider._mainWindowInstance = this;
 
+            _navigationUri = "/View/MainPage.xaml";
             StaticTitle = "미용실 관리 프로그램";
             _title = "메인";
             _windowTitle = _title + "::" + StaticTitle;
@@ -150,6 +145,12 @@ namespace HairSalonManager.ViewModel
         private bool CanExecuteMethod(object parameter)
         {
             return true;
+        }
+
+        public void Navigate(string uri, string title)
+        {
+            NavigationUri = uri;
+            Title = title;
         }
     }
 }
