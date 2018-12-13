@@ -14,7 +14,7 @@ namespace HairSalonManager.Model.Vo
 
         public uint ServicePrice { get; set; }
 
-        public uint ServiceTime { get; set; }
+        public ushort ServiceTime { get; set; }
 
         public string ServiceDescription { get; set; }
     }
