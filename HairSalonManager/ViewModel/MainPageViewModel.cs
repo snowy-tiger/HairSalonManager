@@ -7,19 +7,22 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Windows.Input;
 
 namespace HairSalonManager.ViewModel
 {
     class MainPageViewModel : ViewModelBase
     {
+
         #region field
         readonly ReservationRepository _reservationRepository;
 
         readonly ReservedServiceRepository _reservedServiceRepository;
 
-        private ObservableCollection<ReservationVo> _resList;
+        readonly ServiceRepository _serviceRepository;
 
-        private ReservationVo reservationVo;
+        private ObservableCollection<ReservationVo> _resList;
+       
 
         #endregion
 
@@ -31,7 +34,15 @@ namespace HairSalonManager.ViewModel
             get { return _serviceCommands; }
             set
             { _serviceCommands = value; }
-        }        
+        }
+            
+        private ObservableCollection<ServiceVo> _servicelist;
+
+        public ObservableCollection<ServiceVo> ServiceList
+        {
+            get { return _servicelist; }
+            set { _servicelist = value; }
+        }
 
         public ObservableCollection<ReservationVo> ResList
         {
@@ -53,26 +64,8 @@ namespace HairSalonManager.ViewModel
                 onSelectedResChanged(SelectedRes.ResNum);
             }
         }
-
-        private ReservationVo _newRes;      
-
-        public ReservationVo NewRes
-        {
-            get { return _newRes; }
-            set
-            {
-                _newRes = value;
-                OnPropertyChanged("NewRes");
-            }
-        }
-
-        private void onSelectedResChanged(uint resNum)
-        {
-            //List<ServiceVo> services = new List<ServiceVo>()
-            //{
-
-            //}
-        }
+        
+      
 
         public Command InsertCommand { get; set; }
         public Command ModifyCommand { get; set; }
@@ -84,9 +77,7 @@ namespace HairSalonManager.ViewModel
         public uint ResNum
         {
             get
-            {
-                if (SelectedRes == null)
-                    return NewRes.ResNum;
+            {                
                 return SelectedRes.ResNum;
             }
             set
@@ -101,17 +92,12 @@ namespace HairSalonManager.ViewModel
         public uint? StylistId
         {
             get
-            {
-                if(SelectedRes == null)
-                    return NewRes.StylistId;
+            {                
                 return SelectedRes.StylistId;
             }
             set
-            {
-                if (SelectedRes == null)
-                    NewRes.StylistId = value;
-                else
-                    SelectedRes.StylistId = value;
+            {               
+                SelectedRes.StylistId = value;
                 OnPropertyChanged("StylistId");
             }
         }
@@ -121,17 +107,12 @@ namespace HairSalonManager.ViewModel
         public string UserTel
         {
             get
-            {
-                if (SelectedRes == null)
-                    return NewRes.UserTel;
+            {                
                 return SelectedRes.UserTel;
             }
             set
-            {
-                if (SelectedRes == null)
-                    NewRes.UserTel = value;
-                else
-                    SelectedRes.UserTel = value;
+            {                
+                SelectedRes.UserTel = value;
                 OnPropertyChanged("UserTel");
             }
         }
@@ -141,9 +122,7 @@ namespace HairSalonManager.ViewModel
         public string Note
         {
             get
-            {
-                if (SelectedRes == null)
-                    return NewRes.Note;
+            {  
                 return SelectedRes.Note; }
             set
             {
@@ -157,9 +136,7 @@ namespace HairSalonManager.ViewModel
         public int? Gender
         {
             get
-            {
-                if (SelectedRes == null)
-                    return NewRes.Gender;
+            {             
                 return SelectedRes.Gender;
             }
             set
@@ -174,9 +151,7 @@ namespace HairSalonManager.ViewModel
         public DateTime? UserBirthday
         {
             get
-            {
-                if (SelectedRes == null)
-                    return NewRes.UserBirthday;
+            {                
                 return SelectedRes.UserBirthday; }
             set
             {
@@ -190,9 +165,7 @@ namespace HairSalonManager.ViewModel
         public DateTime? StartAt
         {
             get
-            {
-                if (SelectedRes == null)
-                    return NewRes.StartAt;
+            {                
                 return SelectedRes.StartAt;
             }
             set
@@ -207,9 +180,7 @@ namespace HairSalonManager.ViewModel
         public DateTime? EndAt
         {
             get
-            {
-                if (SelectedRes == null)
-                    return NewRes.EndAt;
+            {                                  
                 return SelectedRes.EndAt; }
             set
             {
@@ -222,9 +193,7 @@ namespace HairSalonManager.ViewModel
 
         public string UserName
         {
-            get {
-                if (SelectedRes == null)
-                    return NewRes.UserName;
+            get {                
                 return SelectedRes.UserName; }
             set
             {
@@ -235,11 +204,11 @@ namespace HairSalonManager.ViewModel
 
         private bool _isPaid;
 
+        
+
         public bool IsPaid
         {
-            get {
-                if (SelectedRes == null)
-                    return NewRes.IsPaid;
+            get { 
                 return _isPaid; }
             set
             {
@@ -254,9 +223,12 @@ namespace HairSalonManager.ViewModel
         {
             _reservationRepository = ReservationRepository.Rr; ;
             _reservedServiceRepository = ReservedServiceRepository.RSR;
-            _newRes = new ReservationVo();
+            _serviceRepository = ServiceRepository.SR;
+
             _selectedRes = new ReservationVo();
             ResList = new ObservableCollection<ReservationVo>(_reservationRepository.GetReservations());
+            ServiceList = new ObservableCollection<ServiceVo>(_serviceRepository.ServiceList);
+
             InsertCommand = new Command(ExecuteInsertMethod, CanExecuteMethod);
             ModifyCommand = new Command(ExecuteModifyMethod, CanExecuteMethod);
             DeleteCommand = new Command(ExecuteDeleteMethod, CanExecuteMethod);
@@ -277,25 +249,55 @@ namespace HairSalonManager.ViewModel
 
         private void ExecuteInsertMethod(object obj)
         {
-            ResList.Add(SelectedRes);
-            ReservationVo rv;
-            if (SelectedRes == null)
-                rv = NewRes;
-            else
-                rv = SelectedRes;
-            _reservationRepository.InsertReservation(rv);
+            
+            _reservationRepository.InsertReservation(SelectedRes);
         }
 
         private void ExecuteRemoveMethod(ReservedServiceVo rsv)
-        {
-
+        {          
+            _reservedServiceRepository.RemoveReservedService(rsv.ResNum, rsv.SerId);
         }
         private bool CanExecuteMethod(object arg)
         {
             return true;
         }
+
+        private void onSelectedResChanged(uint resNum)
+        {
+            List<ReservedServiceVo> list = _reservedServiceRepository.GetReservedServicesFromLocal();
+            foreach (var v in list)
+            {
+                if (v.ResNum == resNum)
+                {
+                    string serviceName = ServiceList.Single(x => (x.ServiceId == v.SerId)).ServiceName;
+                    ServiceCommands.Add(new CommandViewModel(serviceName, CloseCommand));
+                }
+            }
+        }
         #endregion
 
-        
+        #region closecommand
+        private ICommand _closeCommand;
+
+        public ICommand CloseCommand
+        {
+            get
+            {
+                if (_closeCommand == null)
+                    _closeCommand = new Command(param => this.OnRequestClose());
+
+                return _closeCommand;
+            }
+        }
+
+        public event EventHandler RequestClose;
+
+        void OnRequestClose()
+        {
+            EventHandler handler = this.RequestClose;
+            if (handler != null)
+                handler(this, EventArgs.Empty);
+        }
+        #endregion
     }
 }

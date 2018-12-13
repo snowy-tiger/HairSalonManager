@@ -119,15 +119,17 @@ namespace HairSalonManager.Model.Repository
 
             MySqlCommand cmd = new MySqlCommand(_sql, _conn.Msc);
 
-            
-            cmd.Parameters.Add("@stylistId", rv.StylistId);
-            cmd.Parameters.Add("@userTel", rv.UserTel);
-            cmd.Parameters.Add("@note", rv.Note);
-            cmd.Parameters.Add("@gender", rv.Gender);
-            cmd.Parameters.Add("@userBirthday", rv.UserBirthday);
-            cmd.Parameters.Add("@startAt", rv.StartAt);
-            cmd.Parameters.Add("@endAt", rv.EndAt);
-            cmd.Parameters.Add("@userName", rv.UserName);
+            cmd.Parameters.AddWithValue("@stylistId", rv.StylistId);
+
+
+            //cmd.Parameters.Add("@stylistId", rv.StylistId);
+            cmd.Parameters.AddWithValue("@userTel", rv.UserTel);
+            cmd.Parameters.AddWithValue("@note", rv.Note);
+            cmd.Parameters.AddWithValue("@gender", rv.Gender);
+            cmd.Parameters.AddWithValue("@userBirthday", rv.UserBirthday);
+            cmd.Parameters.AddWithValue("@startAt", rv.StartAt);
+            cmd.Parameters.AddWithValue("@endAt", rv.EndAt);
+            cmd.Parameters.AddWithValue("@userName", rv.UserName);
 
             if (cmd.ExecuteNonQuery() == -1) //실패시
             {
@@ -146,15 +148,15 @@ namespace HairSalonManager.Model.Repository
             
             MySqlCommand cmd = new MySqlCommand(_sql, _conn.Msc);
 
-            cmd.Parameters.Add("@resNum", rv.ResNum);
-            cmd.Parameters.Add("@stylistId", rv.StylistId);
-            cmd.Parameters.Add("@userTel", rv.UserTel);
-            cmd.Parameters.Add("@note", rv.Note);
-            cmd.Parameters.Add("@gender", rv.Gender);
-            cmd.Parameters.Add("@userBirthday", rv.UserBirthday);
-            cmd.Parameters.Add("@startAt", rv.StartAt);
-            cmd.Parameters.Add("@endAt", rv.EndAt);
-            cmd.Parameters.Add("@userName", rv.UserName);
+            cmd.Parameters.AddWithValue("@resNum", rv.ResNum);
+            cmd.Parameters.AddWithValue("@stylistId", rv.StylistId);
+            cmd.Parameters.AddWithValue("@userTel", rv.UserTel);
+            cmd.Parameters.AddWithValue("@note", rv.Note);
+            cmd.Parameters.AddWithValue("@gender", rv.Gender);
+            cmd.Parameters.AddWithValue("@userBirthday", rv.UserBirthday);
+            cmd.Parameters.AddWithValue("@startAt", rv.StartAt);
+            cmd.Parameters.AddWithValue("@endAt", rv.EndAt);
+            cmd.Parameters.AddWithValue("@userName", rv.UserName);
 
             if (cmd.ExecuteNonQuery() == -1) //실패시
             {

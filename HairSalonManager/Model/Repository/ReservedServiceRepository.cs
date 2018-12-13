@@ -47,7 +47,7 @@ namespace HairSalonManager.Model.Repository
             _sql = "SELECT * FROM reservedservice WHERE resNum = @resNum";
             MySqlCommand cmd = new MySqlCommand(_sql, _conn.Msc);
 
-            cmd.Parameters.Add("@resNum", resNum);
+            cmd.Parameters.AddWithValue("@resNum", resNum);
 
             MySqlDataReader rdr = cmd.ExecuteReader();
 
@@ -90,14 +90,14 @@ namespace HairSalonManager.Model.Repository
         //    Mysql
         //}
 
-        public bool RemoveReservedService(int resNum,int serId)
+        public bool RemoveReservedService(uint resNum,uint serId)
         {
             _conn.Msc.Open();
             _sql = "DELETE FROM reservedservice WHERE resNum = @resNum AND serId = @serId";
             MySqlCommand cmd = new MySqlCommand(_sql, _conn.Msc);
 
-            cmd.Parameters.Add("@resNum", resNum);
-            cmd.Parameters.Add("@serId", serId);
+            cmd.Parameters.AddWithValue("@resNum", resNum);
+            cmd.Parameters.AddWithValue("@serId", serId);
 
             if (cmd.ExecuteNonQuery() != -1)
             {

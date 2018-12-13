@@ -12,9 +12,9 @@ namespace HairSalonManager.Model.Repository
     class ServiceRepository : BaseRepository
     {
         #region singleTon
-        private ServiceRepository _serviceRepository;
+        private static ServiceRepository _serviceRepository;
 
-        public ServiceRepository SR
+        public static ServiceRepository SR
         {
             get
             {
