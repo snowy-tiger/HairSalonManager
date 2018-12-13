@@ -149,6 +149,23 @@ namespace HairSalonManager.ViewModel
             }
         }
 
+        public void FillUpTimeTable()
+        {
+            TimeSpan dateDiff = EndAt - StartAt;
+            int diffHour = dateDiff.Hours;
+            int diffMinute = dateDiff.Minutes;
+            int result = ((diffHour * 60) + diffMinute) / 30;
+            int indexNum = (((diffHour * 60) + diffMinute) / 30) + 1;
+
+            if (_col.ColumnName==(StartAt.Hour+" : " + StartAt.Minute))
+            {
+                for(int i=0; i<result; i++)
+                {
+                    _row[indexNum] = ResNum;
+                }
+            }
+        }
+        
         private bool CanExecuteMethod(object arg)
         {
             return true;
