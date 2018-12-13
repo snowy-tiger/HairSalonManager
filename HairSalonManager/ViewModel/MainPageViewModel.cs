@@ -56,10 +56,10 @@ namespace HairSalonManager.ViewModel
 
         private void onSelectedResChanged(int resNum)
         {
-            List<ServiceVo> services = new List<ServiceVo>()
-            {
+            //List<ServiceVo> services = new List<ServiceVo>()
+            //{
 
-            }
+            //}
         }
 
         public Command InsertCommand { get; set; }
