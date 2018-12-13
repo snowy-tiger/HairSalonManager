@@ -31,7 +31,7 @@
                 </ItemsControl.ItemsPanel>
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <Button Content="{Binding Path=DisplayName}" Command="{Binding Path=Command}" CommandParameter="{RelativeSource Self}" Background="{Binding Color}" FontSize="15" BorderThickness="0" Foreground="White" Width="115" Height="50"/>
+                        <Button Content="{Binding Path=DisplayName}" Command="{Binding Path=Command}" CommandParameter="{Binding Path=Index}" Background="{Binding Color}" FontSize="15" BorderThickness="0" Foreground="White" Width="115" Height="50"/>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
@@ -40,5 +40,4 @@
         <Button Content="━" HorizontalAlignment="Left" Margin="794,10,0,0" VerticalAlignment="Top" Width="18" Background="#2D2F31" Foreground="#FFF3F3F3" IsTabStop="False" Focusable="False" Height="18" BorderBrush="{x:Null}" FontFamily="Segoe UI" FontSize="11" FontWeight="ExtraBold" Command="{Binding MinimizeCommand}"/>
         <Button Content="X" HorizontalAlignment="Left" Margin="817,10,0,0" VerticalAlignment="Top" Width="18" Background="#FFA82323" Foreground="#FFF3F3F3" IsTabStop="False" Focusable="False" Height="18" BorderBrush="{x:Null}" FontFamily="Segoe UI" FontSize="10" FontWeight="Bold" Command="{Binding CloseCommand}"/>
     </Grid>
-    
 </Window>

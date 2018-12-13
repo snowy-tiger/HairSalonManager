@@ -41,14 +41,14 @@ namespace HairSalonManager.ViewModel
         #endregion
 
         #region Navigator xaml
-        private void GoSettingPage(object obj)
+        private void GoSettingPage(object parameter)
         {
             //NavigationUri = "/View/SettingPage.xaml";
         }
 
-        private void GoStatisticsPage(object obj)
+        private void GoStatisticsPage(object parameter)
         {
-            Navigate("/View/StatisticsPage.xaml", "통계");
+            Navigate((int)parameter, "/View/StatisticsPage.xaml", "통계");
         }
 
         private void GoManagePage(object parameter)
@@ -64,11 +64,13 @@ namespace HairSalonManager.ViewModel
         private void GoMainPage(object parameter)
         {
             
-            Navigate("/View/MainPage.xaml", "메인");
+            Navigate((int)parameter, "/View/MainPage.xaml", "메인");
         }
         #endregion
 
         private WindowState _windowState;
+
+        private int _previousMenuIndex;
 
         private string _navigationUri;
         public string NavigationUri
@@ -129,6 +131,7 @@ namespace HairSalonManager.ViewModel
             //NavigationServiceProvider 등록
             NavigationServiceProvider._mainWindowInstance = this;
 
+            _previousMenuIndex = 0;
             _navigationUri = "/View/MainPage.xaml";
             StaticTitle = "미용실 관리 프로그램";
             _title = "메인";
@@ -148,10 +151,13 @@ namespace HairSalonManager.ViewModel
             return true;
         }
 
-        public void Navigate(string uri, string title)
+        public void Navigate(int index, string uri, string title)
         {
+            MenuCommands[index].Color = "#2d2d30";
+            MenuCommands[_previousMenuIndex].Color = "#2D2F31";
             NavigationUri = uri;
             Title = title;
+            _previousMenuIndex = index;
         }
     }
 }
