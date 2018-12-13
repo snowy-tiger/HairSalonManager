@@ -1,4 +1,6 @@
-﻿using System;
+﻿using HairSalonManager.Model.Repository;
+using HairSalonManager.Model.Vo;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,7 +10,11 @@ namespace HairSalonManager.ViewModel
 {
     class TimetableViewModel : ViewModelBase
     {
-        #region prop
+        #region field, property
+        readonly TimetableRepository _timetableRepository;
+
+        readonly ReservedServiceRepository _reservedServiceRepository;
+
         private int _stylistId;
 
         public int StylistId
@@ -96,11 +102,23 @@ namespace HairSalonManager.ViewModel
                 OnPropertyChanged("SerName");
             }
         }
-        #endregion //prop
 
-        public TimetableViewModel()
+        private string _selectedRow;
+
+        public string SelectedRow
         {
+            get { return _selectedRow; }
+            set {
+                _selectedRow = value;
+                OnPropertyChanged("SelectedRow");
+            }
+        }
 
+        #endregion //property
+
+        public TimetableViewModel(TimetableRepository timetableRepository)
+        {
+            _timetableRepository = timetableRepository;
         }
     }
 }
