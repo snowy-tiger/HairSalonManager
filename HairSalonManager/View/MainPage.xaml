@@ -29,7 +29,11 @@
         <ListBox ItemsSource="{Binding ServiceCommands}" HorizontalAlignment="Left" Height="100" Margin="507,247,0,0" VerticalAlignment="Top" Width="293">
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <TextBlock Text="{Binding Path=DisplayName}"/>
+                    <Grid>
+                        <TextBlock Text="{Binding Path=DisplayName}"/>
+                        <Button HorizontalAlignment="Right" Command="{Binding Command}"/>
+                    </Grid>
+                    
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>

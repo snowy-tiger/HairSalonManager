@@ -31,7 +31,7 @@
                 </ItemsControl.ItemsPanel>
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <Button Content="{Binding Path=DisplayName}" Command="{Binding Path=Command}" CommandParameter="{Binding Path=Index}" Background="{Binding Color}" FontSize="15" BorderThickness="0" Foreground="White" Width="115" Height="50"/>
+                        <Button Content="{Binding Path=DisplayName}" Command="{Binding Path=Command}" CommandParameter="{Binding Path=Index}" Background="{Binding Path=Color}" FontSize="15" BorderThickness="0" Foreground="White" Width="115" Height="50"/>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
