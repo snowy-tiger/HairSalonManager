@@ -44,13 +44,13 @@ namespace HairSalonManager.ViewModel
             }
         }
 
-        private int _resName;
+        private int _resNum;
 
-        public int ResName
+        public int ResNum
         {
-            get { return _resName; }
+            get { return _resNum; }
             set {
-                _resName = value;
+                _resNum = value;
                 OnPropertyChanged("ResNum");
             }
         }
@@ -121,14 +121,19 @@ namespace HairSalonManager.ViewModel
             }
         }
 
+        public Command CheckCommand { get; set; }
         #endregion //property
 
-        public TimetableViewModel(TimetableRepository timetableRepository)
+        #region ctor
+        public TimetableViewModel(TimetableRepository timetableRepository, ReservedServiceRepository reservedServiceRepository)
         {
             _timetableRepository = timetableRepository;
-            
-        }
+            _reservedServiceRepository = reservedServiceRepository;
+            CheckCommand = new Command(ExecuteCheckMethod, CanExecuteMethod);
+        }        
+        #endregion
 
+        #region method
         public void CreateTimeTable()
         {
             _row = _dataTable.NewRow();
@@ -143,6 +148,16 @@ namespace HairSalonManager.ViewModel
                 _dataTable.Columns.Add(_col);
             }
         }
+
+        private bool CanExecuteMethod(object arg)
+        {
+            return true;
+        }
+
+        private void ExecuteCheckMethod(object obj)
+        {
+            _reservedServiceRepository.GetReservedServices(ResNum);
+        }
+        #endregion
     }
 }
-    
