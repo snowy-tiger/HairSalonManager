@@ -8,14 +8,15 @@ using System.Threading.Tasks;
 
 namespace HairSalonManager.ViewModel
 {
-    class AllReservationViewModel : Notifier
+    class AllReservationViewModel : ViewModelBase
     {
         private int _resNum;
 
         public int ResNum
         {
             get { return _resNum; }
-            set {
+            set
+            {
                 _resNum = value;
                 OnPropertyChanged("ResNum");
             }
@@ -26,7 +27,8 @@ namespace HairSalonManager.ViewModel
         public int StylistId
         {
             get { return _stylistId; }
-            set {
+            set
+            {
                 _stylistId = value;
                 OnPropertyChanged("StylistId");
             }
@@ -37,7 +39,8 @@ namespace HairSalonManager.ViewModel
         public string UserTel
         {
             get { return _userTel; }
-            set {
+            set
+            {
                 _userTel = value;
                 OnPropertyChanged("UserTel");
             }
@@ -48,7 +51,8 @@ namespace HairSalonManager.ViewModel
         public string Note
         {
             get { return _note; }
-            set {
+            set
+            {
                 _note = value;
                 OnPropertyChanged("Note");
             }
@@ -59,7 +63,8 @@ namespace HairSalonManager.ViewModel
         public int Gender
         {
             get { return _gender; }
-            set {
+            set
+            {
                 _gender = value;
                 OnPropertyChanged("Gender");
             }
@@ -70,7 +75,8 @@ namespace HairSalonManager.ViewModel
         public DateTime UserBirthday
         {
             get { return _userBirthday; }
-            set {
+            set
+            {
                 _userBirthday = value;
                 OnPropertyChanged("UserBirthday");
             }
@@ -81,7 +87,8 @@ namespace HairSalonManager.ViewModel
         public DateTime StartAt
         {
             get { return _startAt; }
-            set {
+            set
+            {
                 _startAt = value;
                 OnPropertyChanged("StartAt");
             }
@@ -92,7 +99,8 @@ namespace HairSalonManager.ViewModel
         public DateTime EndAt
         {
             get { return _endAt; }
-            set {
+            set
+            {
                 _endAt = value;
                 OnPropertyChanged("EndAt");
             }
@@ -103,7 +111,8 @@ namespace HairSalonManager.ViewModel
         public string UserName
         {
             get { return _userName; }
-            set {
+            set
+            {
                 _userName = value;
                 OnPropertyChanged("UserName");
             }
@@ -114,7 +123,8 @@ namespace HairSalonManager.ViewModel
         public bool IsPaid
         {
             get { return _isPaid; }
-            set {
+            set
+            {
                 _isPaid = value;
                 OnPropertyChanged("IsPaid");
             }

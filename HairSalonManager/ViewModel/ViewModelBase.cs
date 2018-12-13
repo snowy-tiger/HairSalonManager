@@ -11,7 +11,21 @@ namespace HairSalonManager.ViewModel
     {
         public virtual string DisplayName { get; protected set; }
 
+        public ViewModelBase()
+        {
+
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
+        protected virtual void OnPropertyChanged(string propertyName)
+        {
+            PropertyChangedEventHandler handler = this.PropertyChanged;
+            if (handler != null)
+            {
+                var e = new PropertyChangedEventArgs(propertyName);
+                handler(this, e);
+            }
+        }
     }
 }
