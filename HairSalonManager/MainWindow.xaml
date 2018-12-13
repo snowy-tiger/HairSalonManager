@@ -11,7 +11,6 @@
         <local1:MainWindowViewModel/>
     </Window.DataContext>
     <Window.Resources>
-        <ResourceDictionary Source="/MainWindowResources.xaml"/>
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -24,11 +23,20 @@
                 <ColumnDefinition Width="3*"/>
             </Grid.ColumnDefinitions>
             <TextBlock Text="{Binding Title}" Margin="40 0" Foreground="White" FontSize="50" VerticalAlignment="Center"/>
-            <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="0">
-                <Label Content="{Binding MenuCommands}" ContentTemplate="{StaticResource NavigationBarTemplate}" />
-            </StackPanel>
+            <ItemsControl x:Name="tStack" ItemsSource="{Binding MenuCommands}" Grid.Column="1" Grid.Row="0">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Button Content="{Binding Path=DisplayName}" Command="{Binding Path=Command}" Background="{Binding Color}" FontSize="15" BorderThickness="0" Foreground="White" Width="120" Height="50"/>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
         </Grid>
-        <Frame Source="/View/MainPage.xaml" Grid.Row="2"/>
+        <Frame Source="{Binding NavigationUri}" NavigationUIVisibility="Hidden" Grid.Row="2"/>
         <Button Content="━" HorizontalAlignment="Left" Margin="794,10,0,0" VerticalAlignment="Top" Width="18" Background="#2D2F31" Foreground="#FFF3F3F3" IsTabStop="False" Focusable="False" Height="18" BorderBrush="{x:Null}" FontFamily="Segoe UI" FontSize="11" FontWeight="ExtraBold" Command="{Binding MinimizeCommand}"/>
         <Button Content="X" HorizontalAlignment="Left" Margin="817,10,0,0" VerticalAlignment="Top" Width="18" Background="#FFA82323" Foreground="#FFF3F3F3" IsTabStop="False" Focusable="False" Height="18" BorderBrush="{x:Null}" FontFamily="Segoe UI" FontSize="10" FontWeight="Bold" Command="{Binding CloseCommand}"/>
     </Grid>
