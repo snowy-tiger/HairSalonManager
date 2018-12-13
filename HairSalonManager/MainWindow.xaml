@@ -24,7 +24,7 @@
                 <ColumnDefinition Width="3*"/>
             </Grid.ColumnDefinitions>
             <TextBlock Text="{Binding Title}" Margin="40 0" Foreground="White" FontSize="50" VerticalAlignment="Center"/>
-            <HeaderedContentControl Content="{Binding }" ContentTemplate="NavigationBarTemplate" />
+            <HeaderedContentControl Content="{Binding MenuCommands}" ContentTemplate="{StaticResource NavigationBarTemplate}" />
         </Grid>
         <Frame Source="/View/MainPage.xaml" Grid.Row="2"/>
         <Button Content="━" HorizontalAlignment="Left" Margin="794,10,0,0" VerticalAlignment="Top" Width="18" Background="#2D2F31" Foreground="#FFF3F3F3" IsTabStop="False" Focusable="False" Height="18" BorderBrush="{x:Null}" FontFamily="Segoe UI" FontSize="11" FontWeight="ExtraBold" Command="{Binding MinimizeCommand}"/>

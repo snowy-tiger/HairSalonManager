@@ -8,9 +8,30 @@
       d:DesignHeight="384" d:DesignWidth="845"
       Title="MainPage">
 
+    <Page.DataContext>
+        <local:MainPage/>
+    </Page.DataContext>
     <Grid>
-        
-        
-        
+        <DataGrid HorizontalAlignment="Left" Height="364" Margin="10,10,0,0" VerticalAlignment="Top" Width="492" IsReadOnly="True" ItemsSource="{Binding ResList}" SelectedItem="{Binding SelectedRes}" />
+        <TextBlock Text="예약번호" Foreground="White" HorizontalAlignment="Left" Margin="507,54,0,0" VerticalAlignment="Top"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="581,14,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="219"/>
+        <TextBlock Text="{Binding SelectedRes.ResNum}" Foreground="White" HorizontalAlignment="Left" Margin="581,53,0,0" VerticalAlignment="Top"/>
+        <TextBlock Text="예약자 성함" Foreground="White" HorizontalAlignment="Left" Margin="507,15,0,0" VerticalAlignment="Top"/>
+        <TextBlock HorizontalAlignment="Left" Margin="507,75,0,0" TextWrapping="Wrap" Text="미용사" Foreground="White" VerticalAlignment="Top" RenderTransformOrigin="0.528,1.253"/>
+        <TextBlock HorizontalAlignment="Left" Foreground="White" Margin="507,105,0,0" TextWrapping="Wrap" Text="전화번호" VerticalAlignment="Top" RenderTransformOrigin="0.196,-0.062"/>
+        <TextBox Text="{Binding SelectedRes.UserTel}" HorizontalAlignment="Left" Height="23" Margin="581,104,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="219"/>
+        <TextBlock HorizontalAlignment="Left" Margin="507,133,0,0" Foreground="White" TextWrapping="Wrap" Text="성별" VerticalAlignment="Top"/>
+        <RadioButton GroupName="Gender" Content="남성" Foreground="White" Margin="546,133,249,235"/>
+        <RadioButton GroupName="Gender" Content="여성" Foreground="White" Margin="601,133,192,235"/>
+        <TextBlock Text="예약시간" Foreground="White" HorizontalAlignment="Left" Margin="507,162,0,0" TextWrapping="Wrap"  VerticalAlignment="Top"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="581,161,0,0" TextWrapping="Wrap" Text="{Binding SelectedRes.StartAt}" VerticalAlignment="Top" Width="219"/>
+        <ListBox HorizontalAlignment="Left" Height="100" Margin="507,247,0,0" VerticalAlignment="Top" Width="293"/>
+        <ComboBox HorizontalAlignment="Left" Margin="581,74,0,0" VerticalAlignment="Top" Width="219"/>
+        <ComboBox HorizontalAlignment="Left" Margin="507,352,0,0" VerticalAlignment="Top" Width="205"/>
+        <Button Content="서비스 추가" HorizontalAlignment="Left" Margin="725,352,0,0" VerticalAlignment="Top" Width="75"/>
+        <DataGrid HorizontalAlignment="Left" Height="29" Margin="507,189,0,0" VerticalAlignment="Top" Width="293"/>
+        <Button Content="예약추가" Command="{Binding InsertCommand}" HorizontalAlignment="Left" Margin="507,223,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button Content="수정" Command="{Binding ModifyCommand}" HorizontalAlignment="Left" Margin="587,223,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button Content="삭제" Command="{Binding DeleteCommand}" HorizontalAlignment="Left" Margin="667,223,0,0" VerticalAlignment="Top" Width="75"/>
     </Grid>
 </Page>

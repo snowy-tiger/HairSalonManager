@@ -13,7 +13,7 @@ namespace HairSalonManager.ViewModel
     {        
         private ReadOnlyCollection<ButtonCommandViewModel> _menuCommands;
 
-        public IReadOnlyCollection<ButtonCommandViewModel> _MenuCommands
+        public ReadOnlyCollection<ButtonCommandViewModel> MenuCommands
         {
             get
             {
