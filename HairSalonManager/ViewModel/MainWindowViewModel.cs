@@ -63,6 +63,7 @@ namespace HairSalonManager.ViewModel
 
         private void GoMainPage(object parameter)
         {
+            
             Navigate("/View/MainPage.xaml", "메인");
         }
         #endregion

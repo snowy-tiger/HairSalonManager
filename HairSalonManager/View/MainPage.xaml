@@ -26,9 +26,9 @@
         <RadioButton GroupName="Gender" Content="여성" Foreground="White" Margin="601,133,192,235"/>
         <TextBlock Text="예약시간" Foreground="White" HorizontalAlignment="Left" Margin="507,162,0,0" TextWrapping="Wrap"  VerticalAlignment="Top"/>
         <TextBox HorizontalAlignment="Left" Height="23" Margin="581,161,0,0" TextWrapping="Wrap" Text="{Binding SelectedRes.StartAt}" VerticalAlignment="Top" Width="219"/>
-        <ListBox HorizontalAlignment="Left" Height="100" Margin="507,247,0,0" VerticalAlignment="Top" Width="293"/>
+        <ListBox DataContext="{Binding ServiceCommands}" HorizontalAlignment="Left" Height="100" Margin="507,247,0,0" VerticalAlignment="Top" Width="293"/>
         <ComboBox HorizontalAlignment="Left" Margin="581,74,0,0" VerticalAlignment="Top" Width="219"/>
-        <ComboBox HorizontalAlignment="Left" Margin="507,352,0,0" VerticalAlignment="Top" Width="205"/>
+        <ComboBox DataContext="{Binding ServiceList}" HorizontalAlignment="Left" Margin="507,352,0,0" VerticalAlignment="Top" Width="205"/>
         <Button Content="서비스 추가" HorizontalAlignment="Left" Margin="725,352,0,0" VerticalAlignment="Top" Width="75"/>
         <DataGrid HorizontalAlignment="Left" Height="29" Margin="507,189,0,0" VerticalAlignment="Top" Width="293"/>
         <Button Content="예약추가" Command="{Binding InsertCommand}" HorizontalAlignment="Left" Margin="507,223,0,0" VerticalAlignment="Top" Width="75"/>
