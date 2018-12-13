@@ -14,8 +14,21 @@ namespace HairSalonManager.Model.Repository
         readonly List<ReservedServiceVo> _list;
         #endregion
 
-        #region ctor
-        public ReservedServiceRepository()
+        #region ctor , singleTon
+        private static ReservedServiceRepository _reservedServiceRepository;
+
+        public static ReservedServiceRepository RSR
+        {
+            get
+            {
+                if (_reservedServiceRepository == null)
+                    _reservedServiceRepository = new ReservedServiceRepository();
+                return _reservedServiceRepository;
+            }           
+        }
+
+
+        private ReservedServiceRepository()
         {
             _list = GetReservedServices();
         }
