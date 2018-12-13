@@ -2,6 +2,7 @@
 using HairSalonManager.Model.Vo;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,6 +15,12 @@ namespace HairSalonManager.ViewModel
         readonly TimetableRepository _timetableRepository;
 
         readonly ReservedServiceRepository _reservedServiceRepository;
+
+        DataTable _dataTable = new DataTable("StyistTimeTable");
+
+        DataRow _row;
+
+        DataColumn _col;
 
         private int _stylistId;
 
@@ -119,6 +126,22 @@ namespace HairSalonManager.ViewModel
         public TimetableViewModel(TimetableRepository timetableRepository)
         {
             _timetableRepository = timetableRepository;
+            
+        }
+
+        public void CreateTimeTable()
+        {
+            _row = _dataTable.NewRow();
+            _dataTable.Rows.Add(_row);
+            
+            _col.ColumnName = "StylistName";
+            _dataTable.Columns.Add(_col);
+
+            for(int i=0; i<48; i++)
+            {
+                _col.ColumnName = string.Format("{0} : {1} ", i * 30 / 6, i * 30 % 6);
+                _dataTable.Columns.Add(_col);
+            }
         }
     }
 }
