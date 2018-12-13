@@ -115,11 +115,11 @@ namespace HairSalonManager.Model.Repository
         public bool InsertReservation(ReservationVo rv) //예약 추가
         {
             _conn.Msc.Open();
-            _sql = "INSERT INTO reservation(resNum,stylistId,note,gender,userBirthday,startAt,endAt,userName) VALUES(@resNum,@resNum,@stylistId,@note,@gender,@userBirthday,@startAt,@endAt,@userName)";
+            _sql = "INSERT INTO reservation(stylistId,note,gender,userBirthday,startAt,endAt,userName,userTel) VALUES(@stylistId,@note,@gender,@userBirthday,@startAt,@endAt,@userName,@userTel)";
 
             MySqlCommand cmd = new MySqlCommand(_sql, _conn.Msc);
 
-            cmd.Parameters.Add("@resNum", rv.ResNum);
+            
             cmd.Parameters.Add("@stylistId", rv.StylistId);
             cmd.Parameters.Add("@userTel", rv.UserTel);
             cmd.Parameters.Add("@note", rv.Note);

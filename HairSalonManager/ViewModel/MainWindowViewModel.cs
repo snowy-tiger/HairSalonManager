@@ -64,7 +64,7 @@ namespace HairSalonManager.ViewModel
 
         private void GoStylistPage(object obj)
         {
-            //NavigationServiceProvider.Navigate("/StylistPage.xaml");
+            NavigationServiceProvider.Navigate("/StatisticsPage.xaml");
         }
 
         private void GoMainWindowPage(object o)
