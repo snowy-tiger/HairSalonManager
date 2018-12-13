@@ -10,6 +10,6 @@ namespace HairSalonManager.Model.Vo
     {
         public uint ResNum { get; set; }
 
-        public uint SerId { get; set; }
+        public ushort SerId { get; set; }
     }
 }

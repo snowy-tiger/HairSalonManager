@@ -57,10 +57,10 @@ namespace HairSalonManager.Model.Repository
             foreach (DataRow r in _ds.Tables[0].Rows)
             {
                 ServiceVo service = new ServiceVo();
-                service.ServiceId = (uint)r["serviceId"];
+                service.ServiceId = (ushort)r["serviceId"];
                 service.ServiceName = r["serviceName"] as string;
                 service.ServicePrice = (uint)r["servicePrice"];
-                service.ServiceTime = (uint)r["serviceTime"];
+                service.ServiceTime = (ushort)r["serviceTime"];
                 service.ServiceDescription = r["serviceDescription"] as string;
                 list.Add(service);
             }

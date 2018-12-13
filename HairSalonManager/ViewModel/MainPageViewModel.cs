@@ -70,7 +70,8 @@ namespace HairSalonManager.ViewModel
         public Command InsertCommand { get; set; }
         public Command ModifyCommand { get; set; }
         public Command DeleteCommand { get; set; }
-        
+        public Command InitalizeCommand { get; }
+
 
         //private int _resNum;
 
@@ -228,14 +229,21 @@ namespace HairSalonManager.ViewModel
             _selectedRes = new ReservationVo();
             ResList = new ObservableCollection<ReservationVo>(_reservationRepository.GetReservations());
             ServiceList = new ObservableCollection<ServiceVo>(_serviceRepository.ServiceList);
+            ServiceCommands = new ObservableCollection<CommandViewModel>();
 
             InsertCommand = new Command(ExecuteInsertMethod, CanExecuteMethod);
             ModifyCommand = new Command(ExecuteModifyMethod, CanExecuteMethod);
             DeleteCommand = new Command(ExecuteDeleteMethod, CanExecuteMethod);
+            InitalizeCommand = new Command(ExecuteInitalizeMethod, CanExecuteMethod);
         }
+
         #endregion
 
         #region method
+        private void ExecuteInitalizeMethod(object obj)
+        {
+
+        }
         private void ExecuteDeleteMethod(object obj)
         {
             ResList.Remove(SelectedRes);
