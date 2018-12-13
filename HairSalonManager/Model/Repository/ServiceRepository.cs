@@ -46,7 +46,10 @@ namespace HairSalonManager.Model.Repository
         {
             List<ServiceVo> list = new List<ServiceVo>();
 
+            _ds = new DataSet();
+
             _sql = "SELECT * FROM service";
+
             MySqlDataAdapter adapter = new MySqlDataAdapter(_sql,_conn.Msc);
 
             adapter.Fill(_ds, "Service");
