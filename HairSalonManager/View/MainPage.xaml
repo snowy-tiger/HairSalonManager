@@ -4,17 +4,18 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:HairSalonManager.View"
+      xmlns:local1="clr-namespace:HairSalonManager.ViewModel"
       mc:Ignorable="d" 
       d:DesignHeight="384" d:DesignWidth="845"
       Title="MainPage">
 
     <Page.DataContext>
-        <local:MainPage/>
+        <local1:MainPageViewModel/>
     </Page.DataContext>
     <Grid>
         <DataGrid HorizontalAlignment="Left" Height="364" Margin="10,10,0,0" VerticalAlignment="Top" Width="492" IsReadOnly="True" ItemsSource="{Binding ResList}" SelectedItem="{Binding SelectedRes}" />
         <TextBlock Text="예약번호" Foreground="White" HorizontalAlignment="Left" Margin="507,54,0,0" VerticalAlignment="Top"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="581,14,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="219"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="581,14,0,0" TextWrapping="Wrap" Text="{Binding SelectedRes.UserName}" VerticalAlignment="Top" Width="219"/>
         <TextBlock Text="{Binding SelectedRes.ResNum}" Foreground="White" HorizontalAlignment="Left" Margin="581,53,0,0" VerticalAlignment="Top"/>
         <TextBlock Text="예약자 성함" Foreground="White" HorizontalAlignment="Left" Margin="507,15,0,0" VerticalAlignment="Top"/>
         <TextBlock HorizontalAlignment="Left" Margin="507,75,0,0" TextWrapping="Wrap" Text="미용사" Foreground="White" VerticalAlignment="Top" RenderTransformOrigin="0.528,1.253"/>
