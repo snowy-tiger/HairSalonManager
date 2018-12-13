@@ -57,7 +57,7 @@ namespace HairSalonManager.Model.Repository
         {           
             List<ReservationVo> list = new List<ReservationVo>();
             _conn.Msc.Open();
-            _sql = "SELECT * FROM RESERVATION WHERE isPaid == 0";
+            _sql = "SELECT * FROM RESERVATION WHERE isPaid = 0";
             MySqlCommand cmd = new MySqlCommand(_sql, _conn.Msc);
             MySqlDataReader rdr = cmd.ExecuteReader();
             while (rdr.Read())
@@ -84,7 +84,7 @@ namespace HairSalonManager.Model.Repository
         {
             List<ReservationVo> list = new List<ReservationVo>();
             _conn.Msc.Open();
-            _sql = $"SELECT * FROM RESERVATION WHERE isPaid == 0 AND resNum > {recentResNum} ";
+            _sql = $"SELECT * FROM RESERVATION WHERE isPaid = 0 AND resNum > {recentResNum} ";
             MySqlCommand cmd = new MySqlCommand(_sql, _conn.Msc);
             MySqlDataReader rdr = cmd.ExecuteReader();
             while (rdr.Read())
