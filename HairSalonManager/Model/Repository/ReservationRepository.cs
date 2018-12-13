@@ -29,6 +29,7 @@ namespace HairSalonManager.Model.Repository
         {
             _conn = Connection.Conn;
             RecentResNum = 0;
+            _list = GetReservations();
         }
         #endregion
 
@@ -39,6 +40,9 @@ namespace HairSalonManager.Model.Repository
 
         private static int _recentResNum;
 
+        readonly List<ReservationVo> _list;
+
+        
         public int RecentResNum {
             get
             {
@@ -50,7 +54,7 @@ namespace HairSalonManager.Model.Repository
             }
         }
         #endregion
-
+        
         #region Reservation Methods
         public List<ReservationVo> GetReservations() //전체의 예약리스트를 가져옴.
         {           
@@ -75,7 +79,7 @@ namespace HairSalonManager.Model.Repository
                 list.Add(rv);
                 RecentResNum = rv.ResNum; //계속 최근 받아온 예약번호를 저장한다 --> 추가적인 예약알람을 위해
             }
-            _conn.Msc.Close();
+            _conn.Msc.Close();            
             return list;
         }
 
@@ -102,8 +106,13 @@ namespace HairSalonManager.Model.Repository
                 list.Add(rv);
                 RecentResNum = rv.ResNum;
             }
-            _conn.Msc.Close();
+            _conn.Msc.Close();            
             return list;
+        }
+
+        public List<ReservationVo> GetReservationsFromLocal() //미리 받아놓은 리스트를 준다.
+        {
+            return new List<ReservationVo>(_list);
         }
 
         public bool InsertReservation(ReservationVo rv) //예약 추가
