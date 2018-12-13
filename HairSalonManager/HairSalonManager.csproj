@@ -60,6 +60,7 @@
     <Compile Include="Model\Repository\Connection.cs" />
     <Compile Include="Model\Repository\ReservationRepository.cs" />
     <Compile Include="Model\Repository\ReservedServiceRepository.cs" />
+    <Compile Include="Model\Repository\ServiceRepository.cs" />
     <Compile Include="Model\Repository\StylistRepository.cs" />
     <Compile Include="Model\Repository\TimetableRepository.cs" />
     <Compile Include="Model\Util\NavigationServiceProvider.cs" />

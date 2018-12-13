@@ -23,43 +23,22 @@ namespace HairSalonManager.ViewModel
 
         #endregion
 
-        #region property
-        private ReadOnlyCollection<ButtonCommandViewModel> _menuCommands;
+        #region property        
+        private ObservableCollection<CommandViewModel> _serviceCommands;
 
-        public ReadOnlyCollection<ButtonCommandViewModel> MenuCommands
+        public ObservableCollection<CommandViewModel> ServiceCommands
         {
-            get
-            {
-                if (_menuCommands == null)
-                {
-                    List<ButtonCommandViewModel> list = this.CreateCommands();
-                    _menuCommands = new ReadOnlyCollection<ButtonCommandViewModel>(list);
-                }
-                return _menuCommands;
-            }
-            
-        }
-
-        private List<ButtonCommandViewModel> CreateCommands()
-        {
-            return new List<ButtonCommandViewModel>()
-            {
-                new ButtonCommandViewModel("메인",new Command(GoMainWindowPage),"red"),
-                new ButtonCommandViewModel("미용사",new Command(GoStylistPage),"yellow"),
-                new ButtonCommandViewModel("결제",new Command(GoPayPage),"blue"),
-                new ButtonCommandViewModel("서비스",new Command(GoServicePage),"blue"),
-                new ButtonCommandViewModel("전체 일정",new Command(GoSchedulePage),"blue"),
-                new ButtonCommandViewModel("설정",new Command(GoSettingPage),"blue")
-            };
-        }
+            get { return _serviceCommands; }
+            set
+            { _serviceCommands = value; }
+        }        
 
         public ObservableCollection<ReservationVo> ResList
         {
             get { return _resList; }
             set
             {
-                _resList = value;
-                OnPropertyChanged("ResList");
+                _resList = value;                
             }
         }
 
@@ -69,11 +48,20 @@ namespace HairSalonManager.ViewModel
         {
             get { return _selectedRes; }
             set {
-                _selectedRes = value;
+                _selectedRes = value;                
                 OnPropertyChanged("SelectedRes");
+                onSelectedResChanged(SelectedRes.ResNum);
             }
         }
-        
+
+        private void onSelectedResChanged(int resNum)
+        {
+            List<ServiceVo> services = new List<ServiceVo>()
+            {
+
+            }
+        }
+
         public Command InsertCommand { get; set; }
         public Command ModifyCommand { get; set; }
         public Command DeleteCommand { get; set; }
@@ -240,36 +228,6 @@ namespace HairSalonManager.ViewModel
         }
         #endregion
 
-        #region Navigator xaml
-        private void GoSettingPage(object obj)
-        {
-
-        }
-
-        private void GoSchedulePage(object obj)
-        {
-
-        }
-
-        private void GoServicePage(object obj)
-        {
-
-        }
-
-        private void GoPayPage(object obj)
-        {
-            //NavigationServiceProvider.Navigate("/PayPage.xaml");
-        }
-
-        private void GoStylistPage(object obj)
-        {
-            //NavigationServiceProvider.Navigate("/StylistPage.xaml");
-        }
-
-        private void GoMainWindowPage(object o)
-        {
-            NavigationServiceProvider.Navigate("/MainPage.xaml");
-        }
-        #endregion
+        
     }
 }

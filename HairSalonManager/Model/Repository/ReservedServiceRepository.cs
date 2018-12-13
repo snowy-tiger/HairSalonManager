@@ -40,9 +40,31 @@ namespace HairSalonManager.Model.Repository
             return new List<ReservedServiceVo>(_list);
         }
 
+        public List<ReservedServiceVo> GetReservedServices(int resNum)
+        {
+            _conn.Msc.Open();
+            List<ReservedServiceVo> list = new List<ReservedServiceVo>();
+            _sql = "SELECT * FROM reservedservice WHERE resNum = @resNum";
+            MySqlCommand cmd = new MySqlCommand(_sql, _conn.Msc);
+
+            cmd.Parameters.Add("@resNum", resNum);
+
+            MySqlDataReader rdr = cmd.ExecuteReader();
+
+            while (rdr.Read())
+            {
+                ReservedServiceVo rsv = new ReservedServiceVo();
+                rsv.ResNum = (int)rdr["resNum"];
+                rsv.SerId = (int)rdr["serId"];
+                list.Add(rsv);
+            }
+            _conn.Msc.Close();
+            return list;
+        }
 
         public List<ReservedServiceVo> GetReservedServices()
         {
+            _conn.Msc.Open();
             List<ReservedServiceVo> list = new List<ReservedServiceVo>(); 
             _sql = "SELECT * FROM reservedservice";
             MySqlCommand cmd = new MySqlCommand(_sql,_conn.Msc);
@@ -55,6 +77,7 @@ namespace HairSalonManager.Model.Repository
                 rsv.SerId = (int)rdr["serId"];
                 list.Add(rsv);
             }
+            _conn.Msc.Close();
             return list;
         }
 
@@ -69,6 +92,7 @@ namespace HairSalonManager.Model.Repository
 
         public bool RemoveReservedService(int resNum,int serId)
         {
+            _conn.Msc.Open();
             _sql = "DELETE FROM reservedservice WHERE resNum = @resNum AND serId = @serId";
             MySqlCommand cmd = new MySqlCommand(_sql, _conn.Msc);
 
@@ -76,9 +100,14 @@ namespace HairSalonManager.Model.Repository
             cmd.Parameters.Add("@serId", serId);
 
             if (cmd.ExecuteNonQuery() != -1)
+            {
+                _conn.Msc.Close();
                 return true;
-            return false; 
+            }
+            _conn.Msc.Close();
+            return false;
 
+            
         }
         #endregion
     }

@@ -131,9 +131,10 @@ namespace HairSalonManager.Model.Repository
 
             if (cmd.ExecuteNonQuery() == -1) //실패시
             {
+                _conn.Msc.Close();
                 return false;
             }
-
+            _conn.Msc.Close();
             return true; //성공시
         }
 
@@ -157,9 +158,10 @@ namespace HairSalonManager.Model.Repository
 
             if (cmd.ExecuteNonQuery() == -1) //실패시
             {
+                _conn.Msc.Close();
                 return false;
             }
-
+            _conn.Msc.Close();
             return true; //성공시
         }
 
@@ -171,9 +173,10 @@ namespace HairSalonManager.Model.Repository
 
             if (cmd.ExecuteNonQuery() == -1) //실패시
             {
-                return false;
+                _conn.Msc.Close();
+                return false;                
             }
-
+            _conn.Msc.Close();
             return true; //성공시
         }
         #endregion 
