@@ -8,8 +8,8 @@ namespace HairSalonManager.Model.Vo
 {
     class ReservedServiceVo
     {
-        public int ResNum { get; set; }
+        public uint ResNum { get; set; }
 
-        public int SerId { get; set; }
+        public uint SerId { get; set; }
     }
 }

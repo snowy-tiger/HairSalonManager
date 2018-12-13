@@ -8,11 +8,11 @@ namespace HairSalonManager.Model.Vo
 {
     class LedgerVo
     {
-        public int LedgerNum { get; set; }
+        public uint LedgerNum { get; set; }
 
-        public int ResNum { get; set; }
+        public uint ResNum { get; set; }
 
-        public int Sum { get; set; }
+        public uint Sum { get; set; }
 
 
     }

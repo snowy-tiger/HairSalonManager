@@ -35,12 +35,12 @@ namespace HairSalonManager.Model.Repository
 
         #region Fields
 
-        private static int _recentResNum;
+        private static uint _recentResNum;
 
         readonly List<ReservationVo> _list;
 
         
-        public int RecentResNum {
+        public uint RecentResNum {
             get
             {
                 return _recentResNum;
@@ -63,13 +63,13 @@ namespace HairSalonManager.Model.Repository
             while (rdr.Read())
             {
                 ReservationVo rv = new ReservationVo();
-                rv.ResNum = (int)rdr["resNum"];
+                rv.ResNum = (uint)rdr["resNum"];
                 rv.EndAt = rdr["endAt"] as DateTime?;
                 rv.Gender = rdr["gender"] as int?;
                 rv.IsPaid = (bool)rdr["isPaid"];
                 rv.Note = rdr["note"] as string;
                 rv.StartAt = rdr["startAt"] as DateTime?;
-                rv.StylistId = (int)rdr["stylistId"];
+                rv.StylistId = (uint)rdr["stylistId"];
                 rv.UserBirthday = rdr["userBirthday"] as DateTime?;
                 rv.UserName = rdr["userName"] as string;
                 rv.UserTel = rdr["userTel"] as string;
@@ -80,7 +80,7 @@ namespace HairSalonManager.Model.Repository
             return list;
         }
 
-        public List<ReservationVo> GetReservations(int recentResNum) //추가적인 예약정보를 가져옴 
+        public List<ReservationVo> GetReservations(uint recentResNum) //추가적인 예약정보를 가져옴 
         {
             List<ReservationVo> list = new List<ReservationVo>();
             _conn.Msc.Open();
@@ -90,13 +90,13 @@ namespace HairSalonManager.Model.Repository
             while (rdr.Read())
             {
                 ReservationVo rv = new ReservationVo();
-                rv.ResNum = (int)rdr["resNum"];
+                rv.ResNum = (uint)rdr["resNum"];
                 rv.EndAt = rdr["endAt"] as DateTime?;
                 rv.Gender = rdr["gender"] as int?;
                 rv.IsPaid = (bool)rdr["isPaid"];
                 rv.Note = rdr["note"] as string;
                 rv.StartAt = rdr["startAt"] as DateTime?;
-                rv.StylistId = (int)rdr["stylistId"];
+                rv.StylistId = (uint)rdr["stylistId"];
                 rv.UserBirthday = rdr["userBirthday"] as DateTime?;
                 rv.UserName = rdr["userName"] as string;
                 rv.UserTel = rdr["userTel"] as string;
@@ -165,7 +165,7 @@ namespace HairSalonManager.Model.Repository
             return true; //성공시
         }
 
-        public bool RemoveReservation(int resNum) //예약 삭제
+        public bool RemoveReservation(uint resNum) //예약 삭제
         {
             _conn.Msc.Open();
             _sql = $"DELETE FROM reservation WHERE resNum = {resNum}";

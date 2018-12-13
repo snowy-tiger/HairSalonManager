@@ -43,8 +43,8 @@ namespace HairSalonManager.Model.Repository
             while (rdr.Read())
             {
                 TimeTableVo tv = new TimeTableVo();
-                tv.ResNum = (int) rdr["resNum"];
-                tv.StylistId = (int)rdr["stylistId"];
+                tv.ResNum = (uint) rdr["resNum"];
+                tv.StylistId = (uint)rdr["stylistId"];
                 tv.StartAt = rdr["startAt"] as DateTime?;
                 tv.EndAt = rdr["endAt"] as DateTime?;
                 list.Add(tv);

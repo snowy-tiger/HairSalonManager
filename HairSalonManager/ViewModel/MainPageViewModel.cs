@@ -54,7 +54,7 @@ namespace HairSalonManager.ViewModel
             }
         }
 
-        private void onSelectedResChanged(int resNum)
+        private void onSelectedResChanged(uint resNum)
         {
             //List<ServiceVo> services = new List<ServiceVo>()
             //{
@@ -69,7 +69,7 @@ namespace HairSalonManager.ViewModel
 
         //private int _resNum;
 
-        public int ResNum
+        public uint ResNum
         {
             get { return SelectedRes.ResNum; }
             set
@@ -81,7 +81,7 @@ namespace HairSalonManager.ViewModel
 
         //private int _stylistId;
 
-        public int? StylistId
+        public uint? StylistId
         {
             get { return SelectedRes.StylistId; }
             set

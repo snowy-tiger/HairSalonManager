@@ -54,8 +54,8 @@ namespace HairSalonManager.Model.Repository
             while (rdr.Read())
             {
                 ReservedServiceVo rsv = new ReservedServiceVo();
-                rsv.ResNum = (int)rdr["resNum"];
-                rsv.SerId = (int)rdr["serId"];
+                rsv.ResNum = (uint)rdr["resNum"];
+                rsv.SerId = (uint)rdr["serId"];
                 list.Add(rsv);
             }
             _conn.Msc.Close();
@@ -73,8 +73,8 @@ namespace HairSalonManager.Model.Repository
             while (rdr.Read())
             {
                 ReservedServiceVo rsv = new ReservedServiceVo();
-                rsv.ResNum = (int) rdr["resNum"];
-                rsv.SerId = (int)rdr["serId"];
+                rsv.ResNum = (uint) rdr["resNum"];
+                rsv.SerId = (uint)rdr["serId"];
                 list.Add(rsv);
             }
             _conn.Msc.Close();

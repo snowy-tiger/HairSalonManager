@@ -8,13 +8,13 @@ namespace HairSalonManager.Model.Vo
 {
     class ServiceVo
     {
-        public int ServiceId { get; set; }
+        public uint ServiceId { get; set; }
 
         public string ServiceName { get; set; }
 
-        public int ServicePrice { get; set; }
+        public uint ServicePrice { get; set; }
 
-        public int ServiceTime { get; set; }
+        public uint ServiceTime { get; set; }
 
         public string ServiceDescription { get; set; }
     }

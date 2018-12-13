@@ -10,6 +10,6 @@ namespace HairSalonManager.Model.Vo
     {
         public string UserTel { get; set; }
 
-        public int Point { get; set; }
+        public uint Point { get; set; }
     }
 }

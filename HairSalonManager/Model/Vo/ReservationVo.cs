@@ -8,9 +8,9 @@ namespace HairSalonManager.Model.Vo
 {
     class ReservationVo
     {
-        public int ResNum { get; set; }
+        public uint ResNum { get; set; }
 
-        public int? StylistId { get; set; }
+        public uint? StylistId { get; set; }
 
         public string UserTel { get; set; }
 

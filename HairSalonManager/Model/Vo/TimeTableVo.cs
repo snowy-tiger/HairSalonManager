@@ -8,9 +8,9 @@ namespace HairSalonManager.Model.Vo
 {
     class TimeTableVo //예약 시간표에 대한 Vo
     {
-        public int StylistId { get; set; }
+        public uint StylistId { get; set; }
 
-        public int ResNum { get; set; }
+        public uint ResNum { get; set; }
 
         public DateTime? StartAt { get; set; }
 
