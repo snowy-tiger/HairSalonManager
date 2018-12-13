@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace HairSalonManager.Model.Repository
 {
-    class ReservationRepository
+    class ReservationRepository : BaseRepository
     {
         #region singleTon 
         private static ReservationRepository _rr;
@@ -34,9 +34,6 @@ namespace HairSalonManager.Model.Repository
         #endregion
 
         #region Fields
-        private Connection _conn;
-
-        private string _sql;
 
         private static int _recentResNum;
 
