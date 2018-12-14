@@ -38,34 +38,7 @@ namespace HairSalonManager.ViewModel
         {            
             Data = data;
         }
-
-        //private ICommand _closeCommand;
-
-        //public ICommand CloseCommand
-        //{
-        //    get
-        //    {
-        //        if (_closeCommand == null)
-        //            _closeCommand = new Command(param => this.OnRequestClose());
-
-        //        return _closeCommand;
-        //    }
-        //}
-
-        //public event EventHandler RequestClose;
-
-        //void OnRequestClose()
-        //{
-        //    if (Data as ReservedServiceVo != null)
-        //    {
-        //        ReservedServiceVo v = (ReservedServiceVo)Data;
-        //        ReservedServiceRepository.RemoveReservedService(v.ResNum, v.SerId);
-        //        EventHandler handler = this.RequestClose;
-        //        if (handler != null)
-        //            handler(this, EventArgs.Empty);
-        //        //MainPageViewModel.ServiceCommands.Remove(MainPageViewModel.ServiceCommands.Single(x => (x.Data == v)));
-        //    }                        
-        //}
+       
 
         
     }

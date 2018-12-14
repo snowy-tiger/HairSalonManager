@@ -218,6 +218,19 @@ namespace HairSalonManager.ViewModel
                 OnPropertyChanged("IsPaid");
             }
         }
+
+        private ServiceVo _selectedService;
+
+        public ServiceVo SelectedService
+        {
+            get { return _selectedService; }
+            set
+            {
+                _selectedService = value;
+                OnPropertyChanged("SelectedService");
+            }
+        }
+
         #endregion
 
         #region ctor
