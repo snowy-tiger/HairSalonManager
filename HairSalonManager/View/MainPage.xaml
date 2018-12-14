@@ -30,8 +30,12 @@
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Grid>
-                        <TextBlock Text="{Binding Path=DisplayName}"/>
-                        <Button HorizontalAlignment="Right" Command="{Binding Command}"/>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="3*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="{Binding Path=DisplayName}" Grid.Column="0"/>
+                        <Button Content="X" Foreground="DarkRed" Command="{Binding Command}" Grid.Column="1"/>
                     </Grid>
                     
                 </DataTemplate>
