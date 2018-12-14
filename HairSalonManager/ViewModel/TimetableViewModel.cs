@@ -21,6 +21,7 @@ namespace HairSalonManager.ViewModel
         DataRow _row;
 
         DataColumn _col;
+
         #endregion
 
         #region property
