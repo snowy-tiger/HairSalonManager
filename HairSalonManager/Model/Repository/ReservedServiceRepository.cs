@@ -81,12 +81,24 @@ namespace HairSalonManager.Model.Repository
             return list;
         }
 
-        //public bool InsertReservedService(ReservedServiceVo rsv)
-        //{
-        //    _conn.Msc.Open();
-        //    _sql = "INSERT INTO reservedservice(resNum,serId) VALUES(@resNum,@serId)";
-        //    MySqlCommand cmd = new MySqlCommand(_sql, _conn.Msc);
-        //}
+        public bool InsertReservedService(ReservedServiceVo rsv)
+        {
+            _conn.Msc.Open();
+            _sql = "INSERT INTO reservedservice(resNum,serId) VALUES(@resNum,@serId)";
+            MySqlCommand cmd = new MySqlCommand(_sql, _conn.Msc);
+
+            cmd.Parameters.AddWithValue("@resNum", rsv.ResNum);
+            cmd.Parameters.AddWithValue("@serId", rsv.SerId);
+
+            if (cmd.ExecuteNonQuery() == -1)
+            {
+                _conn.Msc.Close();
+                return false;
+            }
+
+            _conn.Msc.Close();
+            return true;
+        }
 
         public bool RemoveReservedService(uint resNum,uint serId)
         {
