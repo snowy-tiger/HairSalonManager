@@ -60,10 +60,7 @@ namespace HairSalonManager.ViewModel
             {
                 ReservedServiceVo v = (ReservedServiceVo)Data;
                 ReservedServiceRepository.RemoveReservedService(v.ResNum, v.SerId);
-            }
-            EventHandler handler = this.RequestClose;
-            if (handler != null)
-                handler(this, EventArgs.Empty);
+            }                        
         }
     }
 }
