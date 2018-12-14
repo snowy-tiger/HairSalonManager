@@ -108,7 +108,13 @@
                     <ColumnDefinition Width="3*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <ComboBox DataContext="{Binding ServiceList}" Grid.Column="0"/>
+                <ComboBox DataContext="{Binding ServiceList}" Grid.Column="0">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding DisplayName}"/>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
                 <Button Content="서비스 추가" Grid.Column="1"/>
             </Grid>
 
