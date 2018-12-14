@@ -20,6 +20,17 @@
         <Style TargetType="RadioButton">
             <Setter Property="VerticalAlignment" Value="Center"/>
         </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="Background" Value="#1e1e1e"/>
+            <Setter Property="Foreground" Value="White"/>
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="Background" Value="#1e1e1e"/>
+            <Setter Property="Foreground" Value="White"/>
+        </Style>
+        <Style TargetType="ComboBox">
+            <Setter Property="Background" Value="#1e1e1e"/>
+        </Style>
     </Page.Resources>
 
     <Grid>
@@ -65,8 +76,8 @@
             <!-- 성별 -->
             <TextBlock Text="성별" Grid.Row="4" Grid.Column="0"/>
             <StackPanel Orientation="Horizontal" Grid.Row="4" Grid.Column="1">
-                <RadioButton GroupName="Gender" Content="남성" Foreground="White"/>
-                <RadioButton GroupName="Gender" Content="여성" Foreground="White"/>
+                <RadioButton GroupName="Gender" Content="남성" Foreground="White" IsChecked="{Binding Man}"/>
+                <RadioButton GroupName="Gender" Content="여성" Foreground="White" IsChecked="{Binding Woman}"/>
             </StackPanel>
 
             <!-- 예약시간 -->
