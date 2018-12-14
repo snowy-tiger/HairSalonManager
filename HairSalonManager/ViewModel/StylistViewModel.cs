@@ -12,7 +12,7 @@ namespace HairSalonManager.ViewModel
     class StylistViewModel : ViewModelBase
     {
         #region field
-        //readonly StylistRepository _stylistRepository;
+        readonly StylistRepository _stylistRepository;
 
         #endregion
 
@@ -65,8 +65,8 @@ namespace HairSalonManager.ViewModel
             }
         }
 
-        //private int _personalDay;
-        public int PersonalDay
+        //private byte _personalDay;
+        public byte PersonalDay
         {
             get { return _selectedStylist.PersonalDay; }
             set {
@@ -85,10 +85,10 @@ namespace HairSalonManager.ViewModel
         #region ctor
         public StylistViewModel()
         {
-            //_stylistRepository = StylistRepository.SR;
+            _stylistRepository = StylistRepository.SR;
 
             _selectedStylist = new StylistVo();
-            //StylistList = new ObservableCollection<StylistVo>(_stylistRepository.StylistList);
+            StylistList = new ObservableCollection<StylistVo>(_stylistRepository.GetStylists());
 
             InsertCommand = new Command(ExecuteInsertMethod, CanExecuteMethod);
             ModifyCommand = new Command(ExecuteModifyMethod, CanExecuteMethod);
