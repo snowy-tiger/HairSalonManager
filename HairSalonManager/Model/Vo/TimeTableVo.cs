@@ -16,7 +16,7 @@ namespace HairSalonManager.Model.Vo
 
         public DateTime? EndAt { get; set; }
 
-        public int OperationTime
+        public int OperationTime //시간 차이를 분(Minute)으로 계산해서 리턴
         {
             get
             {
@@ -25,7 +25,8 @@ namespace HairSalonManager.Model.Vo
                 else
                 {
                     TimeSpan ts = EndAt.Value - StartAt.Value;
-                    return ts.Days;
+                    int result = (ts.Hours * 60) + ts.Minutes;
+                    return result;
                 }
                 
             }
