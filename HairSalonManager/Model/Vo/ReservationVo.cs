@@ -16,7 +16,7 @@ namespace HairSalonManager.Model.Vo
 
         public string Note { get; set; }       
 
-        public int? Gender { get; set; }
+        public int Gender { get; set; }
 
         public DateTime? UserBirthday { get; set; }
 
