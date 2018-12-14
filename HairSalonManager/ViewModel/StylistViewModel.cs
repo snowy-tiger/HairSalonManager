@@ -12,7 +12,7 @@ namespace HairSalonManager.ViewModel
     class StylistViewModel : ViewModelBase
     {
         #region field
-        readonly StylistRepository _stylistRepository;
+        //readonly StylistRepository _stylistRepository;
 
         #endregion
 
@@ -100,7 +100,7 @@ namespace HairSalonManager.ViewModel
         #region method
         private void ExecuteInitalizeMethod(object obj)
         {
-
+            
         }
         private void ExecuteDeleteMethod(object obj)
         {
