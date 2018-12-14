@@ -65,9 +65,7 @@ namespace HairSalonManager.ViewModel
                     onSelectedResChanged(SelectedRes.ResNum);
             }
         }
-        
-      
-
+              
         public Command InsertCommand { get; set; }
         public Command ModifyCommand { get; set; }
         public Command DeleteCommand { get; set; }
@@ -88,13 +86,17 @@ namespace HairSalonManager.ViewModel
             }
         }
 
-        private bool woman;
 
-        public bool Woman
+        private bool isMan;
+
+        public bool IsMan
         {
-            get { return (SelectedRes.Gender == 0) ? true : false; }
-            set { woman = value;  if(value == true) SelectedRes.Gender = 0; OnPropertyChanged("Woman"); }
+            get { return isMan; }
+            set { isMan = value; if (value == true) SelectedRes.Gender = 0; OnPropertyChanged("IsMan"); }
         }
+
+
+        
 
         private bool man;
 
