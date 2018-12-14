@@ -77,6 +77,7 @@
     <Compile Include="ViewModel\MenuViewModel.cs" />
     <Compile Include="ViewModel\Notifier.cs" />
     <Compile Include="ViewModel\ServiceViewModel.cs" />
+    <Compile Include="ViewModel\StylistViewModel.cs" />
     <Compile Include="ViewModel\TimetableViewModel.cs" />
     <Compile Include="ViewModel\ViewModelBase.cs" />
     <Compile Include="View\ManagePage.xaml.cs">

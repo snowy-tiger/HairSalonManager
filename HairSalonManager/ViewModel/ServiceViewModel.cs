@@ -128,13 +128,9 @@ namespace HairSalonManager.ViewModel
 
         private void ExecuteInsertMethod(object obj)
         {
-            
+            ServiceList.Add(SelectedService);
         }
 
-        private void ExecuteRemoveMethod(ServiceRepository sr)
-        {
-
-        }
         private bool CanExecuteMethod(object arg)
         {
             return true;
