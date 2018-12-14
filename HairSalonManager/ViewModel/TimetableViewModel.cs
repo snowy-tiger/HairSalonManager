@@ -26,10 +26,22 @@ namespace HairSalonManager.ViewModel
 
         #region property
         
+        private DateTime _selectedDate;
+
+        public DateTime SelectedDate
+        {
+            get { return _selectedDate; }
+            set {
+                _selectedDate = value;
+                OnPropertyChanged("SelectedDate");
+            }
+        }
+
         public DataTable DataTable
         {
             get { return _dataTable; }
-            set {
+            set
+            {
                 _dataTable = value;
                 OnPropertyChanged("DataTable");
             }
@@ -154,6 +166,7 @@ namespace HairSalonManager.ViewModel
         #region method
         public void CreateTimeTable()
         {
+
             _row = _dataTable.NewRow();
             _dataTable.Rows.Add(_row);
 
