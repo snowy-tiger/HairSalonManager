@@ -12,9 +12,9 @@ namespace HairSalonManager.Model.Repository
     class TimetableRepository : BaseRepository  //연결형
     {
         #region singleTon
-        private TimetableRepository _tr;
+        private static TimetableRepository _tr;
        
-        public TimetableRepository TR
+        public static TimetableRepository TR
         {
             get
             {
