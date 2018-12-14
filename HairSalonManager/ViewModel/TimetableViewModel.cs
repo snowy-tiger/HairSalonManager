@@ -16,7 +16,7 @@ namespace HairSalonManager.ViewModel
 
         readonly ReservedServiceRepository _reservedServiceRepository;
 
-        //DataTable _dataTable = new DataTable("StyistTimeTable");
+        DataTable _dataTable = new DataTable("StyistTimeTable");
 
         DataRow _row;
 
@@ -25,9 +25,7 @@ namespace HairSalonManager.ViewModel
         #endregion
 
         #region property
-
-        private DataTable _dataTable;
-
+        
         public DataTable DataTable
         {
             get { return _dataTable; }
@@ -36,7 +34,6 @@ namespace HairSalonManager.ViewModel
                 OnPropertyChanged("DataTable");
             }
         }
-
 
         private int _stylistId;
 
@@ -149,7 +146,7 @@ namespace HairSalonManager.ViewModel
             CheckCommand = new Command(ExecuteCheckMethod, CanExecuteMethod);
 
             CreateTimeTable();
-            FillUpTimeTable();
+            //FillUpTimeTable();
         }
 
         #endregion
@@ -159,14 +156,14 @@ namespace HairSalonManager.ViewModel
         {
             _row = _dataTable.NewRow();
             _dataTable.Rows.Add(_row);
-            
+
+            _col = _dataTable.Columns.Add();
             _col.ColumnName = "StylistName";
-            _dataTable.Columns.Add(_col);
 
             for(int i=0; i<48; i++)
             {
-                _col.ColumnName = string.Format("{0} : {1} ", i * 30 / 6, i * 30 % 6);
-                _dataTable.Columns.Add(_col);
+                _col = _dataTable.Columns.Add();
+                _col.ColumnName = (i / 2).ToString("D2") + " : " + (i % 2 * 30).ToString("D2");
             }
         }
 
