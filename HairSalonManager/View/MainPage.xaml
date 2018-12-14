@@ -108,10 +108,10 @@
                     <ColumnDefinition Width="3*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <ComboBox DataContext="{Binding ServiceList}" Grid.Column="0">
+                <ComboBox ItemsSource="{Binding ServiceList}" Grid.Column="0">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
-                            <TextBlock Text="{Binding DisplayName}"/>
+                            <TextBlock Text="{Binding ServiceName}"/>
                         </DataTemplate>
                     </ComboBox.ItemTemplate>
                 </ComboBox>
