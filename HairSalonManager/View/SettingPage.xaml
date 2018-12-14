@@ -1,4 +1,4 @@
-﻿<Page x:Class="HairSalonManager.View.Statistics"
+﻿<Page x:Class="HairSalonManager.View.SettingPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:HairSalonManager.View"
       mc:Ignorable="d" 
       d:DesignHeight="384" d:DesignWidth="845"
-      Title="Statistics">
+      Title="SettingPage">
 
     <Grid>
         

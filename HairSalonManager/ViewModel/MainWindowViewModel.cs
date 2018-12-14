@@ -43,17 +43,17 @@ namespace HairSalonManager.ViewModel
         #region Navigator xaml
         private void GoSettingPage(object parameter)
         {
-            //NavigationUri = "/View/SettingPage.xaml";
+            Navigate((int)parameter, "/View/SettingPage.xaml", "설정");
+        }
+
+        private void GoManagePage(object parameter)
+        {
+            Navigate((int)parameter, "/View/ManagePage.xaml", "관리");
         }
 
         private void GoStatisticsPage(object parameter)
         {
             Navigate((int)parameter, "/View/StatisticsPage.xaml", "통계");
-        }
-
-        private void GoManagePage(object parameter)
-        {
-            //NavigationUri = "/View/ManagePage.xaml";
         }
 
         private void GoPayPage(object parameter)
