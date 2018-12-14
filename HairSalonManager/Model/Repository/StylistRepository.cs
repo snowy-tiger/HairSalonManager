@@ -13,6 +13,8 @@ namespace HairSalonManager.Model.Repository
     {
         DataSet _ds;
 
+        readonly List<StylistVo> _list;
+
         private static StylistRepository _stylistRepository;
 
         public static StylistRepository SR
@@ -26,7 +28,12 @@ namespace HairSalonManager.Model.Repository
 
         private StylistRepository()
         {
+            _list = GetStylists();
+        }
 
+        public List<StylistVo> GetStylistsFromLocal()
+        {
+            return new List<StylistVo>(_list);
         }
 
         public List<StylistVo> GetStylists()
@@ -53,5 +60,63 @@ namespace HairSalonManager.Model.Repository
             return list;
         }
 
+        public bool InsertStylist(StylistVo s)
+        {
+            _sql = "INSERT INTO stylist(stylistId,stylistName,additionalPrice,personalDay) " +
+                "VALUES(@stylistId,@stylistName,@additionalPrice,@personalDay)";
+
+            MySqlDataAdapter adapter = new MySqlDataAdapter(_sql, _conn.Msc);
+
+            adapter.SelectCommand.Parameters.AddWithValue("@stylistId", s.StylistId);
+            adapter.SelectCommand.Parameters.AddWithValue("@stylistName", s.StylistName);
+            adapter.SelectCommand.Parameters.AddWithValue("@additionalPrice", s.AdditionalPrice);
+            adapter.SelectCommand.Parameters.AddWithValue("@personalDay", s.PersonalDay);
+
+            if (Save(adapter) == -1)
+                return false;
+            return true;
+
+            
+        }
+
+        public bool UpdateStylist(StylistVo s)
+        {
+            _sql = "UPDATE  stylist SET(stylistName,additionalPrice,personalDay) " +
+                "VALUES(@stylistName,@additionalPrice,@personalDay WHERE stylistId = @stylistId)";
+
+            MySqlDataAdapter adapter = new MySqlDataAdapter(_sql, _conn.Msc);
+
+            
+            adapter.UpdateCommand.Parameters.AddWithValue("@stylistName", s.StylistName);
+            adapter.UpdateCommand.Parameters.AddWithValue("@additionalPrice", s.AdditionalPrice);
+            adapter.UpdateCommand.Parameters.AddWithValue("@personalDay", s.PersonalDay);
+            adapter.UpdateCommand.Parameters.AddWithValue("@stylistId", s.StylistId);
+
+            if (Save(adapter) == -1)
+                return false;
+            return true;
+
+
+        }
+
+        public bool RemoveStylist(int stylistId)
+        {
+            _sql = "DELETE FROM stylist WHERE stylistId = @stylistId)";
+
+            MySqlDataAdapter adapter = new MySqlDataAdapter(_sql, _conn.Msc);
+
+            adapter.DeleteCommand.Parameters.AddWithValue("@stylistId", stylistId);           
+
+            if (Save(adapter) == -1)
+                return false;
+            return true;
+        }
+
+        public int Save(MySqlDataAdapter adapter)
+        {
+            MySqlCommandBuilder builder = new MySqlCommandBuilder(adapter);
+
+            return adapter.Update(_ds,"stylist");
+        }
     }
 }
