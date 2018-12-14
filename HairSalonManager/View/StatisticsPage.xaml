@@ -13,22 +13,18 @@
             <TabControl.Resources>
                 <Style TargetType="TabItem">
                     <Setter Property="Foreground" Value="White"/>
+                    <Setter Property="Background" Value="#2D2F31" />
                     <Setter Property="Template">
                         <Setter.Value>
                             <ControlTemplate TargetType="TabItem">
                                 <Grid Name="Panel">
                                     <ContentPresenter x:Name="ContentSite"
-                                        VerticalAlignment="Center"
-                                        HorizontalAlignment="Center"
                                         ContentSource="Header"
-                                        Margin="10,2"/>
+                                        Margin="10 2"/>
                                 </Grid>
                                 <ControlTemplate.Triggers>
                                     <Trigger Property="IsSelected" Value="True">
                                         <Setter TargetName="Panel" Property="Background" Value="#1e1e1e" />
-                                    </Trigger>
-                                    <Trigger Property="IsSelected" Value="False">
-                                        <Setter TargetName="Panel" Property="Background" Value="#2D2F31" />
                                     </Trigger>
                                 </ControlTemplate.Triggers>
                             </ControlTemplate>
@@ -36,14 +32,9 @@
                     </Setter>
                 </Style>
             </TabControl.Resources>
-            <TabItem Header="미용사 관리">
+            <TabItem Header="전체 미용사 일정">
                 <Grid>
-                    
-                </Grid>
-            </TabItem>
-            <TabItem Header="서비스 관리">
-                <Grid>
-                    
+
                 </Grid>
             </TabItem>
         </TabControl>
