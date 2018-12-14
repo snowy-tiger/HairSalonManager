@@ -11,7 +11,7 @@ namespace HairSalonManager.ViewModel
 {
     class TimetableViewModel : ViewModelBase
     {
-        #region field, property
+        #region field
         readonly TimetableRepository _timetableRepository;
 
         readonly ReservedServiceRepository _reservedServiceRepository;
@@ -21,7 +21,9 @@ namespace HairSalonManager.ViewModel
         DataRow _row;
 
         DataColumn _col;
+        #endregion
 
+        #region property
         private int _stylistId;
 
         public int StylistId
@@ -110,17 +112,18 @@ namespace HairSalonManager.ViewModel
             }
         }
 
-        private string _selectedRow;
+        private string _selectedTime;
 
-        public string SelectedRow
+        public string SelectedTime
         {
-            get { return _selectedRow; }
+            get { return _selectedTime; }
             set {
-                _selectedRow = value;
-                OnPropertyChanged("SelectedRow");
+                _selectedTime = value;
+                OnPropertyChanged("SelectedTime");
             }
         }
 
+        public Command LoadCommand { get; set; }
         public Command CheckCommand { get; set; }
         #endregion //property
 
@@ -129,8 +132,16 @@ namespace HairSalonManager.ViewModel
         {
             _timetableRepository = timetableRepository;
             _reservedServiceRepository = reservedServiceRepository;
+
+            LoadCommand = new Command(ExecuteLoadMethod, CanExecuteMethod);
             CheckCommand = new Command(ExecuteCheckMethod, CanExecuteMethod);
-        }        
+        }
+
+        private void ExecuteLoadMethod(object obj)
+        {
+            CreateTimeTable();
+            FillUpTimeTable();
+        }
         #endregion
 
         #region method
