@@ -9,7 +9,7 @@ using System.Windows.Input;
 
 namespace HairSalonManager.ViewModel
 {
-    class DataCommandViewModel<T> : CommandViewModel , IDisposable
+    class DataCommandViewModel<T> : CommandViewModel 
     {
         private ReservedServiceRepository  _reservedServiceRepository;
 
@@ -34,40 +34,39 @@ namespace HairSalonManager.ViewModel
         }
 
 
-        public DataCommandViewModel(string displayName,T data) : base(displayName)
+        public DataCommandViewModel(string displayName,ICommand command,T data) : base(displayName,command)
         {            
             Data = data;
         }
 
-        private ICommand _closeCommand;
+        //private ICommand _closeCommand;
 
-        public ICommand CloseCommand
-        {
-            get
-            {
-                if (_closeCommand == null)
-                    _closeCommand = new Command(param => this.OnRequestClose());
+        //public ICommand CloseCommand
+        //{
+        //    get
+        //    {
+        //        if (_closeCommand == null)
+        //            _closeCommand = new Command(param => this.OnRequestClose());
 
-                return _closeCommand;
-            }
-        }
+        //        return _closeCommand;
+        //    }
+        //}
 
-        public event EventHandler RequestClose;
+        //public event EventHandler RequestClose;
 
-        void OnRequestClose()
-        {
-            if (Data as ReservedServiceVo != null)
-            {
-                ReservedServiceVo v = (ReservedServiceVo)Data;
-                ReservedServiceRepository.RemoveReservedService(v.ResNum, v.SerId);
-            }
-            this.Dispose();
-            
-        }
+        //void OnRequestClose()
+        //{
+        //    if (Data as ReservedServiceVo != null)
+        //    {
+        //        ReservedServiceVo v = (ReservedServiceVo)Data;
+        //        ReservedServiceRepository.RemoveReservedService(v.ResNum, v.SerId);
+        //        EventHandler handler = this.RequestClose;
+        //        if (handler != null)
+        //            handler(this, EventArgs.Empty);
+        //        //MainPageViewModel.ServiceCommands.Remove(MainPageViewModel.ServiceCommands.Single(x => (x.Data == v)));
+        //    }                        
+        //}
 
-        public void Dispose()
-        {
-            
-        }
+        
     }
 }

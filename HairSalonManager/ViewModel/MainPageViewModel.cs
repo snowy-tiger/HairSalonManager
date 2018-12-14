@@ -27,9 +27,9 @@ namespace HairSalonManager.ViewModel
         #endregion
 
         #region property        
-        private ObservableCollection<DataCommandViewModel<ReservedServiceVo>> _serviceCommands;
+        private static ObservableCollection<DataCommandViewModel<ReservedServiceVo>> _serviceCommands;
 
-        public ObservableCollection<DataCommandViewModel<ReservedServiceVo>> ServiceCommands
+        public static ObservableCollection<DataCommandViewModel<ReservedServiceVo>> ServiceCommands
         {
             get { return _serviceCommands; }
             set
@@ -275,15 +275,24 @@ namespace HairSalonManager.ViewModel
         {
             List<ReservedServiceVo> list = _reservedServiceRepository.GetReservedServicesFromLocal();
             ServiceCommands.Clear();
-            foreach (var v in list)
+            foreach (var v in list) 
             {
                 if (v.ResNum == resNum)
                 {
                     string serviceName = ServiceList.Single(x => (x.ServiceId == v.SerId)).ServiceName;                    
-                    ServiceCommands.Add(new DataCommandViewModel<ReservedServiceVo>(serviceName,v));
+                    ServiceCommands.Add(new DataCommandViewModel<ReservedServiceVo>(serviceName,new Command(RemoveRS),v));
                 }
             }
         }
-        #endregion        
+
+        private void RemoveRS(object obj)
+        {
+            ReservedServiceVo rsv = (ReservedServiceVo)obj;
+            ServiceCommands.Remove(ServiceCommands.Single(x => x.Data == rsv));
+        }
+        #endregion
+
+
+
     }
 }
