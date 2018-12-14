@@ -128,10 +128,10 @@ namespace HairSalonManager.ViewModel
         #endregion //property
 
         #region ctor
-        public TimetableViewModel(TimetableRepository timetableRepository, ReservedServiceRepository reservedServiceRepository)
+        public TimetableViewModel()
         {
-            _timetableRepository = timetableRepository;
-            _reservedServiceRepository = reservedServiceRepository;
+            _timetableRepository = TimetableRepository.TR;
+            _reservedServiceRepository = ReservedServiceRepository.RSR;
 
             LoadCommand = new Command(ExecuteLoadMethod, CanExecuteMethod);
             CheckCommand = new Command(ExecuteCheckMethod, CanExecuteMethod);

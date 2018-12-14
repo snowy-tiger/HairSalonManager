@@ -58,7 +58,7 @@ namespace HairSalonManager.ViewModel
 
         private void GoPayPage(object parameter)
         {
-            //NavigationServiceProvider.Navigate("/PayPage.xaml");
+            Navigate((int)parameter, "/View/PayPage.xaml", "결제");
         }
 
         private void GoMainPage(object parameter)
