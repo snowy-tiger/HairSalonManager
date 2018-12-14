@@ -16,7 +16,7 @@ namespace HairSalonManager.ViewModel
 
         readonly ReservedServiceRepository _reservedServiceRepository;
 
-        DataTable _dataTable = new DataTable("StyistTimeTable");
+        //DataTable _dataTable = new DataTable("StyistTimeTable");
 
         DataRow _row;
 
@@ -25,6 +25,19 @@ namespace HairSalonManager.ViewModel
         #endregion
 
         #region property
+
+        private DataTable _dataTable;
+
+        public DataTable DataTable
+        {
+            get { return _dataTable; }
+            set {
+                _dataTable = value;
+                OnPropertyChanged("DataTable");
+            }
+        }
+
+
         private int _stylistId;
 
         public int StylistId
