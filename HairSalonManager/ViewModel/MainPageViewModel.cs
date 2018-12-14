@@ -74,150 +74,7 @@ namespace HairSalonManager.ViewModel
         public Command InitalizeCommand { get; }
 
 
-        //private int _resNum;
-
-        public uint ResNum
-        {
-            get
-            {                
-                return SelectedRes.ResNum;
-            }
-            set
-            {
-                SelectedRes.ResNum = value;
-                OnPropertyChanged("ResNum");
-            }
-        }
-
-        //private int _stylistId;
-
-        public uint? StylistId
-        {
-            get
-            {                
-                return SelectedRes.StylistId;
-            }
-            set
-            {               
-                SelectedRes.StylistId = value;
-                OnPropertyChanged("StylistId");
-            }
-        }
-
-        //private string _userTel;
-
-        public string UserTel
-        {
-            get
-            {                
-                return SelectedRes.UserTel;
-            }
-            set
-            {                
-                SelectedRes.UserTel = value;
-                OnPropertyChanged("UserTel");
-            }
-        }
-
-        //private string _note;
-
-        public string Note
-        {
-            get
-            {  
-                return SelectedRes.Note; }
-            set
-            {
-                SelectedRes.Note = value;
-                OnPropertyChanged("Note");
-            }
-        }
-
-        //private int _gender;
-
-        public int? Gender
-        {
-            get
-            {             
-                return SelectedRes.Gender;
-            }
-            set
-            {
-                SelectedRes.Gender = value;
-                OnPropertyChanged("Gender");
-            }
-        }
-
-       // private DateTime _userBirthday;
-
-        public DateTime? UserBirthday
-        {
-            get
-            {                
-                return SelectedRes.UserBirthday; }
-            set
-            {
-                SelectedRes.UserBirthday = value;
-                OnPropertyChanged("UserBirthday");
-            }
-        }
-
-        //private DateTime _startAt;
-
-        public DateTime? StartAt
-        {
-            get
-            {                
-                return SelectedRes.StartAt;
-            }
-            set
-            {
-                SelectedRes.StartAt = value;
-                OnPropertyChanged("StartAt");
-            }
-        }
-
-        //private DateTime _endAt;
-
-        public DateTime? EndAt
-        {
-            get
-            {                                  
-                return SelectedRes.EndAt; }
-            set
-            {
-                SelectedRes.EndAt = value;
-                OnPropertyChanged("EndAt");
-            }
-        }
-
-        //private string _userName;
-
-        public string UserName
-        {
-            get {                
-                return SelectedRes.UserName; }
-            set
-            {
-                SelectedRes.UserName = value;
-                OnPropertyChanged("UserName");
-            }
-        }
-
-        private bool _isPaid;
-
-        
-
-        public bool IsPaid
-        {
-            get { 
-                return _isPaid; }
-            set
-            {
-                _isPaid = value;
-                OnPropertyChanged("IsPaid");
-            }
-        }
+       
 
         private ServiceVo _selectedService;
 
@@ -235,16 +92,16 @@ namespace HairSalonManager.ViewModel
 
         public bool Woman
         {
-            get { return woman; }
-            set { if(value == true) Gender = 0; }
+            get { return (SelectedRes.Gender == 0) ? true : false; }
+            set { woman = value;  if(value == true) SelectedRes.Gender = 0; OnPropertyChanged("Woman"); }
         }
 
         private bool man;
 
         public bool Man
         {
-            get { return man; }
-            set { if (value == true) Gender = 1; }
+            get { return (SelectedRes.Gender == 1) ? true : false; }
+            set { man = value;  if (value == true) SelectedRes.Gender = 1; OnPropertyChanged("Man"); }
         }
 
 

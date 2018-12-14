@@ -65,7 +65,7 @@ namespace HairSalonManager.Model.Repository
                 ReservationVo rv = new ReservationVo();
                 rv.ResNum = (uint)rdr["resNum"];
                 rv.EndAt = rdr["endAt"] as DateTime?;
-                rv.Gender = rdr["gender"] as int?;
+                rv.Gender = (bool)rdr["gender"] ? 1 : 0;
                 rv.IsPaid = (bool)rdr["isPaid"];
                 rv.Note = rdr["note"] as string;
                 rv.StartAt = rdr["startAt"] as DateTime?;
@@ -92,7 +92,7 @@ namespace HairSalonManager.Model.Repository
                 ReservationVo rv = new ReservationVo();
                 rv.ResNum = (uint)rdr["resNum"];
                 rv.EndAt = rdr["endAt"] as DateTime?;
-                rv.Gender = rdr["gender"] as int?;
+                rv.Gender = (bool)rdr["gender"] ? 1 : 0;
                 rv.IsPaid = (bool)rdr["isPaid"];
                 rv.Note = rdr["note"] as string;
                 rv.StartAt = rdr["startAt"] as DateTime?;

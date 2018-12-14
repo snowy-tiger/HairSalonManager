@@ -16,7 +16,7 @@ namespace HairSalonManager.ViewModel
 
         readonly ReservedServiceRepository _reservedServiceRepository;
 
-        DataTable _dataTable = new DataTable("StyistTimeTable");
+        //DataTable _dataTable = new DataTable("StyistTimeTable");
 
         DataRow _row;
 
@@ -25,6 +25,19 @@ namespace HairSalonManager.ViewModel
         #endregion
 
         #region property
+
+        private DataTable _dataTable;
+
+        public DataTable DataTable
+        {
+            get { return _dataTable; }
+            set {
+                _dataTable = value;
+                OnPropertyChanged("DataTable");
+            }
+        }
+
+
         private int _stylistId;
 
         public int StylistId
@@ -124,7 +137,6 @@ namespace HairSalonManager.ViewModel
             }
         }
 
-        public Command LoadCommand { get; set; }
         public Command CheckCommand { get; set; }
         #endregion //property
 
@@ -134,15 +146,12 @@ namespace HairSalonManager.ViewModel
             _timetableRepository = TimetableRepository.TR;
             _reservedServiceRepository = ReservedServiceRepository.RSR;
 
-            LoadCommand = new Command(ExecuteLoadMethod, CanExecuteMethod);
             CheckCommand = new Command(ExecuteCheckMethod, CanExecuteMethod);
-        }
 
-        private void ExecuteLoadMethod(object obj)
-        {
             CreateTimeTable();
             FillUpTimeTable();
         }
+
         #endregion
 
         #region method
@@ -163,17 +172,16 @@ namespace HairSalonManager.ViewModel
 
         public void FillUpTimeTable()
         {
-            TimeSpan dateDiff = EndAt - StartAt;
-            int diffHour = dateDiff.Hours;
-            int diffMinute = dateDiff.Minutes;
-            int result = ((diffHour * 60) + diffMinute) / 30;
-            int indexNum = (((diffHour * 60) + diffMinute) / 30) + 1;
+            int block = OperationTime / 30;
 
-            if (_col.ColumnName==(StartAt.Hour+" : " + StartAt.Minute))
+            for (int i=0; i<49; i++)
             {
-                for(int i=0; i<result; i++)
+                if (_col.ColumnName.Equals(StartAt.Hour + " : " + StartAt.Minute)==true)
                 {
-                    _row[indexNum] = ResNum;
+                    for (int j = 0; j < block; j++)
+                    {
+                        _col.DefaultValue = ResNum;
+                    }
                 }
             }
         }
@@ -187,6 +195,7 @@ namespace HairSalonManager.ViewModel
         {
             _reservedServiceRepository.GetReservedServices(ResNum);
         }
+        
         #endregion
     }
 }
