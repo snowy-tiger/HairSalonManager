@@ -24,7 +24,7 @@ namespace HairSalonManager.Model.Repository
                 if (_reservedServiceRepository == null)
                     _reservedServiceRepository = new ReservedServiceRepository();
                 return _reservedServiceRepository;
-            }           
+            }
         }
 
 
@@ -65,29 +65,27 @@ namespace HairSalonManager.Model.Repository
         public List<ReservedServiceVo> GetReservedServices()
         {
             _conn.Msc.Open();
-            List<ReservedServiceVo> list = new List<ReservedServiceVo>(); 
+            List<ReservedServiceVo> list = new List<ReservedServiceVo>();
             _sql = "SELECT * FROM reservedservice";
-            MySqlCommand cmd = new MySqlCommand(_sql,_conn.Msc);
+            MySqlCommand cmd = new MySqlCommand(_sql, _conn.Msc);
             MySqlDataReader rdr = cmd.ExecuteReader();
 
             while (rdr.Read())
             {
                 ReservedServiceVo rsv = new ReservedServiceVo();
-                rsv.ResNum = (uint) rdr["resNum"];
-               rsv.SerId = (ushort) rdr["serId"];
+                rsv.ResNum = (uint)rdr["resNum"];
+                rsv.SerId = (ushort)rdr["serId"];
                 list.Add(rsv);
             }
             _conn.Msc.Close();
             return list;
         }
 
-        //public bool UpdateReservedService(ReservedServiceVo rsv)
+        //public bool InsertReservedService(ReservedServiceVo rsv)
         //{
-        //    _sql = "UPDATE reservedservice SET serId = @serId Where resNuM = @resNum AND serId = @serId";
+        //    _conn.Msc.Open();
+        //    _sql = "INSERT INTO reservedservice(resNum,serId) VALUES(@resNum,@serId)";
         //    MySqlCommand cmd = new MySqlCommand(_sql, _conn.Msc);
-
-        //    cmd.Parameters.Add("@serId",rsv.)
-        //    Mysql
         //}
 
         public bool RemoveReservedService(uint resNum,uint serId)
