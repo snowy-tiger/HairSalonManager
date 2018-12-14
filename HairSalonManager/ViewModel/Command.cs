@@ -33,6 +33,7 @@ namespace HairSalonManager.ViewModel
 
         public bool CanExecute(object parameter)
         {
+
             //return _func(parameter);
             return true;
         }
