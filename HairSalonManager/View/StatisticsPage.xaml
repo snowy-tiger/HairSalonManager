@@ -5,10 +5,21 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:HairSalonManager.View"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="384" d:DesignWidth="845"
       Title="Statistics">
 
     <Grid>
-        
+        <TabControl Margin="10" Background="Transparent" BorderThickness="0">
+            <TabItem Header="미용사" Width="100" Height="50">
+                <Grid>
+                    
+                </Grid>
+            </TabItem>
+            <TabItem Header="서비스" Width="100" Height="50">
+                <Grid>
+                    
+                </Grid>
+            </TabItem>
+        </TabControl>
     </Grid>
 </Page>

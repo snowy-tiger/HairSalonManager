@@ -47,7 +47,7 @@
             </Grid.ColumnDefinitions>
 
             <!-- 예약자 성함 -->
-            <TextBlock Text="예약자 성함" Grid.Row="0" Grid.Column="0"/>
+            <TextBlock Text="예약자 성함" VerticalAlignment="Top" Grid.Row="0" Grid.Column="0"/>
             <TextBox Height="23" VerticalAlignment="Top" Text="{Binding SelectedRes.UserName}" Grid.Row="0" Grid.Column="1"/>
 
             <!-- 예약 번호 -->
@@ -98,7 +98,7 @@
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
                             <TextBlock Text="{Binding Path=DisplayName}" Grid.Column="0"/>
-                            <Button Content="X" Foreground="DarkRed" Command="{Binding Command}" Grid.Column="1"/>
+                            <Button Content="X" Foreground="DarkRed" Command="{Binding CloseCommand}" Grid.Column="1"/>
                         </Grid>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
