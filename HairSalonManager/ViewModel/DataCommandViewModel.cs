@@ -9,7 +9,7 @@ using System.Windows.Input;
 
 namespace HairSalonManager.ViewModel
 {
-    class DataCommandViewModel<T> : CommandViewModel
+    class DataCommandViewModel<T> : CommandViewModel , IDisposable
     {
         private ReservedServiceRepository  _reservedServiceRepository;
 
@@ -55,12 +55,19 @@ namespace HairSalonManager.ViewModel
         public event EventHandler RequestClose;
 
         void OnRequestClose()
-        {           
+        {
             if (Data as ReservedServiceVo != null)
             {
                 ReservedServiceVo v = (ReservedServiceVo)Data;
                 ReservedServiceRepository.RemoveReservedService(v.ResNum, v.SerId);
-            }                        
+            }
+            this.Dispose();
+            
+        }
+
+        public void Dispose()
+        {
+            
         }
     }
 }
