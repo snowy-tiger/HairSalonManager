@@ -31,7 +31,7 @@ namespace HairSalonManager.ViewModel
         {
             return new List<ButtonCommandViewModel>()
             {
-                new ButtonCommandViewModel("메인",new Command(GoMainPage),"#2D2F31"),
+                new ButtonCommandViewModel("메인",new Command(GoMainPage),"#1e1e1e"),
                 new ButtonCommandViewModel("결제",new Command(GoPayPage),"#2D2F31"),
                 new ButtonCommandViewModel("통계",new Command(GoStatisticsPage),"#2D2F31"),
                 new ButtonCommandViewModel("관리",new Command(GoManagePage),"#2D2F31"),
@@ -153,7 +153,7 @@ namespace HairSalonManager.ViewModel
 
         public void Navigate(int index, string uri, string title)
         {
-            MenuCommands[index].Color = "#2d2d30";
+            MenuCommands[index].Color = "#1e1e1e";
             MenuCommands[_previousMenuIndex].Color = "#2D2F31";
             NavigationUri = uri;
             Title = title;

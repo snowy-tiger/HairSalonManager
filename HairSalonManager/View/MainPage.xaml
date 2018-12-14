@@ -12,6 +12,13 @@
     <Page.DataContext>
         <local1:MainPageViewModel/>
     </Page.DataContext>
+    <Page.Resources>
+        <Style TargetType="TextBlock">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+    </Page.Resources>
+    
     <Grid>
         <DataGrid HorizontalAlignment="Left" Height="364" Margin="10,10,0,0" VerticalAlignment="Top" Width="492" IsReadOnly="True" ItemsSource="{Binding ResList}" SelectedItem="{Binding SelectedRes}" />
         <TextBlock Text="예약번호" Foreground="White" HorizontalAlignment="Left" Margin="507,54,0,0" VerticalAlignment="Top"/>
@@ -35,7 +42,7 @@
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <TextBlock Text="{Binding Path=DisplayName}" Grid.Column="0"/>
-                        <Button Content="X" Foreground="DarkRed" Command="{Binding CloseCommand}" Grid.Column="1"/>
+                        <Button Content="X" Foreground="DarkRed" Command="{Binding Command}" Grid.Column="1"/>
                     </Grid>
                     
                 </DataTemplate>
