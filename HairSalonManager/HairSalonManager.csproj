@@ -71,6 +71,7 @@
     <Compile Include="ViewModel\CloseConfirmViewModel.cs" />
     <Compile Include="ViewModel\Command.cs" />
     <Compile Include="ViewModel\CommandViewModel.cs" />
+    <Compile Include="ViewModel\DataCommandViewModel.cs" />
     <Compile Include="ViewModel\MainPageViewModel.cs" />
     <Compile Include="ViewModel\MainWindowViewModel.cs" />
     <Compile Include="ViewModel\MenuViewModel.cs" />

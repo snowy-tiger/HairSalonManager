@@ -9,6 +9,11 @@ namespace HairSalonManager.ViewModel
 {
     class CommandViewModel : ViewModelBase
     {
+
+        public CommandViewModel(string displayName)
+        {
+            base.DisplayName = displayName;
+        }
         public CommandViewModel(string displayName, ICommand command)
         {
             if (command == null)

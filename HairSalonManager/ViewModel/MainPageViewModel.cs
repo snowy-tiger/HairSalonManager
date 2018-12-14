@@ -27,9 +27,9 @@ namespace HairSalonManager.ViewModel
         #endregion
 
         #region property        
-        private ObservableCollection<CommandViewModel> _serviceCommands;
+        private ObservableCollection<DataCommandViewModel<ReservedServiceVo>> _serviceCommands;
 
-        public ObservableCollection<CommandViewModel> ServiceCommands
+        public ObservableCollection<DataCommandViewModel<ReservedServiceVo>> ServiceCommands
         {
             get { return _serviceCommands; }
             set
@@ -61,7 +61,8 @@ namespace HairSalonManager.ViewModel
             set {
                 _selectedRes = value;                
                 OnPropertyChanged("SelectedRes");
-                onSelectedResChanged(SelectedRes.ResNum);
+                if(SelectedRes != null)
+                    onSelectedResChanged(SelectedRes.ResNum);
             }
         }
         
@@ -229,7 +230,7 @@ namespace HairSalonManager.ViewModel
             _selectedRes = new ReservationVo();
             ResList = new ObservableCollection<ReservationVo>(_reservationRepository.GetReservations());
             ServiceList = new ObservableCollection<ServiceVo>(_serviceRepository.ServiceList);
-            ServiceCommands = new ObservableCollection<CommandViewModel>();
+            ServiceCommands = new ObservableCollection<DataCommandViewModel<ReservedServiceVo>>();
 
             InsertCommand = new Command(ExecuteInsertMethod, CanExecuteMethod);
             ModifyCommand = new Command(ExecuteModifyMethod, CanExecuteMethod);
@@ -245,9 +246,9 @@ namespace HairSalonManager.ViewModel
 
         }
         private void ExecuteDeleteMethod(object obj)
-        {
-            ResList.Remove(SelectedRes);
+        {            
             _reservationRepository.RemoveReservation(SelectedRes.ResNum);
+            ResList.Remove(SelectedRes);
         }
 
         private void ExecuteModifyMethod(object obj)
@@ -273,39 +274,16 @@ namespace HairSalonManager.ViewModel
         private void onSelectedResChanged(uint resNum)
         {
             List<ReservedServiceVo> list = _reservedServiceRepository.GetReservedServicesFromLocal();
+            ServiceCommands.Clear();
             foreach (var v in list)
             {
                 if (v.ResNum == resNum)
                 {
-                    string serviceName = ServiceList.Single(x => (x.ServiceId == v.SerId)).ServiceName;
-                    ServiceCommands.Add(new CommandViewModel(serviceName, CloseCommand));
+                    string serviceName = ServiceList.Single(x => (x.ServiceId == v.SerId)).ServiceName;                    
+                    ServiceCommands.Add(new DataCommandViewModel<ReservedServiceVo>(serviceName,v));
                 }
             }
         }
-        #endregion
-
-        #region closecommand
-        private ICommand _closeCommand;
-
-        public ICommand CloseCommand
-        {
-            get
-            {
-                if (_closeCommand == null)
-                    _closeCommand = new Command(param => this.OnRequestClose());
-
-                return _closeCommand;
-            }
-        }
-
-        public event EventHandler RequestClose;
-
-        void OnRequestClose()
-        {
-            EventHandler handler = this.RequestClose;
-            if (handler != null)
-                handler(this, EventArgs.Empty);
-        }
-        #endregion
+        #endregion        
     }
 }
