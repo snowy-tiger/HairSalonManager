@@ -231,6 +231,23 @@ namespace HairSalonManager.ViewModel
             }
         }
 
+        private bool woman;
+
+        public bool Woman
+        {
+            get { return woman; }
+            set { if(value == true) Gender = 0; }
+        }
+
+        private bool man;
+
+        public bool Man
+        {
+            get { return man; }
+            set { if (value == true) Gender = 1; }
+        }
+
+
         #endregion
 
         #region ctor
