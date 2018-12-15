@@ -119,10 +119,7 @@ namespace HairSalonManager.Model.Repository
 
             MySqlCommand cmd = new MySqlCommand(_sql, _conn.Msc);
 
-            cmd.Parameters.AddWithValue("@stylistId", rv.StylistId);
-
-
-            //cmd.Parameters.Add("@stylistId", rv.StylistId);
+            cmd.Parameters.AddWithValue("@stylistId", rv.StylistId);            
             cmd.Parameters.AddWithValue("@userTel", rv.UserTel);
             cmd.Parameters.AddWithValue("@note", rv.Note);
             cmd.Parameters.AddWithValue("@gender", rv.Gender);
