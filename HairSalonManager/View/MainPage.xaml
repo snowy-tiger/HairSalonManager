@@ -89,8 +89,8 @@
             <!-- 성별 -->
             <TextBlock Text="성별" Grid.Row="4" Grid.Column="0"/>
             <StackPanel Orientation="Horizontal" Grid.Row="4" Grid.Column="1">
-                <RadioButton GroupName="Gender" Content="남성" Foreground="White" IsChecked="{Binding Man}"/>
-                <RadioButton GroupName="Gender" Content="여성" Foreground="White" IsChecked="{Binding Woman}"/>
+                <RadioButton GroupName="Gender" Content="남성" Foreground="White" IsChecked="{Binding SelectedRes.Gender,Converter={StaticResource GenderConverter},ConverterParameter=0}"/>
+                <RadioButton GroupName="Gender" Content="여성" Foreground="White" IsChecked="{Binding SelectedRes.Gender,Converter={StaticResource GenderConverter},ConverterParameter=1}"/>
             </StackPanel>
 
             <!-- 예약시간 -->

@@ -27,9 +27,5 @@ namespace HairSalonManager.Model.Vo
         public string UserName { get; set; }
 
         public bool IsPaid { get; set; }
-
-        public bool IsMan { get; set; }
-
-        public bool IsWoman { get; set; }
     }
 }
