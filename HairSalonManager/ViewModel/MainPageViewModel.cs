@@ -21,6 +21,8 @@ namespace HairSalonManager.ViewModel
 
         readonly ServiceRepository _serviceRepository;
 
+        readonly StylistRepository _stylistRepository;
+
         private ObservableCollection<ReservationVo> _resList;
        
 
@@ -51,6 +53,14 @@ namespace HairSalonManager.ViewModel
             {
                 _resList = value;                
             }
+        }
+
+        private ObservableCollection<StylistVo> _stylistList;
+
+        public ObservableCollection<StylistVo> StylistList
+        {
+            get { return _stylistList; }
+            set { _stylistList = value; }
         }
 
         private ReservationVo _selectedRes;
@@ -115,11 +125,13 @@ namespace HairSalonManager.ViewModel
             _reservationRepository = ReservationRepository.Rr; ;
             _reservedServiceRepository = ReservedServiceRepository.RSR;
             _serviceRepository = ServiceRepository.SR;
+            _stylistRepository = StylistRepository.SR;
 
             _selectedRes = new ReservationVo();
             ResList = new ObservableCollection<ReservationVo>(_reservationRepository.GetReservations());
             ServiceList = new ObservableCollection<ServiceVo>(_serviceRepository.ServiceList);
             ServiceCommands = new ObservableCollection<DataCommandViewModel<ReservedServiceVo>>();
+            StylistList = new ObservableCollection<StylistVo>(_stylistRepository.GetStylists());
 
             InsertCommand = new Command(ExecuteInsertMethod, CanExecuteMethod);
             ModifyCommand = new Command(ExecuteModifyMethod, CanExecuteMethod);
