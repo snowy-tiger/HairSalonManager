@@ -6,5 +6,6 @@
              StartupUri="MainWindow.xaml">
     <Application.Resources>
         <util:GenderRadioConverter x:Key="GenderConverter"/>
+        <util:StylistIndexConverter x:Key="StylistIndexConverter"/>
     </Application.Resources>
 </Application>
