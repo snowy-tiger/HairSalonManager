@@ -121,10 +121,15 @@ namespace HairSalonManager.ViewModel
         public bool IsSelected //선택될때 -> gender가 -1가 아닐때
         {
             get {
-                if (SelectedRes.Gender == -1)
+                if (SelectedRes == null)
                 {
                     _isSelected = true;
-                }                
+                }
+                else
+                {
+                    if (SelectedRes.Gender == -1)
+                        _isSelected = true;
+                }
                 return _isSelected;
             }
 
