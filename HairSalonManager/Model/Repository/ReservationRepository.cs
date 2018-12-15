@@ -28,24 +28,28 @@ namespace HairSalonManager.Model.Repository
         private ReservationRepository()
         {
             _conn = Connection.Conn;
-            RecentResNum = 0;            
+            //RecentResNum = 0;            
         }
         #endregion
 
         #region Fields
 
-        private static uint _recentResNum;
-        
+        private List<ReservationVo> _list;
+
+        public List<ReservationVo> List
+        {
+            get { return _list; }
+            set { _list = value; }
+        }
+
+
         public uint RecentResNum {
             get
             {
-                return _recentResNum;
-            }
-            private set
-            {
-                _recentResNum = value;
-            }
+                return (uint)List.Count;
+            }           
         }
+
         #endregion
         
         #region Reservation Methods
@@ -69,9 +73,9 @@ namespace HairSalonManager.Model.Repository
                 rv.UserBirthday = rdr["userBirthday"] as DateTime?;
                 rv.UserName = rdr["userName"] as string;
                 rv.UserTel = rdr["userTel"] as string;
-                list.Add(rv);
-                RecentResNum = rv.ResNum; //계속 최근 받아온 예약번호를 저장한다 --> 추가적인 예약알람을 위해
+                list.Add(rv);              
             }
+            List = list;
             _conn.Msc.Close();            
             return list;
         }
@@ -96,8 +100,7 @@ namespace HairSalonManager.Model.Repository
                 rv.UserBirthday = rdr["userBirthday"] as DateTime?;
                 rv.UserName = rdr["userName"] as string;
                 rv.UserTel = rdr["userTel"] as string;
-                list.Add(rv);
-                RecentResNum = rv.ResNum;
+                list.Add(rv);               
             }
             _conn.Msc.Close();            
             return list;
@@ -174,6 +177,13 @@ namespace HairSalonManager.Model.Repository
             _conn.Msc.Close();
             return true; //성공시
         }
+
+        //public int GetRecentNum()
+        //{
+        //    _conn.Msc.Open();
+
+        //    _sql = "SELECT LAST() FROM "
+        //}
         #endregion 
     }
 }

@@ -265,7 +265,7 @@ namespace HairSalonManager.ViewModel
         {
             if (rv.UserName != null && rv.UserTel != null && rv.StylistId != null && rv.Gender != -1)
             {
-                if (rv.UserTel.Length > 10)
+                if (rv.UserTel.Length > 12)
                 {
                     MessageBox.Show("번호가 너무 깁니다.");
                     return false;

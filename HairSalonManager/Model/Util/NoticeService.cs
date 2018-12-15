@@ -32,6 +32,7 @@ namespace HairSalonManager.Model.Util
         uint _recentNum;
 
         ReservationRepository _rr;
+        
 
         private NoticeService()
         {
