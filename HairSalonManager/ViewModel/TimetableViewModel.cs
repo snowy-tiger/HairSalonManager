@@ -124,6 +124,15 @@ namespace HairSalonManager.ViewModel
             set { _stylistList = value; }
         }
 
+        private ObservableCollection<TimeTableVo> _timeTableList;
+
+        public ObservableCollection<TimeTableVo> TimeTableList
+        {
+            get { return _timeTableList; }
+            set { _timeTableList = value; }
+        }
+
+
         private string _selectedTime;
 
         public string SelectedTime
@@ -148,9 +157,9 @@ namespace HairSalonManager.ViewModel
             _stylistRepository = StylistRepository.SR;
 
             StylistList = new ObservableCollection<StylistVo>(_stylistRepository.GetStylistsFromLocal());
+            TimeTableList = new ObservableCollection<TimeTableVo>(_timetableRepository.GetTimeTables());
 
-            CreateTimeTable();
-            FillUpTimeTable();
+            ShowTimeTable();
 
             CheckCommand = new Command(ExecuteCheckMethod, CanExecuteMethod);
         }
@@ -158,8 +167,11 @@ namespace HairSalonManager.ViewModel
         #endregion
 
         #region method
-        public void CreateTimeTable()
+        public void ShowTimeTable()
         {
+            int block = OperationTime / 30;
+            
+
             _col = _dataTable.Columns.Add();
             _col.ColumnName = "StylistName";
 
@@ -169,34 +181,27 @@ namespace HairSalonManager.ViewModel
                 _col.ColumnName = (i / 2).ToString("D2") + " : " + (i % 2 * 30).ToString("D2");
             }
 
-            for (int i = 0; i < StylistList.Count; i++)
+            for (int k = 0; k < StylistList.Count; k++)
             {
                 _row = _dataTable.NewRow();
-                _dataTable.Rows.Add(_row);
-            }
-        }
-
-        public void FillUpTimeTable()
-        {
-            if (StartAt.ToString("d").Equals(SelectedDate.ToString("d")))
-            {
-                int block = OperationTime / 30;
-
-                //_row["StylistName"] = StylistList.;
-
+                _row["StylistName"] = StylistList[k].StylistName;
                 for (int i = 0; i < 48; i++)
                 {
-                    if (_col.ColumnName.Equals(StartAt.Hour + " : " + StartAt.Minute) == true)
+                    if (_col.ColumnName.Equals(StartAt.Hour + " : " + StartAt.Minute))
                     {
                         for (int j = 0; j < block; j++)
                         {
-                            _col.DefaultValue = ResNum;
+                            _row[i + 1] = ResNum;
                         }
                     }
                 }
+                _dataTable.Rows.Add(_row);
             }
         }
-        
+            //(StartAt.ToString("d").Equals(SelectedDate.ToString("d")))            
+
+            
+
         private bool CanExecuteMethod(object arg)
         {
             return true;
