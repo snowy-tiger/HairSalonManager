@@ -1,9 +1,12 @@
 ﻿using HairSalonManager.Model.Repository;
+using HairSalonManager.Model.Util;
 using HairSalonManager.Model.Vo;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
+using System.Windows.Threading;
 
 namespace HairSalonManager.ViewModel
 {
@@ -20,8 +23,10 @@ namespace HairSalonManager.ViewModel
         readonly StylistRepository _stylistRepository;
 
         private ObservableCollection<ReservationVo> _resList;
-       
 
+        DispatcherTimer _timer;
+
+        NoticeService _noticeService;
         #endregion
 
         #region property        
@@ -49,7 +54,8 @@ namespace HairSalonManager.ViewModel
             get { return _resList; }
             set
             {
-                _resList = value;                
+                _resList = value;
+                OnPropertyChanged("ResList");
             }
         }
 
@@ -159,13 +165,13 @@ namespace HairSalonManager.ViewModel
 
         #region ctor
         public MainPageViewModel()
-        {
+        {            
             _reservationRepository = ReservationRepository.Rr; ;
             _reservedServiceRepository = ReservedServiceRepository.RSR;
             _serviceRepository = ServiceRepository.SR;
             _stylistRepository = StylistRepository.SR;
 
-            _selectedRes = new ReservationVo();
+            _selectedRes = new ReservationVo();            
             SelectedRes.Gender = -1;
             ResList = new ObservableCollection<ReservationVo>(_reservationRepository.GetReservations());
             ServiceList = new ObservableCollection<ServiceVo>(_serviceRepository.GetServicesFromLocal());
@@ -177,7 +183,15 @@ namespace HairSalonManager.ViewModel
             DeleteCommand = new Command(ExecuteDeleteMethod, CanExecuteMethod);
             InsertRSCommand = new Command(ExecuteInsertRSMethod, CanExecuteMethod);
             InitalizeCommand = new Command(ExecuteInitalizeMethod, CanExecuteMethod);
+
+            _noticeService = NoticeService.NS;
+
+            _timer = new DispatcherTimer();
+            _timer.Interval = new System.TimeSpan(0, 0, 5);
+            _timer.Tick += _timer_Tick;
+            _timer.Start();
         }
+       
 
         #endregion
 
@@ -211,7 +225,7 @@ namespace HairSalonManager.ViewModel
             }
             SelectedRes.ResNum =  _reservationRepository.InsertReservation(SelectedRes);
             ResList.Add(SelectedRes);
-            
+            _reservationRepository.RecentResNum++;
         }
 
         private void ExecuteRemoveMethod(ReservedServiceVo rsv)
@@ -265,7 +279,7 @@ namespace HairSalonManager.ViewModel
             _reservedServiceRepository.RemoveReservedService(rsv.ResNum, rsv.SerId);
             ServiceCommands.Remove(ServiceCommands.Single(x => (x.Data == rsv)));
         }
-
+       
         private bool Check(ReservationVo rv)
         {
             if (rv.UserName != null && rv.UserTel != null && rv.StylistId != null && rv.Gender != -1)
@@ -280,6 +294,17 @@ namespace HairSalonManager.ViewModel
             MessageBox.Show("빈칸이 존재합니다.");
             return false;
         }
+
+        private void _timer_Tick(object sender, EventArgs e)
+        {
+            if (_noticeService.IsNewReservationExistent == true)
+            {
+                ResList = new ObservableCollection<ReservationVo>(_reservationRepository.GetReservations());
+                _noticeService.IsNewReservationExistent = false;
+            }
+
+        }
+        
         #endregion
 
     }

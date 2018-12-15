@@ -24,7 +24,7 @@ namespace HairSalonManager
         public MainWindow()
         {
             InitializeComponent();
-            //NoticeService.NS.StartNoticeService();
+            NoticeService.NS.StartNoticeService();
         }
     }
 }
