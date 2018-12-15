@@ -2,6 +2,7 @@
 using HairSalonManager.Model.Vo;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Data;
 using System.Linq;
 using System.Text;
@@ -59,18 +60,7 @@ namespace HairSalonManager.ViewModel
                 OnPropertyChanged("StylistId");
             }
         }
-
-        private string _stylistName;
-
-        public string StylistName
-        {
-            get { return _stylistName; }
-            set {
-                _stylistName = value;
-                OnPropertyChanged("StylistName");
-            }
-        }
-
+       
         private int _resNum;
 
         public int ResNum
@@ -126,15 +116,12 @@ namespace HairSalonManager.ViewModel
             }
         }
 
-        private string _serName;
+        private ObservableCollection<StylistVo> _stylistList;
 
-        public string SerName
+        public ObservableCollection<StylistVo> StylistList
         {
-            get { return _serName; }
-            set {
-                _serName = value;
-                OnPropertyChanged("SerName");
-            }
+            get { return _stylistList; }
+            set { _stylistList = value; }
         }
 
         private string _selectedTime;
@@ -155,10 +142,12 @@ namespace HairSalonManager.ViewModel
         public TimetableViewModel()
         {
             SelectedDate = DateTime.Today;
+
             _timetableRepository = TimetableRepository.TR;
             _reservedServiceRepository = ReservedServiceRepository.RSR;
             _stylistRepository = StylistRepository.SR;
 
+            StylistList = new ObservableCollection<StylistVo>(_stylistRepository.GetStylistsFromLocal());
 
             CreateTimeTable();
             FillUpTimeTable();
@@ -171,8 +160,6 @@ namespace HairSalonManager.ViewModel
         #region method
         public void CreateTimeTable()
         {
-            int stylistCount = _stylistRepository.GetStylists().Count;
-            
             _col = _dataTable.Columns.Add();
             _col.ColumnName = "StylistName";
 
@@ -182,7 +169,7 @@ namespace HairSalonManager.ViewModel
                 _col.ColumnName = (i / 2).ToString("D2") + " : " + (i % 2 * 30).ToString("D2");
             }
 
-            for (int i = 0; i < stylistCount; i++)
+            for (int i = 0; i < StylistList.Count; i++)
             {
                 _row = _dataTable.NewRow();
                 _dataTable.Rows.Add(_row);
@@ -195,7 +182,7 @@ namespace HairSalonManager.ViewModel
             {
                 int block = OperationTime / 30;
 
-                _col.DefaultValue =  StylistName;
+                //_row["StylistName"] = StylistList.;
 
                 for (int i = 0; i < 48; i++)
                 {
