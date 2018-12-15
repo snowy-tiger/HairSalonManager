@@ -1,14 +1,9 @@
 ﻿using HairSalonManager.Model.Repository;
-using HairSalonManager.Model.Util;
 using HairSalonManager.Model.Vo;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.IO;
 using System.Linq;
-using System.Text;
 using System.Windows;
-using System.Windows.Input;
 
 namespace HairSalonManager.ViewModel
 {
@@ -36,7 +31,9 @@ namespace HairSalonManager.ViewModel
         {
             get { return _serviceCommands; }
             set
-            { _serviceCommands = value; }
+            {
+                _serviceCommands = value;               
+            }
         }
             
         private ObservableCollection<ServiceVo> _servicelist;
@@ -68,9 +65,11 @@ namespace HairSalonManager.ViewModel
 
         public ReservationVo SelectedRes
         {
-            get { return _selectedRes; }
+            get { return _selectedRes;  }
             set {
                 _selectedRes = value;                
+                IsSelected = false;
+                IsSelectedService = true;
                 OnPropertyChanged("SelectedRes");
                 if(SelectedRes != null)
                     onSelectedResChanged(SelectedRes.ResNum);
@@ -86,31 +85,18 @@ namespace HairSalonManager.ViewModel
 
        
 
-        private ServiceVo _selectedService;
+        private ServiceVo _isselectedService;
 
         public ServiceVo SelectedService
         {
-            get { return _selectedService; }
+            get { return _isselectedService; }
             set
             {
-                _selectedService = value;
-                OnPropertyChanged("SelectedService");
+                _isselectedService = value;
+                OnPropertyChanged("IsSelectedService");
             }
         }
-
-        private StylistVo _selectedStylist;
-
-        public StylistVo SelectedStylist
-        {
-            get { return _selectedStylist; }
-            set
-            {
-                _selectedStylist = value;
-                SelectedRes.StylistId = _selectedStylist.StylistId;                
-            }
-        }
-
-
+       
         private bool isMan;
 
         public bool IsMan
@@ -128,6 +114,39 @@ namespace HairSalonManager.ViewModel
         {
             get { return (SelectedRes.Gender == 1) ? true : false; }
             set { man = value;  if (value == true) SelectedRes.Gender = 1; OnPropertyChanged("Man"); }
+        }
+
+        private bool _isSelected;
+
+        public bool IsSelected //선택될때 -> gender가 -1가 아닐때
+        {
+            get {
+                if (SelectedRes.Gender == -1)
+                {
+                    _isSelected = true;
+                }                
+                return _isSelected;
+            }
+
+            set
+            {
+                _isSelected = value;
+                //if()
+                OnPropertyChanged("IsSelected");
+            }
+           
+        }
+
+        private bool _isSelectedService;
+
+        public bool IsSelectedService
+        {
+            get { return _isSelectedService; }
+            set
+            {
+                _isSelectedService = value;
+                OnPropertyChanged("IsSelectedService");
+            }
         }
 
 
@@ -155,14 +174,14 @@ namespace HairSalonManager.ViewModel
             InitalizeCommand = new Command(ExecuteInitalizeMethod, CanExecuteMethod);
         }
 
-       
-
         #endregion
 
         #region method
         private void ExecuteInitalizeMethod(object obj)
         {
-
+            SelectedRes = new ReservationVo();
+            IsSelected = true;
+            IsSelectedService = false;
         }
         private void ExecuteDeleteMethod(object obj)
         {            
@@ -173,8 +192,7 @@ namespace HairSalonManager.ViewModel
         private void ExecuteModifyMethod(object obj)
         {
             if (!Check(SelectedRes))
-            {
-                MessageBox.Show("빈칸이 존재합니다");
+            {               
                 return;
             }
             _reservationRepository.UpdateReservation(SelectedRes);
@@ -183,8 +201,7 @@ namespace HairSalonManager.ViewModel
         private void ExecuteInsertMethod(object obj)
         {
             if (!Check(SelectedRes))
-            {
-                MessageBox.Show("빈칸이 존재합니다");
+            {               
                 return;
             }
             ResList.Add(SelectedRes);
@@ -194,8 +211,7 @@ namespace HairSalonManager.ViewModel
         private void ExecuteRemoveMethod(ReservedServiceVo rsv)
         {
             if (!Check(SelectedRes))
-            {
-                MessageBox.Show("빈칸이 존재합니다");
+            {                
                 return;
             }
             _reservedServiceRepository.RemoveReservedService(rsv.ResNum, rsv.SerId);
@@ -203,10 +219,21 @@ namespace HairSalonManager.ViewModel
 
         private void ExecuteInsertRSMethod(object obj)
         {
+            if (SelectedService == null)
+            {
+                MessageBox.Show("추가할 서비스를 선택해주세요.");
+                return;
+            }
+            List<ReservedServiceVo> list = _reservedServiceRepository.GetReservedServices(SelectedRes.ResNum);
+            if (list.FirstOrDefault(x => (x.SerId == SelectedService.ServiceId)) != null)
+            {
+                MessageBox.Show("이미 존재하는 서비스입니다.");
+                return;
+            }
             ReservedServiceVo rv = new ReservedServiceVo();
             rv.ResNum = SelectedRes.ResNum;
             rv.SerId = SelectedService.ServiceId;
-            _reservedServiceRepository.InsertReservedService(rv);
+            _reservedServiceRepository.InsertReservedService(rv);            
             ServiceCommands.Add(new DataCommandViewModel<ReservedServiceVo>(SelectedService.ServiceName, new Command(RemoveRS), rv));
         }
 
@@ -217,15 +244,12 @@ namespace HairSalonManager.ViewModel
 
         private void onSelectedResChanged(uint resNum)
         {
-            List<ReservedServiceVo> list = _reservedServiceRepository.GetReservedServicesFromLocal();
+            List<ReservedServiceVo> list = _reservedServiceRepository.GetReservedServices(resNum);
             ServiceCommands.Clear();
             foreach (var v in list) 
-            {
-                if (v.ResNum == resNum)
-                {
-                    string serviceName = ServiceList.Single(x => (x.ServiceId == v.SerId)).ServiceName;                    
-                    ServiceCommands.Add(new DataCommandViewModel<ReservedServiceVo>(serviceName,new Command(RemoveRS),v));
-                }
+            {                
+                string serviceName = ServiceList.Single(x => (x.ServiceId == v.SerId)).ServiceName;                    
+                ServiceCommands.Add(new DataCommandViewModel<ReservedServiceVo>(serviceName,new Command(RemoveRS),v));                
             }
         }
        
@@ -239,12 +263,18 @@ namespace HairSalonManager.ViewModel
         private bool Check(ReservationVo rv)
         {
             if (rv.UserName != null && rv.UserTel != null && rv.StylistId != null && rv.Gender != -1)
+            {
+                if (rv.UserTel.Length > 10)
+                {
+                    MessageBox.Show("번호가 너무 깁니다.");
+                    return false;
+                }
                 return true;
+            }
+            MessageBox.Show("빈칸이 존재합니다.");
             return false;
         }
         #endregion
-
-
 
     }
 }

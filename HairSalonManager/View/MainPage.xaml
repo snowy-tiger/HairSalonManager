@@ -23,6 +23,7 @@
         <Style TargetType="TextBox">
             <Setter Property="Background" Value="#1e1e1e"/>
             <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderThickness" Value="0"/>
         </Style>
         <Style TargetType="Button">
             <Setter Property="Background" Value="#3f3f41"/>
@@ -39,7 +40,7 @@
             <ColumnDefinition Width="1.5*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <DataGrid IsReadOnly="True" Margin="5" Background="#1e1e1e" ItemsSource="{Binding ResList}" SelectedItem="{Binding SelectedRes}" SelectionUnit="FullRow" SelectionMode="Single" Grid.Column="0" Foreground="FloralWhite" RowBackground="#242424" AlternatingRowBackground="#191919" BorderBrush="Black" HorizontalGridLinesBrush="#363636" VerticalGridLinesBrush="Transparent">
+        <DataGrid IsReadOnly="True" Margin="5" Background="#1e1e1e" ItemsSource="{Binding ResList}" SelectedItem="{Binding SelectedRes}" SelectionUnit="FullRow" SelectionMode="Single" Grid.Column="0" Foreground="FloralWhite" RowBackground="#242424" AlternatingRowBackground="#191919" BorderThickness="0" HorizontalGridLinesBrush="#363636" VerticalGridLinesBrush="Transparent">
             <DataGrid.ColumnHeaderStyle>
                 <Style TargetType="{x:Type DataGridColumnHeader}">
                     <Setter Property="Background" Value="#161616"/>
@@ -102,7 +103,19 @@
             <!-- 예약시간 -->
             <TextBlock Text="예약시간" Grid.Row="5" Grid.Column="0"/>
             <TextBox Height="23" Text="{Binding SelectedRes.StartAt}" Grid.Row="5" Grid.Column="1"/>
-            <DataGrid Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2"/>
+            <DataGrid IsReadOnly="True" Margin="0 5" Background="#1e1e1e"  SelectionUnit="Cell" SelectionMode="Single" Foreground="FloralWhite" RowBackground="#242424" AlternatingRowBackground="#191919" BorderBrush="Black" HorizontalGridLinesBrush="#363636" VerticalGridLinesBrush="Transparent" Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2">
+                <DataGrid.ColumnHeaderStyle>
+                    <Style TargetType="{x:Type DataGridColumnHeader}">
+                        <Setter Property="Background" Value="#161616"/>
+                        <Setter Property="Foreground" Value="White"/>
+                    </Style>
+                </DataGrid.ColumnHeaderStyle>
+                <DataGrid.RowHeaderStyle>
+                    <Style TargetType="{x:Type DataGridRowHeader}">
+                        <Setter Property="Background" Value="Transparent"/>
+                    </Style>
+                </DataGrid.RowHeaderStyle>
+            </DataGrid>
 
             <!-- 버튼 -->
             <Grid Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2">
@@ -112,14 +125,14 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <Button Content="예약추가" Command="{Binding InsertCommand}" Grid.Column="0"/>
+                <Button Content="예약추가" IsEnabled="{Binding IsSelected}" Command="{Binding InsertCommand}" Grid.Column="0"/>
                 <Button Content="수정" Command="{Binding ModifyCommand}" Grid.Column="1"/>
                 <Button Content="삭제" Command="{Binding DeleteCommand}" Grid.Column="2"/>
-                <Button Content="비우기" Grid.Column="3"/>
+                <Button Content="비우기" Command="{Binding InitalizeCommand}" Grid.Column="3"/>
             </Grid>
 
             <!-- 서비스 -->
-            <ListBox ItemsSource="{Binding ServiceCommands}" Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="2">
+            <ListBox ItemsSource="{Binding ServiceCommands}" Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="2" Margin="0 5" Background="#1e1e1e" Foreground="White">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <Grid>
@@ -145,7 +158,7 @@
                         </DataTemplate>
                     </ComboBox.ItemTemplate>
                 </ComboBox>
-                <Button Content="서비스 추가" Command="{Binding InsertRSCommand}" Grid.Column="1"/>
+                <Button Content="서비스 추가" Command="{Binding InsertRSCommand}" IsEnabled="{Binding IsSelectedService}" Grid.Column="1"/>
             </Grid>
 
         </Grid>

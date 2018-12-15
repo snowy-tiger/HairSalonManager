@@ -40,7 +40,7 @@ namespace HairSalonManager.Model.Repository
             return new List<ReservedServiceVo>(_list);
         }
 
-        public List<ReservedServiceVo> GetReservedServices(int resNum)
+        public List<ReservedServiceVo> GetReservedServices(uint resNum)
         {
             _conn.Msc.Open();
             List<ReservedServiceVo> list = new List<ReservedServiceVo>();
