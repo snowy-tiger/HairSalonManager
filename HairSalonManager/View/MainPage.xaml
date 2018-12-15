@@ -79,8 +79,8 @@
             <TextBlock Text="{Binding SelectedRes.ResNum}" Grid.Row="1" Grid.Column="1"/>
 
             <!-- 미용사 -->
-            <TextBlock Text="미용사" Grid.Row="2" Grid.Column="1"/>
-            <ComboBox ItemsSource="{Binding StylistList}" Grid.Column="0">
+            <TextBlock Text="미용사" Grid.Row="2" Grid.Column="0"/>
+            <ComboBox ItemsSource="{Binding StylistList}" Grid.Row="2" Grid.Column="1">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding StylistName}"/>
@@ -138,14 +138,14 @@
                     <ColumnDefinition Width="3*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <ComboBox ItemsSource="{Binding ServiceList}" Grid.Column="0">
+                <ComboBox ItemsSource="{Binding ServiceList}" SelectedItem="{Binding SelectedService}" Grid.Column="0">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
                             <TextBlock Text="{Binding ServiceName}"/>
                         </DataTemplate>
                     </ComboBox.ItemTemplate>
                 </ComboBox>
-                <Button Content="서비스 추가" Grid.Column="1"/>
+                <Button Content="서비스 추가" Command="{Binding InsertRSCommand}" Grid.Column="1"/>
             </Grid>
 
         </Grid>
