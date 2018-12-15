@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HairSalonManager.View"
         mc:Ignorable="d"
-        Title="종료 확인" Height="250" Width="845" Background="#FFD3312E" ResizeMode="NoResize" ShowInTaskbar="False" Topmost="True" WindowStartupLocation="CenterScreen" WindowStyle="None">
+        Title="종료 확인" Height="250" Width="1000" Background="#FFD3312E" ResizeMode="NoResize" ShowInTaskbar="False" Topmost="True" WindowStartupLocation="CenterScreen" WindowStyle="None">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
