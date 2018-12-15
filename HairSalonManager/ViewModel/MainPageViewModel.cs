@@ -36,7 +36,9 @@ namespace HairSalonManager.ViewModel
         {
             get { return _serviceCommands; }
             set
-            { _serviceCommands = value; }
+            {
+                _serviceCommands = value;               
+            }
         }
             
         private ObservableCollection<ServiceVo> _servicelist;
@@ -68,9 +70,11 @@ namespace HairSalonManager.ViewModel
 
         public ReservationVo SelectedRes
         {
-            get { return _selectedRes; }
+            get { return _selectedRes;  }
             set {
                 _selectedRes = value;                
+                IsSelected = false;
+                IsSelectedService = true;
                 OnPropertyChanged("SelectedRes");
                 if(SelectedRes != null)
                     onSelectedResChanged(SelectedRes.ResNum);
@@ -88,7 +92,7 @@ namespace HairSalonManager.ViewModel
 
         private ServiceVo _isselectedService;
 
-        public ServiceVo IsSelectedService
+        public ServiceVo SelectedService
         {
             get { return _isselectedService; }
             set
@@ -117,11 +121,37 @@ namespace HairSalonManager.ViewModel
             set { man = value;  if (value == true) SelectedRes.Gender = 1; OnPropertyChanged("Man"); }
         }
 
-
+        private bool _isSelected;
 
         public bool IsSelected //선택될때 -> gender가 -1가 아닐때
         {
-            get { return SelectedRes.Gender != -1; }          
+            get {
+                if (SelectedRes.Gender == -1)
+                {
+                    _isSelected = true;
+                }                
+                return _isSelected;
+            }
+
+            set
+            {
+                _isSelected = value;
+                //if()
+                OnPropertyChanged("IsSelected");
+            }
+           
+        }
+
+        private bool _isSelectedService;
+
+        public bool IsSelectedService
+        {
+            get { return _isSelectedService; }
+            set
+            {
+                _isSelectedService = value;
+                OnPropertyChanged("IsSelectedService");
+            }
         }
 
 
@@ -156,7 +186,9 @@ namespace HairSalonManager.ViewModel
         #region method
         private void ExecuteInitalizeMethod(object obj)
         {
-
+            SelectedRes = new ReservationVo();
+            IsSelected = true;
+            IsSelectedService = false;
         }
         private void ExecuteDeleteMethod(object obj)
         {            
@@ -194,16 +226,22 @@ namespace HairSalonManager.ViewModel
 
         private void ExecuteInsertRSMethod(object obj)
         {
-            if (IsSelectedService == null)
+            if (SelectedService == null)
             {
                 MessageBox.Show("추가할 서비스를 선택해주세요.");
                 return;
             }
+            List<ReservedServiceVo> list = _reservedServiceRepository.GetReservedServices(SelectedRes.ResNum);
+            if (list.FirstOrDefault(x => (x.SerId == SelectedService.ServiceId)) != null)
+            {
+                MessageBox.Show("이미 존재하는 서비스입니다.");
+                return;
+            }
             ReservedServiceVo rv = new ReservedServiceVo();
             rv.ResNum = SelectedRes.ResNum;
-            rv.SerId = IsSelectedService.ServiceId;
-            _reservedServiceRepository.InsertReservedService(rv);
-            ServiceCommands.Add(new DataCommandViewModel<ReservedServiceVo>(IsSelectedService.ServiceName, new Command(RemoveRS), rv));
+            rv.SerId = SelectedService.ServiceId;
+            _reservedServiceRepository.InsertReservedService(rv);            
+            ServiceCommands.Add(new DataCommandViewModel<ReservedServiceVo>(SelectedService.ServiceName, new Command(RemoveRS), rv));
         }
 
         private bool CanExecuteMethod(object arg)
@@ -213,15 +251,12 @@ namespace HairSalonManager.ViewModel
 
         private void onSelectedResChanged(uint resNum)
         {
-            List<ReservedServiceVo> list = _reservedServiceRepository.GetReservedServicesFromLocal();
+            List<ReservedServiceVo> list = _reservedServiceRepository.GetReservedServices(resNum);
             ServiceCommands.Clear();
             foreach (var v in list) 
-            {
-                if (v.ResNum == resNum)
-                {
-                    string serviceName = ServiceList.Single(x => (x.ServiceId == v.SerId)).ServiceName;                    
-                    ServiceCommands.Add(new DataCommandViewModel<ReservedServiceVo>(serviceName,new Command(RemoveRS),v));
-                }
+            {                
+                string serviceName = ServiceList.Single(x => (x.ServiceId == v.SerId)).ServiceName;                    
+                ServiceCommands.Add(new DataCommandViewModel<ReservedServiceVo>(serviceName,new Command(RemoveRS),v));                
             }
         }
        

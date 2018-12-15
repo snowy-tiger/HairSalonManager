@@ -61,9 +61,9 @@ namespace HairSalonManager.ViewModel
             }
         }
        
-        private int _resNum;
+        private uint _resNum;
 
-        public int ResNum
+        public uint ResNum
         {
             get { return _resNum; }
             set {
