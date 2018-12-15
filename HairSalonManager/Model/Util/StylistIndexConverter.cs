@@ -19,7 +19,7 @@ namespace HairSalonManager.Model.Util
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (value == null)
-                return null;
+                return Binding.DoNothing;
             uint stylistId = (uint)value;
             return _stylistList.IndexOf(_stylistList.Single(x => x.StylistId == stylistId));
 
@@ -28,7 +28,7 @@ namespace HairSalonManager.Model.Util
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (value == null)
-                return null;
+                return Binding.DoNothing;
             int selectedIndex = (int)value;
             return _stylistList[selectedIndex].StylistId;
         }
