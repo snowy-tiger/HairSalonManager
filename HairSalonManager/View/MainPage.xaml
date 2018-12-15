@@ -24,6 +24,7 @@
             <Setter Property="Background" Value="#1e1e1e"/>
             <Setter Property="Foreground" Value="White"/>
             <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding" Value="5 2 0 5"/>
         </Style>
         <Style TargetType="Button">
             <Setter Property="Background" Value="#3f3f41"/>
@@ -31,7 +32,7 @@
             <Setter Property="BorderThickness" Value="0"/>
         </Style>
         <Style TargetType="ComboBox">
-            <Setter Property="Background" Value="#1e1e1e"/>
+            <Setter Property="Height" Value="25"/>
         </Style>
         <Style TargetType="ComboBoxItem">
             <Setter Property="Background" Value="#1e1e1e"/>
@@ -79,7 +80,13 @@
 
             <!-- 예약자 성함 -->
             <TextBlock Text="예약자 성함" VerticalAlignment="Top" Grid.Row="0" Grid.Column="0"/>
-            <TextBox Height="23" VerticalAlignment="Top" Text="{Binding SelectedRes.UserName}" Grid.Row="0" Grid.Column="1"/>
+            <TextBox Height="23" VerticalAlignment="Top" Text="{Binding SelectedRes.UserName}" Grid.Row="0" Grid.Column="1">
+                <TextBox.Resources>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="CornerRadius" Value="5"/>
+                    </Style>
+                </TextBox.Resources>
+            </TextBox>
 
             <!-- 예약 번호 -->
             <TextBlock Text="예약번호" Grid.Row="1" Grid.Column="0"/>
@@ -97,7 +104,13 @@
 
             <!-- 전화번호 -->
             <TextBlock Text="전화번호" Grid.Row="3" Grid.Column="0"/>
-            <TextBox Text="{Binding SelectedRes.UserTel}" Height="23" Grid.Row="3" Grid.Column="1"/>
+            <TextBox Text="{Binding SelectedRes.UserTel}" Height="23" Grid.Row="3" Grid.Column="1">
+                <TextBox.Resources>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="CornerRadius" Value="5"/>
+                    </Style>
+                </TextBox.Resources>
+            </TextBox>
 
             <!-- 성별 -->
             <TextBlock Text="성별" Grid.Row="4" Grid.Column="0"/>
@@ -108,7 +121,13 @@
 
             <!-- 예약시간 -->
             <TextBlock Text="예약시간" Grid.Row="5" Grid.Column="0"/>
-            <TextBox Height="23" Text="{Binding SelectedRes.StartAt}" Grid.Row="5" Grid.Column="1"/>
+            <TextBox Height="23" Text="{Binding SelectedRes.StartAt}" Grid.Row="5" Grid.Column="1">
+                <TextBox.Resources>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="CornerRadius" Value="5"/>
+                    </Style>
+                </TextBox.Resources>
+            </TextBox>
             <DataGrid IsReadOnly="True" Margin="0 5" Background="#1e1e1e"  SelectionUnit="Cell" SelectionMode="Single" Foreground="FloralWhite" RowBackground="#242424" AlternatingRowBackground="#191919" BorderBrush="Black" HorizontalGridLinesBrush="#363636" VerticalGridLinesBrush="Transparent" Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2">
                 <DataGrid.ColumnHeaderStyle>
                     <Style TargetType="{x:Type DataGridColumnHeader}">
@@ -124,7 +143,13 @@
             </DataGrid>
             <!-- 메모 -->
             <TextBlock Text="전달사항" Grid.Row="7" Grid.Column="0"/>
-            <TextBox Margin="5" Grid.Row="7" Grid.Column="1"/>
+            <TextBox Text="{Binding SelectedRes.Note}" Margin="5" Grid.Row="7" Grid.Column="1">
+                <TextBox.Resources>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="CornerRadius" Value="5"/>
+                    </Style>
+                </TextBox.Resources>
+            </TextBox>
             <!-- 버튼 -->
             <Grid Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="2">
                 <Grid.ColumnDefinitions>
@@ -140,7 +165,7 @@
             </Grid>
 
             <!-- 서비스 -->
-            <ListBox ItemsSource="{Binding ServiceCommands}" Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="2" Margin="0 5" Background="#1e1e1e" Foreground="White">
+            <ListBox ItemsSource="{Binding ServiceCommands}" Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="2" Margin="0 5" Background="#1e1e1e" Foreground="White" BorderThickness="0">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <Grid>
@@ -166,7 +191,7 @@
                         </DataTemplate>
                     </ComboBox.ItemTemplate>
                 </ComboBox>
-                <Button Content="서비스 추가" Command="{Binding InsertRSCommand}" IsEnabled="{Binding IsSelectedService}" Grid.Column="1"/>
+                <Button Content="서비스 추가" Command="{Binding InsertRSCommand}" IsEnabled="{Binding IsSelectedService}" Height="25" Grid.Column="1"/>
             </Grid>
 
         </Grid>
