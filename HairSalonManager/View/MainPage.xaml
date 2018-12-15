@@ -112,7 +112,7 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <Button Content="예약추가" Command="{Binding InsertCommand}" Grid.Column="0"/>
+                <Button Content="예약추가" IsEnabled="{Binding IsSelected}" Command="{Binding InsertCommand}" Grid.Column="0"/>
                 <Button Content="수정" Command="{Binding ModifyCommand}" Grid.Column="1"/>
                 <Button Content="삭제" Command="{Binding DeleteCommand}" Grid.Column="2"/>
                 <Button Content="비우기" Grid.Column="3"/>
@@ -145,7 +145,7 @@
                         </DataTemplate>
                     </ComboBox.ItemTemplate>
                 </ComboBox>
-                <Button Content="서비스 추가" Command="{Binding InsertRSCommand}" Grid.Column="1"/>
+                <Button Content="서비스 추가" Command="{Binding InsertRSCommand}" IsEnabled="{Binding IsSelectedService}" Grid.Column="1"/>
             </Grid>
 
         </Grid>
