@@ -1,14 +1,9 @@
 ﻿using HairSalonManager.Model.Repository;
-using HairSalonManager.Model.Util;
 using HairSalonManager.Model.Vo;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.IO;
 using System.Linq;
-using System.Text;
 using System.Windows;
-using System.Windows.Input;
 
 namespace HairSalonManager.ViewModel
 {
@@ -179,8 +174,6 @@ namespace HairSalonManager.ViewModel
             InitalizeCommand = new Command(ExecuteInitalizeMethod, CanExecuteMethod);
         }
 
-       
-
         #endregion
 
         #region method
@@ -282,8 +275,6 @@ namespace HairSalonManager.ViewModel
             return false;
         }
         #endregion
-
-
 
     }
 }
