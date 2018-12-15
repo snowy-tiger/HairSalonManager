@@ -1,5 +1,6 @@
 ﻿using HairSalonManager.Model.Repository;
 using HairSalonManager.Model.Vo;
+using HairSalonManager.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -28,20 +29,24 @@ namespace HairSalonManager.Model.Util
         }
 
         DispatcherTimer _timer;
-
-        uint _recentNum;
-
+     
         ReservationRepository _rr;
         
+        private bool _isNewReservationExistent;
+
+        public bool IsNewReservationExistent
+        {
+            get { return _isNewReservationExistent; }
+            set { _isNewReservationExistent = value; }
+        }
 
         private NoticeService()
         {
-            _rr = ReservationRepository.Rr;
-            _recentNum = _rr.RecentResNum;
-            MessageBox.Show($"{_recentNum}");
+            _rr = ReservationRepository.Rr;          
             _timer = new DispatcherTimer();
             _timer.Interval = new TimeSpan(0, 0, 10);
             _timer.Tick += Timer_tick;
+            _isNewReservationExistent = false;
         }
 
         public void StartNoticeService() //알림 서비스를 시작함
@@ -59,18 +64,13 @@ namespace HairSalonManager.Model.Util
         }
 
         private void HasNewReservation()
-        {
-            MessageBox.Show($"{_rr.RecentResNum}, {_recentNum}");
-            if (_rr.RecentResNum != _recentNum)
-            {             
-                _recentNum = _rr.RecentResNum;
-                ShowMessage();
+        {     
+            if (_rr.RecentResNum != _rr.GetRecentNum())
+            {
+                MessageBox.Show("새로운 예약이 도착했습니다.");             
+                IsNewReservationExistent = true;
             }                                   
         }
-
-        private void ShowMessage() //알림을 나타내는 메소드
-        {
-            MessageBox.Show("새로운 예약이 도착했습니다.");
-        }
+       
     }
 }

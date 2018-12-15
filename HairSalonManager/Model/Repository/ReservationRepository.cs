@@ -28,6 +28,7 @@ namespace HairSalonManager.Model.Repository
         private ReservationRepository()
         {
             _conn = Connection.Conn;
+            _list = new List<ReservationVo>();
             //RecentResNum = 0;            
         }
         #endregion
@@ -43,15 +44,10 @@ namespace HairSalonManager.Model.Repository
         }
 
 
-        public uint RecentResNum {
-            get
-            {
-                return (uint)List.Count;
-            }           
-        }
+        public uint RecentResNum { get; set; }
 
         #endregion
-        
+
         #region Reservation Methods
         public List<ReservationVo> GetReservations() //전체의 예약리스트를 가져옴.
         {           
@@ -73,10 +69,11 @@ namespace HairSalonManager.Model.Repository
                 rv.UserBirthday = rdr["userBirthday"] as DateTime?;
                 rv.UserName = rdr["userName"] as string;
                 rv.UserTel = rdr["userTel"] as string;
-                list.Add(rv);              
-            }
+                list.Add(rv);
+                RecentResNum = rv.ResNum;
+            }            
+            _conn.Msc.Close();
             List = list;
-            _conn.Msc.Close();            
             return list;
         }
 
@@ -101,7 +98,7 @@ namespace HairSalonManager.Model.Repository
                 rv.UserName = rdr["userName"] as string;
                 rv.UserTel = rdr["userTel"] as string;
                 list.Add(rv);               
-            }
+            }           
             _conn.Msc.Close();            
             return list;
         }
@@ -122,9 +119,7 @@ namespace HairSalonManager.Model.Repository
             cmd.Parameters.AddWithValue("@startAt", rv.StartAt);
             cmd.Parameters.AddWithValue("@endAt", rv.EndAt);
             cmd.Parameters.AddWithValue("@userName", rv.UserName);
-
            
-
             if (cmd.ExecuteNonQuery() == -1) //실패시
             {
                 _conn.Msc.Close();
@@ -178,12 +173,27 @@ namespace HairSalonManager.Model.Repository
             return true; //성공시
         }
 
-        //public int GetRecentNum()
-        //{
-        //    _conn.Msc.Open();
+        public uint GetRecentNum()
+        {
+            uint recentResNum = 0;
 
-        //    _sql = "SELECT LAST() FROM "
-        //}
+            _conn.Msc.Open();
+
+            _sql = "SELECT resNum FROM reservation ORDER BY resNum DESC LIMIT 1";
+
+            MySqlCommand cmd = new MySqlCommand(_sql, _conn.Msc);
+
+            MySqlDataReader reader = cmd.ExecuteReader();
+
+            while(reader.Read())
+            {
+                recentResNum = (uint)reader["resNum"];
+            }
+
+            _conn.Msc.Close();
+
+            return recentResNum;
+        }
         #endregion 
     }
 }
