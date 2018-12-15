@@ -15,6 +15,8 @@ namespace HairSalonManager.ViewModel
         #region field
         readonly TimetableRepository _timetableRepository;
 
+        readonly ReservationRepository _reservationRepository;
+
         readonly ReservedServiceRepository _reservedServiceRepository;
 
         readonly StylistRepository _stylistRepository;
@@ -28,13 +30,14 @@ namespace HairSalonManager.ViewModel
         #endregion
 
         #region property
-        
+
         private DateTime _selectedDate;
 
         public DateTime SelectedDate
         {
             get { return _selectedDate; }
-            set {
+            set
+            {
                 _selectedDate = value;
                 OnPropertyChanged("SelectedDate");
             }
@@ -50,69 +53,23 @@ namespace HairSalonManager.ViewModel
             }
         }
 
-        private int _stylistId;
+        private ObservableCollection<TimeTableVo> _timeTableList;
 
-        public int StylistId
+        public ObservableCollection<TimeTableVo> TimeTableList
         {
-            get { return _stylistId; }
-            set {
-                _stylistId = value;
-                OnPropertyChanged("StylistId");
-            }
-        }
-       
-        private uint _resNum;
-
-        public uint ResNum
-        {
-            get { return _resNum; }
-            set {
-                _resNum = value;
-                OnPropertyChanged("ResNum");
-            }
+            get { return _timeTableList; }
+            set { _timeTableList = value; }
         }
 
-        private DateTime _startAt;
+        private ObservableCollection<ReservationVo> _reservationList;
 
-        public DateTime StartAt
+        public ObservableCollection<ReservationVo> ReservationList
         {
-            get { return _startAt; }
-            set {
-                _startAt = value;
-                OnPropertyChanged("StartAt");
-            }
-        }
-
-        private DateTime _endAt;
-
-        public DateTime EndAt
-        {
-            get { return _endAt; }
-            set {
-                _endAt = value;
-                OnPropertyChanged("EndAt");
-            }
-        }
-
-        private int _operationTime;
-
-        public int OperationTime
-        {
-            get { return _operationTime; }
-            set {
-                _operationTime = value;
-                OnPropertyChanged("OperationTime");
-            }
-        }
-
-        private int _serId;
-
-        public int SerId
-        {
-            get { return _serId; }
-            set {
-                _serId = value;
-                OnPropertyChanged("SerId");
+            get { return _reservationList; }
+            set
+            {
+                _reservationList = value;
+                OnPropertyChanged("ReservationList");
             }
         }
 
@@ -124,21 +81,85 @@ namespace HairSalonManager.ViewModel
             set { _stylistList = value; }
         }
 
-        private ObservableCollection<TimeTableVo> _timeTableList;
+        private int _stylistId;
 
-        public ObservableCollection<TimeTableVo> TimeTableList
+        public int StylistId
         {
-            get { return _timeTableList; }
-            set { _timeTableList = value; }
+            get { return _stylistId; }
+            set
+            {
+                _stylistId = value;
+                OnPropertyChanged("StylistId");
+            }
         }
 
+        private uint _resNum;
+
+        public uint ResNum
+        {
+            get { return _resNum; }
+            set
+            {
+                _resNum = value;
+                OnPropertyChanged("ResNum");
+            }
+        }
+
+        private DateTime _startAt;
+
+        public DateTime StartAt
+        {
+            get { return _startAt; }
+            set
+            {
+                _startAt = value;
+                OnPropertyChanged("StartAt");
+            }
+        }
+
+        private DateTime _endAt;
+
+        public DateTime EndAt
+        {
+            get { return _endAt; }
+            set
+            {
+                _endAt = value;
+                OnPropertyChanged("EndAt");
+            }
+        }
+
+        private int _operationTime;
+
+        public int OperationTime
+        {
+            get { return _operationTime; }
+            set
+            {
+                _operationTime = value;
+                OnPropertyChanged("OperationTime");
+            }
+        }
+
+        private int _serId;
+
+        public int SerId
+        {
+            get { return _serId; }
+            set
+            {
+                _serId = value;
+                OnPropertyChanged("SerId");
+            }
+        }
 
         private string _selectedTime;
 
         public string SelectedTime
         {
             get { return _selectedTime; }
-            set {
+            set
+            {
                 _selectedTime = value;
                 OnPropertyChanged("SelectedTime");
             }
@@ -153,11 +174,13 @@ namespace HairSalonManager.ViewModel
             SelectedDate = DateTime.Today;
 
             _timetableRepository = TimetableRepository.TR;
+            _reservationRepository = ReservationRepository.Rr;
             _reservedServiceRepository = ReservedServiceRepository.RSR;
             _stylistRepository = StylistRepository.SR;
 
-            StylistList = new ObservableCollection<StylistVo>(_stylistRepository.GetStylistsFromLocal());
             TimeTableList = new ObservableCollection<TimeTableVo>(_timetableRepository.GetTimeTables());
+            ReservationList = new ObservableCollection<ReservationVo>(_reservationRepository.GetReservations());
+            StylistList = new ObservableCollection<StylistVo>(_stylistRepository.GetStylistsFromLocal());
 
             ShowTimeTable();
 
@@ -170,37 +193,48 @@ namespace HairSalonManager.ViewModel
         public void ShowTimeTable()
         {
             int block = OperationTime / 30;
-            
+            IEnumerable<ReservationVo> necessaryList;
 
             _col = _dataTable.Columns.Add();
             _col.ColumnName = "StylistName";
 
-            for(int i=0; i<48; i++)
+            for (int i = 0; i < 48; i++)
             {
                 _col = _dataTable.Columns.Add();
                 _col.ColumnName = (i / 2).ToString("D2") + " : " + (i % 2 * 30).ToString("D2");
             }
 
-            for (int k = 0; k < StylistList.Count; k++)
+            for (int k = 0; k < StylistList.Count; k++) //미용사 리스트를 가져와서 한명씩 실행
             {
-                _row = _dataTable.NewRow();
+                _row = _dataTable.NewRow(); //DataRow를 생성해서 그 사람의 예약 테이블을 채워야지
                 _row["StylistName"] = StylistList[k].StylistName;
-                for (int i = 0; i < 48; i++)
-                {
-                    if (_col.ColumnName.Equals(StartAt.Hour + " : " + StartAt.Minute))
-                    {
-                        for (int j = 0; j < block; j++)
-                        {
-                            _row[i + 1] = ResNum;
-                        }
-                    }
-                }
+
+                //예약 목록 중 StylistId와 StylistList[k].StylistId가 일치하는 사람 찾아서 예약목록 불러오기
+                necessaryList = ReservationList.Where(x => x.StylistId == StylistList[k].StylistId);
+
+                //이 목록 중에서 선택한 날짜만 다시 불러오기
+                necessaryList.Where(x => x.StartAt.Value.ToString("d").Equals(SelectedDate.ToString("d")));
+                
+                //각 예약을 집어넣기
+                //foreach (var item in necessaryList)
+                //{
+                //    for (int i = 0; i < 48; i++)
+                //    {
+                //        if (_col.ColumnName.Equals(item.StartAt.Value.Hour + " : " + item.StartAt.Value.Minute))
+                //        {
+                //            for (int j = 0; j < block; j++)
+                //            {
+                //                _row[i + 1] = item.ResNum;
+                //                i++;
+                //            }
+                //        }
+                //    }
+                //}
                 _dataTable.Rows.Add(_row);
             }
         }
-            //(StartAt.ToString("d").Equals(SelectedDate.ToString("d")))            
 
-            
+
 
         private bool CanExecuteMethod(object arg)
         {
@@ -211,7 +245,7 @@ namespace HairSalonManager.ViewModel
         {
             _reservedServiceRepository.GetReservedServices(ResNum);
         }
-        
+
         #endregion
     }
 }
