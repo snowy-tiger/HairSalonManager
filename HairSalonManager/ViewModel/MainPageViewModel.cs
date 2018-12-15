@@ -163,7 +163,7 @@ namespace HairSalonManager.ViewModel
 
         private void ExecuteInsertMethod(object obj)
         {
-            
+            ResList.Add(SelectedRes);
             _reservationRepository.InsertReservation(SelectedRes);
         }
 
