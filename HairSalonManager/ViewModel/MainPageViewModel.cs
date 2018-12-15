@@ -81,31 +81,18 @@ namespace HairSalonManager.ViewModel
 
        
 
-        private ServiceVo _selectedService;
+        private ServiceVo _isselectedService;
 
-        public ServiceVo SelectedService
+        public ServiceVo IsSelectedService
         {
-            get { return _selectedService; }
+            get { return _isselectedService; }
             set
             {
-                _selectedService = value;
-                OnPropertyChanged("SelectedService");
+                _isselectedService = value;
+                OnPropertyChanged("IsSelectedService");
             }
         }
-
-        private StylistVo _selectedStylist;
-
-        public StylistVo SelectedStylist
-        {
-            get { return _selectedStylist; }
-            set
-            {
-                _selectedStylist = value;
-                SelectedRes.StylistId = _selectedStylist.StylistId;                
-            }
-        }
-
-
+       
         private bool isMan;
 
         public bool IsMan
@@ -123,6 +110,13 @@ namespace HairSalonManager.ViewModel
         {
             get { return (SelectedRes.Gender == 1) ? true : false; }
             set { man = value;  if (value == true) SelectedRes.Gender = 1; OnPropertyChanged("Man"); }
+        }
+
+
+
+        public bool IsSelected //선택될때 -> gender가 -1가 아닐때
+        {
+            get { return SelectedRes.Gender != -1; }          
         }
 
 
@@ -166,8 +160,7 @@ namespace HairSalonManager.ViewModel
         private void ExecuteModifyMethod(object obj)
         {
             if (!Check(SelectedRes))
-            {
-                MessageBox.Show("빈칸이 존재합니다");
+            {               
                 return;
             }
             _reservationRepository.UpdateReservation(SelectedRes);
@@ -176,8 +169,7 @@ namespace HairSalonManager.ViewModel
         private void ExecuteInsertMethod(object obj)
         {
             if (!Check(SelectedRes))
-            {
-                MessageBox.Show("빈칸이 존재합니다");
+            {               
                 return;
             }
             ResList.Add(SelectedRes);
@@ -187,8 +179,7 @@ namespace HairSalonManager.ViewModel
         private void ExecuteRemoveMethod(ReservedServiceVo rsv)
         {
             if (!Check(SelectedRes))
-            {
-                MessageBox.Show("빈칸이 존재합니다");
+            {                
                 return;
             }
             _reservedServiceRepository.RemoveReservedService(rsv.ResNum, rsv.SerId);
@@ -196,11 +187,16 @@ namespace HairSalonManager.ViewModel
 
         private void ExecuteInsertRSMethod(object obj)
         {
+            if (IsSelectedService == null)
+            {
+                MessageBox.Show("추가할 서비스를 선택해주세요.");
+                return;
+            }
             ReservedServiceVo rv = new ReservedServiceVo();
             rv.ResNum = SelectedRes.ResNum;
-            rv.SerId = SelectedService.ServiceId;
+            rv.SerId = IsSelectedService.ServiceId;
             _reservedServiceRepository.InsertReservedService(rv);
-            ServiceCommands.Add(new DataCommandViewModel<ReservedServiceVo>(SelectedService.ServiceName, new Command(RemoveRS), rv));
+            ServiceCommands.Add(new DataCommandViewModel<ReservedServiceVo>(IsSelectedService.ServiceName, new Command(RemoveRS), rv));
         }
 
         private bool CanExecuteMethod(object arg)
@@ -232,7 +228,15 @@ namespace HairSalonManager.ViewModel
         private bool Check(ReservationVo rv)
         {
             if (rv.UserName != null && rv.UserTel != null && rv.StylistId != null && rv.Gender != -1)
+            {
+                if (rv.UserTel.Length > 10)
+                {
+                    MessageBox.Show("번호가 너무 깁니다.");
+                    return false;
+                }
                 return true;
+            }
+            MessageBox.Show("빈칸이 존재합니다.");
             return false;
         }
         #endregion
