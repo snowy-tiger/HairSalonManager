@@ -79,8 +79,14 @@
             <TextBlock Text="{Binding SelectedRes.ResNum}" Grid.Row="1" Grid.Column="1"/>
 
             <!-- 미용사 -->
-            <TextBlock Text="미용사" Grid.Row="2" Grid.Column="0"/>
-            <ComboBox Grid.Row="2" Grid.Column="1"/>
+            <TextBlock Text="미용사" Grid.Row="2" Grid.Column="1"/>
+            <ComboBox ItemsSource="{Binding StylistList}" Grid.Column="0">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding StylistName}"/>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
 
             <!-- 전화번호 -->
             <TextBlock Text="전화번호" Grid.Row="3" Grid.Column="0"/>
