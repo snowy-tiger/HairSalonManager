@@ -79,6 +79,7 @@ namespace HairSalonManager.ViewModel
         public Command InsertCommand { get; set; }
         public Command ModifyCommand { get; set; }
         public Command DeleteCommand { get; set; }
+        public Command InsertRSCommand { get; set; }
         public Command InitalizeCommand { get; }
 
 
@@ -129,15 +130,18 @@ namespace HairSalonManager.ViewModel
 
             _selectedRes = new ReservationVo();
             ResList = new ObservableCollection<ReservationVo>(_reservationRepository.GetReservations());
-            ServiceList = new ObservableCollection<ServiceVo>(_serviceRepository.ServiceList);
+            ServiceList = new ObservableCollection<ServiceVo>(_serviceRepository.GetServicesFromLocal());
             ServiceCommands = new ObservableCollection<DataCommandViewModel<ReservedServiceVo>>();
-            StylistList = new ObservableCollection<StylistVo>(_stylistRepository.GetStylists());
+            StylistList = new ObservableCollection<StylistVo>(_stylistRepository.GetStylistsFromLocal());
 
             InsertCommand = new Command(ExecuteInsertMethod, CanExecuteMethod);
             ModifyCommand = new Command(ExecuteModifyMethod, CanExecuteMethod);
             DeleteCommand = new Command(ExecuteDeleteMethod, CanExecuteMethod);
+            InsertRSCommand = new Command(ExecuteInsertRSMethod, CanExecuteMethod);
             InitalizeCommand = new Command(ExecuteInitalizeMethod, CanExecuteMethod);
         }
+
+       
 
         #endregion
 
@@ -167,6 +171,16 @@ namespace HairSalonManager.ViewModel
         {          
             _reservedServiceRepository.RemoveReservedService(rsv.ResNum, rsv.SerId);
         }
+
+        private void ExecuteInsertRSMethod(object obj)
+        {
+            ReservedServiceVo rv = new ReservedServiceVo();
+            rv.ResNum = SelectedRes.ResNum;
+            rv.SerId = SelectedService.ServiceId;
+            _reservedServiceRepository.InsertReservedService(rv);
+            ServiceCommands.Add(new DataCommandViewModel<ReservedServiceVo>(SelectedService.ServiceName, new Command(RemoveRS), rv));
+        }
+
         private bool CanExecuteMethod(object arg)
         {
             return true;
@@ -186,6 +200,7 @@ namespace HairSalonManager.ViewModel
             }
         }
 
+       
         private void RemoveRS(object obj)
         {
             ReservedServiceVo rsv = (ReservedServiceVo)obj;

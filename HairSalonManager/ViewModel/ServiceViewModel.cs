@@ -38,7 +38,7 @@ namespace HairSalonManager.ViewModel
         }
 
         //private uint _serviceId;
-        public uint ServiceId
+        public ushort ServiceId
         {
             get { return _selectedService.ServiceId; }
             set {
@@ -98,9 +98,8 @@ namespace HairSalonManager.ViewModel
         public ServiceViewModel()
         {
             _serviceRepository = ServiceRepository.SR;
-
             _selectedService = new ServiceVo();
-            ServiceList = new ObservableCollection<ServiceVo>(_serviceRepository.ServiceList);
+            ServiceList = new ObservableCollection<ServiceVo>(_serviceRepository.GetServicesFromLocal());
 
             InsertCommand = new Command(ExecuteInsertMethod, CanExecuteMethod);
             ModifyCommand = new Command(ExecuteModifyMethod, CanExecuteMethod);

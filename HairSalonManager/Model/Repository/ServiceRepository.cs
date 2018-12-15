@@ -34,14 +34,17 @@ namespace HairSalonManager.Model.Repository
 
         readonly List<ServiceVo> _list;
 
-        
 
-        public List<ServiceVo> ServiceList
-        {
-            get { return _list; }            
-        }
+
+
 
         #region method
+
+        public List<ServiceVo> GetServicesFromLocal()
+        {
+            return new List<ServiceVo>(_list);
+        }
+
         public List<ServiceVo> GetServices()
         {
             List<ServiceVo> list = new List<ServiceVo>();
