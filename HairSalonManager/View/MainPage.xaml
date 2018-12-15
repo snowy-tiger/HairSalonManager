@@ -67,6 +67,7 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
                 <RowDefinition Height="2*"/>
                 <RowDefinition Height="2*"/>
                 <RowDefinition Height="*"/>
@@ -78,9 +79,12 @@
                 <ColumnDefinition Width="3*"/>
             </Grid.ColumnDefinitions>
 
+            <!-- 글씨 -->
+            <TextBlock Text="DETAILED INFORMATION" RenderOptions.ClearTypeHint="Enabled" FontSize="20" FontWeight="Bold" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"/>
+
             <!-- 예약자 성함 -->
-            <TextBlock Text="예약자 성함" VerticalAlignment="Top" Grid.Row="0" Grid.Column="0"/>
-            <TextBox Height="23" VerticalAlignment="Top" Text="{Binding SelectedRes.UserName}" Grid.Row="0" Grid.Column="1">
+            <TextBlock Text="예약자 성함" Grid.Row="1" Grid.Column="0"/>
+            <TextBox Height="23" Text="{Binding SelectedRes.UserName}" Grid.Row="1" Grid.Column="1">
                 <TextBox.Resources>
                     <Style TargetType="{x:Type Border}">
                         <Setter Property="CornerRadius" Value="5"/>
@@ -89,12 +93,12 @@
             </TextBox>
 
             <!-- 예약 번호 -->
-            <TextBlock Text="예약번호" Grid.Row="1" Grid.Column="0"/>
-            <TextBlock Text="{Binding SelectedRes.ResNum}" Grid.Row="1" Grid.Column="1"/>
+            <TextBlock Text="예약번호" Grid.Row="2" Grid.Column="0"/>
+            <TextBlock Text="{Binding SelectedRes.ResNum}" Grid.Row="2" Grid.Column="1"/>
 
             <!-- 미용사 -->
-            <TextBlock Text="미용사" Grid.Row="2" Grid.Column="0"/>
-            <ComboBox Background="Yellow" ItemsSource="{Binding StylistList}" SelectedIndex="{Binding SelectedRes.StylistId,Converter={StaticResource StylistIndexConverter}}" Grid.Row="2" Grid.Column="1">
+            <TextBlock Text="미용사" Grid.Row="3" Grid.Column="0"/>
+            <ComboBox Background="Yellow" ItemsSource="{Binding StylistList}" SelectedIndex="{Binding SelectedRes.StylistId,Converter={StaticResource StylistIndexConverter}}" Grid.Row="3" Grid.Column="1">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding StylistName}"/>
@@ -103,8 +107,8 @@
             </ComboBox>
 
             <!-- 전화번호 -->
-            <TextBlock Text="전화번호" Grid.Row="3" Grid.Column="0"/>
-            <TextBox Text="{Binding SelectedRes.UserTel}" Height="23" Grid.Row="3" Grid.Column="1">
+            <TextBlock Text="전화번호" Grid.Row="4" Grid.Column="0"/>
+            <TextBox Text="{Binding SelectedRes.UserTel}" Height="23" Grid.Row="4" Grid.Column="1">
                 <TextBox.Resources>
                     <Style TargetType="{x:Type Border}">
                         <Setter Property="CornerRadius" Value="5"/>
@@ -113,22 +117,22 @@
             </TextBox>
 
             <!-- 성별 -->
-            <TextBlock Text="성별" Grid.Row="4" Grid.Column="0"/>
-            <StackPanel Orientation="Horizontal" Grid.Row="4" Grid.Column="1">
+            <TextBlock Text="성별" Grid.Row="5" Grid.Column="0"/>
+            <StackPanel Orientation="Horizontal" Grid.Row="5" Grid.Column="1">
                 <RadioButton GroupName="Gender" Content="남성" Foreground="White" IsChecked="{Binding SelectedRes.Gender,Converter={StaticResource GenderConverter},ConverterParameter=0}"/>
                 <RadioButton GroupName="Gender" Content="여성" Foreground="White" IsChecked="{Binding SelectedRes.Gender,Converter={StaticResource GenderConverter},ConverterParameter=1}"/>
             </StackPanel>
 
             <!-- 예약시간 -->
-            <TextBlock Text="예약시간" Grid.Row="5" Grid.Column="0"/>
-            <TextBox Height="23" Text="{Binding SelectedRes.StartAt}" Grid.Row="5" Grid.Column="1">
+            <TextBlock Text="예약시간" Grid.Row="6" Grid.Column="0"/>
+            <TextBox Height="23" Text="{Binding SelectedRes.StartAt}" Grid.Row="6" Grid.Column="1">
                 <TextBox.Resources>
                     <Style TargetType="{x:Type Border}">
                         <Setter Property="CornerRadius" Value="5"/>
                     </Style>
                 </TextBox.Resources>
             </TextBox>
-            <DataGrid IsReadOnly="True" Margin="0 5" Background="#1e1e1e"  SelectionUnit="Cell" SelectionMode="Single" Foreground="FloralWhite" RowBackground="#242424" AlternatingRowBackground="#191919" BorderBrush="Black" HorizontalGridLinesBrush="#363636" VerticalGridLinesBrush="Transparent" Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2">
+            <DataGrid IsReadOnly="True" Margin="0 5" Background="#1e1e1e"  SelectionUnit="Cell" SelectionMode="Single" Foreground="FloralWhite" RowBackground="#242424" AlternatingRowBackground="#191919" BorderBrush="Black" HorizontalGridLinesBrush="#363636" VerticalGridLinesBrush="Transparent" Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2">
                 <DataGrid.ColumnHeaderStyle>
                     <Style TargetType="{x:Type DataGridColumnHeader}">
                         <Setter Property="Background" Value="#161616"/>
@@ -142,8 +146,8 @@
                 </DataGrid.RowHeaderStyle>
             </DataGrid>
             <!-- 메모 -->
-            <TextBlock Text="전달사항" Grid.Row="7" Grid.Column="0"/>
-            <TextBox Text="{Binding SelectedRes.Note}" Margin="5" Grid.Row="7" Grid.Column="1">
+            <TextBlock Text="전달사항" Grid.Row="8" Grid.Column="0"/>
+            <TextBox Text="{Binding SelectedRes.Note}" Margin="5" Grid.Row="8" Grid.Column="1">
                 <TextBox.Resources>
                     <Style TargetType="{x:Type Border}">
                         <Setter Property="CornerRadius" Value="5"/>
@@ -151,7 +155,7 @@
                 </TextBox.Resources>
             </TextBox>
             <!-- 버튼 -->
-            <Grid Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="2">
+            <Grid Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="2">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
@@ -165,7 +169,12 @@
             </Grid>
 
             <!-- 서비스 -->
-            <ListBox ItemsSource="{Binding ServiceCommands}" Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="2" Margin="0 5" Background="#1e1e1e" Foreground="White" BorderThickness="0">
+            <ListBox ItemsSource="{Binding ServiceCommands}" Padding="5" Grid.Row="10" Grid.Column="0" Grid.ColumnSpan="2" Margin="0 5" Background="#1e1e1e" Foreground="White" BorderThickness="0">
+                <ListBox.Resources>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="CornerRadius" Value="5"/>
+                    </Style>
+                </ListBox.Resources>
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <Grid>
@@ -179,12 +188,12 @@
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
-            <Grid Grid.Row="10" Grid.Column="0" Grid.ColumnSpan="2">
+            <Grid Grid.Row="11" Grid.Column="0" Grid.ColumnSpan="2">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="3*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <ComboBox ItemsSource="{Binding ServiceList}" SelectedItem="{Binding SelectedService}" Grid.Column="0">
+                <ComboBox ItemsSource="{Binding ServiceList}" SelectedItem="{Binding SelectedService}" IsEnabled="{Binding IsSelectedService}" Grid.Column="0">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
                             <TextBlock Text="{Binding ServiceName}"/>
