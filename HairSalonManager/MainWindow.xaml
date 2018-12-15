@@ -22,7 +22,7 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="1.3*"/>
             </Grid.ColumnDefinitions>
-            <TextBlock Text="{Binding Title}" Margin="40 0" Foreground="White" FontSize="50" VerticalAlignment="Center"/>
+            <TextBlock Text="{Binding Title}" RenderOptions.ClearTypeHint="Enabled" Margin="40 0" Foreground="White" FontSize="50" VerticalAlignment="Center"/>
             <ItemsControl x:Name="tStack" ItemsSource="{Binding MenuCommands}" Grid.Column="1" Grid.Row="0">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
