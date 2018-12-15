@@ -127,6 +127,6 @@ namespace HairSalonManager.Model.Repository
             MySqlCommandBuilder builder = new MySqlCommandBuilder(adapter);
             return adapter.Update(_ds, "service");
         }
-        #endregion1111111111111111111111111111
+        #endregion
     }
 }
