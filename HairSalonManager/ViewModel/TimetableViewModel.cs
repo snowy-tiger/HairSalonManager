@@ -16,7 +16,9 @@ namespace HairSalonManager.ViewModel
 
         readonly ReservedServiceRepository _reservedServiceRepository;
 
-        DataTable _dataTable = new DataTable("StyistTimeTable");
+        readonly StylistRepository _stylistRepository;
+
+        DataTable _dataTable = new DataTable();
 
         DataRow _row;
 
@@ -152,13 +154,16 @@ namespace HairSalonManager.ViewModel
         #region ctor
         public TimetableViewModel()
         {
+            SelectedDate = DateTime.Today;
             _timetableRepository = TimetableRepository.TR;
             _reservedServiceRepository = ReservedServiceRepository.RSR;
+            _stylistRepository = StylistRepository.SR;
 
-            CheckCommand = new Command(ExecuteCheckMethod, CanExecuteMethod);
 
             CreateTimeTable();
-            //FillUpTimeTable();
+            FillUpTimeTable();
+
+            CheckCommand = new Command(ExecuteCheckMethod, CanExecuteMethod);
         }
 
         #endregion
@@ -166,10 +171,8 @@ namespace HairSalonManager.ViewModel
         #region method
         public void CreateTimeTable()
         {
-
-            _row = _dataTable.NewRow();
-            _dataTable.Rows.Add(_row);
-
+            int stylistCount = _stylistRepository.GetStylists().Count;
+            
             _col = _dataTable.Columns.Add();
             _col.ColumnName = "StylistName";
 
@@ -178,19 +181,30 @@ namespace HairSalonManager.ViewModel
                 _col = _dataTable.Columns.Add();
                 _col.ColumnName = (i / 2).ToString("D2") + " : " + (i % 2 * 30).ToString("D2");
             }
+
+            for (int i = 0; i < stylistCount; i++)
+            {
+                _row = _dataTable.NewRow();
+                _dataTable.Rows.Add(_row);
+            }
         }
 
         public void FillUpTimeTable()
         {
-            int block = OperationTime / 30;
-
-            for (int i=0; i<49; i++)
+            if (StartAt.ToString("d").Equals(SelectedDate.ToString("d")))
             {
-                if (_col.ColumnName.Equals(StartAt.Hour + " : " + StartAt.Minute)==true)
+                int block = OperationTime / 30;
+
+                _col.DefaultValue =  StylistName;
+
+                for (int i = 0; i < 48; i++)
                 {
-                    for (int j = 0; j < block; j++)
+                    if (_col.ColumnName.Equals(StartAt.Hour + " : " + StartAt.Minute) == true)
                     {
-                        _col.DefaultValue = ResNum;
+                        for (int j = 0; j < block; j++)
+                        {
+                            _col.DefaultValue = ResNum;
+                        }
                     }
                 }
             }
