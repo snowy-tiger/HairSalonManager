@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Threading;
 
 namespace HairSalonManager.Model.Util
@@ -28,19 +29,23 @@ namespace HairSalonManager.Model.Util
 
         DispatcherTimer _timer;
 
-        ObservableCollection<ReservationVo> _list;
+        uint _recentNum;
+
+        ReservationRepository _rr;
 
         private NoticeService()
-        {            
+        {
+            _rr = ReservationRepository.Rr;
+            _recentNum = _rr.RecentResNum;
+            MessageBox.Show($"{_recentNum}");
             _timer = new DispatcherTimer();
             _timer.Interval = new TimeSpan(0, 0, 10);
             _timer.Tick += Timer_tick;
         }
 
-        public void StartNoticeService(ref ObservableCollection<ReservationVo> list) //알림 서비스를 시작함
-        {
-            _list = list;
-            _timer.Start();
+        public void StartNoticeService() //알림 서비스를 시작함
+        {          
+            _timer.Start();            
         }
 
         public void StopNoticeService() //알림 서비스를 종료함
@@ -49,28 +54,22 @@ namespace HairSalonManager.Model.Util
         }
         private void Timer_tick(object sender, EventArgs e)
         {
-            HasNewReservation(ref _list);
+            HasNewReservation();
         }
 
-        private void HasNewReservation(ref ObservableCollection<ReservationVo> list)
+        private void HasNewReservation()
         {
-            ReservationRepository rr = ReservationRepository.Rr;
-
-            List<ReservationVo> recentList;
-           
-            if ((recentList = rr.GetReservations(rr.RecentResNum)) != null)
-            {
-                foreach (ReservationVo rv in recentList)
-                {
-                    list.Add(rv);
-                }
-                ShowMessage();//알림을 나타내는 메소드
-            }                    
+            MessageBox.Show($"{_rr.RecentResNum}, {_recentNum}");
+            if (_rr.RecentResNum != _recentNum)
+            {             
+                _recentNum = _rr.RecentResNum;
+                ShowMessage();
+            }                                   
         }
 
         private void ShowMessage() //알림을 나타내는 메소드
         {
-            
+            MessageBox.Show("새로운 예약이 도착했습니다.");
         }
     }
 }

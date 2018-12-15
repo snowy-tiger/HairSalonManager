@@ -204,8 +204,9 @@ namespace HairSalonManager.ViewModel
             {               
                 return;
             }
+            SelectedRes.ResNum =  _reservationRepository.InsertReservation(SelectedRes);
             ResList.Add(SelectedRes);
-            _reservationRepository.InsertReservation(SelectedRes);
+            
         }
 
         private void ExecuteRemoveMethod(ReservedServiceVo rsv)

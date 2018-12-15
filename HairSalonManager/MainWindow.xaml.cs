@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HairSalonManager.Model.Util;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,7 @@ namespace HairSalonManager
         public MainWindow()
         {
             InitializeComponent();
+            //NoticeService.NS.StartNoticeService();
         }
     }
 }

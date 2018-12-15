@@ -28,17 +28,13 @@ namespace HairSalonManager.Model.Repository
         private ReservationRepository()
         {
             _conn = Connection.Conn;
-            RecentResNum = 0;
-            _list = GetReservations();
+            RecentResNum = 0;            
         }
         #endregion
 
         #region Fields
 
         private static uint _recentResNum;
-
-        readonly List<ReservationVo> _list;
-
         
         public uint RecentResNum {
             get
@@ -106,13 +102,9 @@ namespace HairSalonManager.Model.Repository
             _conn.Msc.Close();            
             return list;
         }
+        
 
-        public List<ReservationVo> GetReservationsFromLocal() //미리 받아놓은 리스트를 준다.
-        {
-            return new List<ReservationVo>(_list);
-        }
-
-        public bool InsertReservation(ReservationVo rv) //예약 추가
+        public uint InsertReservation(ReservationVo rv) //예약 추가
         {
             _conn.Msc.Open();
             _sql = "INSERT INTO reservation(stylistId,note,gender,userBirthday,startAt,endAt,userName,userTel) VALUES(@stylistId,@note,@gender,@userBirthday,@startAt,@endAt,@userName,@userTel)";
@@ -128,13 +120,17 @@ namespace HairSalonManager.Model.Repository
             cmd.Parameters.AddWithValue("@endAt", rv.EndAt);
             cmd.Parameters.AddWithValue("@userName", rv.UserName);
 
+           
+
             if (cmd.ExecuteNonQuery() == -1) //실패시
             {
                 _conn.Msc.Close();
-                return false;
+                return 0;
             }
+
+            uint recentId = (uint)cmd.LastInsertedId;
             _conn.Msc.Close();
-            return true; //성공시
+            return recentId; //성공시
         }
 
         public bool UpdateReservation(ReservationVo rv) //예약 수정
