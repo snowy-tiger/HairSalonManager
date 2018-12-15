@@ -7,5 +7,28 @@
     <Application.Resources>
         <util:GenderRadioConverter x:Key="GenderConverter"/>
         <util:StylistIndexConverter x:Key="StylistIndexConverter"/>
+        
+        <!-- RoundTextBoxTemplate -->
+        <ControlTemplate x:Key="RoundTextBox" TargetType="{x:Type TextBoxBase}">
+            <Border Background="{TemplateBinding Background}" 
+                x:Name="RoundTextBoxBorder" BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="5">
+                <ScrollViewer/>
+            </Border>
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" TargetName="RoundTextBoxBorder"/>
+                    <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+                </Trigger>
+                <Trigger Property="Width" Value="Auto">
+                    <Setter Property="MinWidth" Value="100"/>
+                </Trigger>
+                <Trigger Property="Height" Value="Auto">
+                    <Setter Property="MinHeight" Value="20"/>
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+        <!-- End Of RoundTextBoxTemplate -->
+
     </Application.Resources>
 </Application>

@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:HairSalonManager.View"
       xmlns:local1="clr-namespace:HairSalonManager.ViewModel"
       mc:Ignorable="d" 
-      d:DesignHeight="384" d:DesignWidth="845"
+      d:DesignHeight="515" d:DesignWidth="1000"
       Title="MainPage">
 
     <Page.DataContext>
@@ -33,11 +33,16 @@
         <Style TargetType="ComboBox">
             <Setter Property="Background" Value="#1e1e1e"/>
         </Style>
+        <Style TargetType="ComboBoxItem">
+            <Setter Property="Background" Value="#1e1e1e"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Foreground" Value="White"/>
+        </Style>
     </Page.Resources>
 
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1.5*"/>
+            <ColumnDefinition Width="1.618*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <DataGrid IsReadOnly="True" Margin="5" Background="#1e1e1e" ItemsSource="{Binding ResList}" SelectedItem="{Binding SelectedRes}" SelectionUnit="FullRow" SelectionMode="Single" Grid.Column="0" Foreground="FloralWhite" RowBackground="#242424" AlternatingRowBackground="#191919" BorderThickness="0" HorizontalGridLinesBrush="#363636" VerticalGridLinesBrush="Transparent">
@@ -55,12 +60,13 @@
         </DataGrid>
         <Grid Margin="5" Grid.Column="1">
             <Grid.RowDefinitions>
-                <RowDefinition Height="1.3*"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="2*"/>
                 <RowDefinition Height="2*"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="4*"/>
@@ -81,7 +87,7 @@
 
             <!-- 미용사 -->
             <TextBlock Text="미용사" Grid.Row="2" Grid.Column="0"/>
-            <ComboBox ItemsSource="{Binding StylistList}" SelectedIndex="{Binding SelectedRes.StylistId,Converter={StaticResource StylistIndexConverter}}" Grid.Row="2" Grid.Column="1">
+            <ComboBox Background="Yellow" ItemsSource="{Binding StylistList}" SelectedIndex="{Binding SelectedRes.StylistId,Converter={StaticResource StylistIndexConverter}}" Grid.Row="2" Grid.Column="1">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding StylistName}"/>
@@ -116,9 +122,11 @@
                     </Style>
                 </DataGrid.RowHeaderStyle>
             </DataGrid>
-
+            <!-- 메모 -->
+            <TextBlock Text="전달사항" Grid.Row="7" Grid.Column="0"/>
+            <TextBox Margin="5" Grid.Row="7" Grid.Column="1"/>
             <!-- 버튼 -->
-            <Grid Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2">
+            <Grid Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="2">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
@@ -132,7 +140,7 @@
             </Grid>
 
             <!-- 서비스 -->
-            <ListBox ItemsSource="{Binding ServiceCommands}" Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="2" Margin="0 5" Background="#1e1e1e" Foreground="White">
+            <ListBox ItemsSource="{Binding ServiceCommands}" Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="2" Margin="0 5" Background="#1e1e1e" Foreground="White">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <Grid>
@@ -146,7 +154,7 @@
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
-            <Grid Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="2">
+            <Grid Grid.Row="10" Grid.Column="0" Grid.ColumnSpan="2">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="3*"/>
                     <ColumnDefinition Width="*"/>

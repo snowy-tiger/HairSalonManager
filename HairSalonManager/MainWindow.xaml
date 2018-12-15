@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:HairSalonManager"
         xmlns:local1="clr-namespace:HairSalonManager.ViewModel"
         mc:Ignorable="d"
-        Title="{Binding WindowTitle}" Height="480" Width="845" Background="#2D2F31" WindowStyle="None" WindowState="{Binding WindowState}" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+        Title="{Binding WindowTitle}" Height="618" Width="1000" Background="#2D2F31" WindowStyle="None" WindowState="{Binding WindowState}" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Window.DataContext>
         <local1:MainWindowViewModel/>
     </Window.DataContext>
@@ -15,12 +15,12 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="4*"/>
+            <RowDefinition Height="5*"/>
         </Grid.RowDefinitions>
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="1.3*"/>
             </Grid.ColumnDefinitions>
             <TextBlock Text="{Binding Title}" Margin="40 0" Foreground="White" FontSize="50" VerticalAlignment="Center"/>
             <ItemsControl x:Name="tStack" ItemsSource="{Binding MenuCommands}" Grid.Column="1" Grid.Row="0">
@@ -31,13 +31,13 @@
                 </ItemsControl.ItemsPanel>
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <Button Content="{Binding Path=DisplayName}" Command="{Binding Path=Command}" CommandParameter="{Binding Path=Index}" Background="{Binding Path=Color}" FontSize="15" BorderThickness="0" Foreground="White" Width="115" Height="50"/>
+                        <Button Content="{Binding Path=DisplayName}" Command="{Binding Path=Command}" CommandParameter="{Binding Path=Index}" Background="{Binding Path=Color}" FontSize="15" BorderThickness="0" Foreground="White" Width="100" Height="61.8"/>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
         </Grid>
         <Frame Source="{Binding NavigationUri}" NavigationUIVisibility="Hidden" Grid.Row="2"/>
-        <Button Content="━" HorizontalAlignment="Left" Margin="794,10,0,0" VerticalAlignment="Top" Width="18" Background="#2D2F31" Foreground="#FFF3F3F3" IsTabStop="False" Focusable="False" Height="18" BorderBrush="{x:Null}" FontFamily="Segoe UI" FontSize="11" FontWeight="ExtraBold" Command="{Binding MinimizeCommand}"/>
-        <Button Content="X" HorizontalAlignment="Left" Margin="817,10,0,0" VerticalAlignment="Top" Width="18" Background="#FFA82323" Foreground="#FFF3F3F3" IsTabStop="False" Focusable="False" Height="18" BorderBrush="{x:Null}" FontFamily="Segoe UI" FontSize="10" FontWeight="Bold" Command="{Binding CloseCommand}"/>
+        <Button Content="━" HorizontalAlignment="Left" Margin="949,9,0,0" VerticalAlignment="Top" Width="18" Background="#2D2F31" Foreground="#FFF3F3F3" IsTabStop="False" Focusable="False" Height="18" BorderBrush="{x:Null}" FontFamily="Segoe UI" FontSize="11" FontWeight="ExtraBold" Command="{Binding MinimizeCommand}"/>
+        <Button Content="X" HorizontalAlignment="Left" Margin="972,10,0,0" VerticalAlignment="Top" Width="18" Background="#FFA82323" Foreground="#FFF3F3F3" IsTabStop="False" Focusable="False" Height="18" BorderBrush="{x:Null}" FontFamily="Segoe UI" FontSize="10" FontWeight="Bold" Command="{Binding CloseCommand}"/>
     </Grid>
 </Window>

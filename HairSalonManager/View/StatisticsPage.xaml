@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:HairSalonManager.View"
       xmlns:local2="clr-namespace:HairSalonManager.ViewModel"
       mc:Ignorable="d" 
-      d:DesignHeight="384" d:DesignWidth="845"
+      d:DesignHeight="515" d:DesignWidth="1000"
       Title="Statistics">
     <Page.DataContext>
         <local2:TimetableViewModel/>
