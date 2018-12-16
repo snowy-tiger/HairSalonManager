@@ -192,7 +192,6 @@ namespace HairSalonManager.ViewModel
         #region method
         public void ShowTimeTable()
         {
-            int block = OperationTime / 30;
             IEnumerable<ReservationVo> necessaryList;
 
             _col = _dataTable.Columns.Add();
@@ -213,23 +212,27 @@ namespace HairSalonManager.ViewModel
                 necessaryList = ReservationList.Where(x => x.StylistId == StylistList[k].StylistId);
 
                 //이 목록 중에서 선택한 날짜만 다시 불러오기
-                necessaryList.Where(x => x.StartAt.Value.ToString("d").Equals(SelectedDate.ToString("d")));
-                
+                necessaryList = necessaryList.Where(x => x.StartAt.Value.ToString("d").Equals(SelectedDate.ToString("d")));
+
                 //각 예약을 집어넣기
-                //foreach (var item in necessaryList)
-                //{
-                //    for (int i = 0; i < 48; i++)
-                //    {
-                //        if (_col.ColumnName.Equals(item.StartAt.Value.Hour + " : " + item.StartAt.Value.Minute))
-                //        {
-                //            for (int j = 0; j < block; j++)
-                //            {
-                //                _row[i + 1] = item.ResNum;
-                //                i++;
-                //            }
-                //        }
-                //    }
-                //}
+                foreach (var item in necessaryList)
+                {
+                    TimeSpan ts = item.EndAt.Value - item.StartAt.Value;
+                    int result = (ts.Hours * 60) + ts.Minutes;
+                    int block = result / 30;
+
+                    for (int i = 0; i < 48; i++)
+                    {
+                        if (_col.ColumnName.Equals(item.StartAt.Value.Hour + " : " + item.StartAt.Value.Minute))
+                        {
+                            for (int j = 0; j < block; j++)
+                            {
+                                _row[i + 1] = item.ResNum;
+                                i++;
+                            }
+                        }
+                    }
+                }
                 _dataTable.Rows.Add(_row);
             }
         }
