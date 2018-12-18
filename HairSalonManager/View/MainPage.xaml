@@ -12,41 +12,6 @@
     <Page.DataContext>
         <local1:MainPageViewModel/>
     </Page.DataContext>
-    <Page.Resources>
-        <Style TargetType="TextBlock">
-            <Setter Property="Foreground" Value="White"/>
-            <Setter Property="VerticalAlignment" Value="Center"/>
-        </Style>
-        <Style TargetType="RadioButton">
-            <Setter Property="VerticalAlignment" Value="Center"/>
-        </Style>
-        <Style TargetType="TextBox">
-            <Setter Property="Background" Value="#1e1e1e"/>
-            <Setter Property="Foreground" Value="White"/>
-            <Setter Property="BorderThickness" Value="0"/>
-            <Setter Property="Padding" Value="5 2 0 5"/>
-        </Style>
-        <Style TargetType="Button">
-            <Setter Property="Background" Value="#3f3f41"/>
-            <Setter Property="Foreground" Value="White"/>
-            <Setter Property="BorderThickness" Value="0"/>
-        </Style>
-        <Style TargetType="ComboBox">
-            <Setter Property="Height" Value="25"/>
-        </Style>
-        <Style TargetType="ComboBoxItem">
-            <Setter Property="Background" Value="#1e1e1e"/>
-            <Setter Property="BorderThickness" Value="0"/>
-            <Setter Property="Foreground" Value="White"/>
-        </Style>
-        <Style TargetType="{x:Type DataGridColumnHeader}">
-            <Setter Property="Background" Value="#161616"/>
-            <Setter Property="Foreground" Value="White"/>
-        </Style>
-        <Style TargetType="{x:Type DataGridRowHeader}">
-            <Setter Property="Background" Value="Transparent"/>
-        </Style>
-    </Page.Resources>
 
     <Grid>
         <Grid.ColumnDefinitions>
@@ -79,21 +44,15 @@
 
             <!-- 예약자 성함 -->
             <TextBlock Text="예약자 성함" Grid.Row="1" Grid.Column="0"/>
-            <TextBox Height="23" Text="{Binding SelectedRes.UserName}" Grid.Row="1" Grid.Column="1">
-                <TextBox.Resources>
-                    <Style TargetType="{x:Type Border}">
-                        <Setter Property="CornerRadius" Value="5"/>
-                    </Style>
-                </TextBox.Resources>
-            </TextBox>
+            <TextBox Height="23" Text="{Binding SelectedRes.UserName}" Grid.Row="1" Grid.Column="1"/>
 
             <!-- 예약 번호 -->
             <TextBlock Text="예약번호" Grid.Row="2" Grid.Column="0"/>
-            <TextBlock Text="{Binding SelectedRes.ResNum}" Grid.Row="2" Grid.Column="1"/>
+            <TextBlock Text="{Binding SelectedRes.ResNum}" Grid.Row="2" Grid.Column="61"/>
 
             <!-- 미용사 -->
             <TextBlock Text="미용사" Grid.Row="3" Grid.Column="0"/>
-            <ComboBox Background="Yellow" ItemsSource="{Binding StylistList}" SelectedIndex="{Binding SelectedRes.StylistId,Converter={StaticResource StylistIndexConverter}}" Grid.Row="3" Grid.Column="1">
+            <ComboBox ItemsSource="{Binding StylistList}" SelectedIndex="{Binding SelectedRes.StylistId,Converter={StaticResource StylistIndexConverter}}" Grid.Row="3" Grid.Column="1">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding StylistName}"/>
@@ -103,13 +62,7 @@
 
             <!-- 전화번호 -->
             <TextBlock Text="전화번호" Grid.Row="4" Grid.Column="0"/>
-            <TextBox Text="{Binding SelectedRes.UserTel}" Height="23" Grid.Row="4" Grid.Column="1">
-                <TextBox.Resources>
-                    <Style TargetType="{x:Type Border}">
-                        <Setter Property="CornerRadius" Value="5"/>
-                    </Style>
-                </TextBox.Resources>
-            </TextBox>
+            <TextBox Text="{Binding SelectedRes.UserTel}" Height="23" Grid.Row="4" Grid.Column="1"/>
 
             <!-- 성별 -->
             <TextBlock Text="성별" Grid.Row="5" Grid.Column="0"/>
@@ -128,10 +81,24 @@
                     <ColumnDefinition Width="2*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <DatePicker SelectedDate="{Binding SelDate}" DisplayDateStart="{Binding StartDate,Mode=OneWay}" Grid.Column="0"/>
-                <ComboBox ItemsSource="{Binding AvailableHour}" SelectedItem="{Binding SelHour}" Grid.Column="1"/>
+                <DatePicker SelectedDate="{Binding SelectedRes.StartAt}" DisplayDateStart="{Binding StartDate,Mode=OneWay}" Grid.Column="0"/>
+                <ComboBox ItemsSource="{Binding AvailableHour}" Grid.Column="1">
+                    <ComboBox.SelectedItem>
+                        <MultiBinding Converter="{StaticResource TimeDivideConverter}" ConverterParameter="Hour">
+                            <Binding Path="SelectedRes.StartAt"/>
+                            <Binding Path="AvailableHour" Mode="OneWay"/>
+                        </MultiBinding> 
+                    </ComboBox.SelectedItem>
+                </ComboBox>
                 <TextBlock Text="시" Grid.Column="2"/>
-                <ComboBox ItemsSource="{Binding AvailableMinute}" SelectedItem="{Binding SelMinute}" Grid.Column="3"/>
+                <ComboBox ItemsSource="{Binding AvailableMinute}" Grid.Column="3">
+                    <ComboBox.SelectedItem>
+                        <MultiBinding Converter="{StaticResource TimeDivideConverter}" ConverterParameter="Minute">
+                            <Binding Path="SelectedRes.StartAt"/>
+                            <Binding Path="AvailableHour" Mode="OneWay"/>
+                        </MultiBinding>
+                    </ComboBox.SelectedItem>
+                </ComboBox>
                 <TextBlock Text="분" Grid.Column="4"/>
             </Grid>
             <DataGrid IsReadOnly="True" Margin="0 5" Background="#1e1e1e"  SelectionUnit="Cell" SelectionMode="Single" Foreground="FloralWhite" RowBackground="#242424" AlternatingRowBackground="#191919" BorderBrush="Black" HorizontalGridLinesBrush="#363636" VerticalGridLinesBrush="Transparent" Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2">
@@ -149,13 +116,7 @@
             </DataGrid>
             <!-- 메모 -->
             <TextBlock Text="전달사항" Grid.Row="8" Grid.Column="0"/>
-            <TextBox Text="{Binding SelectedRes.Note}" Margin="5" Grid.Row="8" Grid.Column="1">
-                <TextBox.Resources>
-                    <Style TargetType="{x:Type Border}">
-                        <Setter Property="CornerRadius" Value="5"/>
-                    </Style>
-                </TextBox.Resources>
-            </TextBox>
+            <TextBox Text="{Binding SelectedRes.Note}" Margin="5" Grid.Row="8" Grid.Column="1"/>
             <!-- 버튼 -->
             <Grid Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="2">
                 <Grid.ColumnDefinitions>
@@ -204,8 +165,6 @@
                 </ComboBox>
                 <Button Content="서비스 추가" Command="{Binding InsertRSCommand}" IsEnabled="{Binding IsSelectedService}" Height="25" Grid.Column="1"/>
             </Grid>
-
         </Grid>
-
     </Grid>
 </Page>
