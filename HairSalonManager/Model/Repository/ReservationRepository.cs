@@ -60,11 +60,11 @@ namespace HairSalonManager.Model.Repository
             {
                 ReservationVo rv = new ReservationVo();
                 rv.ResNum = (uint)rdr["resNum"];
-                rv.EndAt = rdr["endAt"] as DateTime?;
+                rv.EndAt = (DateTime) rdr["endAt"] ;
                 rv.Gender = (bool)rdr["gender"] ? 1 : 0;
                 rv.IsPaid = (bool)rdr["isPaid"];
                 rv.Note = rdr["note"] as string;
-                rv.StartAt = rdr["startAt"] as DateTime?;
+                rv.StartAt = (DateTime) rdr["startAt"] ;
                 rv.StylistId = (uint)rdr["stylistId"];
                 rv.UserBirthday = rdr["userBirthday"] as DateTime?;
                 rv.UserName = rdr["userName"] as string;
@@ -88,11 +88,11 @@ namespace HairSalonManager.Model.Repository
             {
                 ReservationVo rv = new ReservationVo();
                 rv.ResNum = (uint)rdr["resNum"];
-                rv.EndAt = rdr["endAt"] as DateTime?;
+                rv.EndAt = (DateTime) rdr["endAt"] ;
                 rv.Gender = (bool)rdr["gender"] ? 1 : 0;
                 rv.IsPaid = (bool)rdr["isPaid"];
                 rv.Note = rdr["note"] as string;
-                rv.StartAt = rdr["startAt"] as DateTime?;
+                rv.StartAt = (DateTime)rdr["startAt"] ;
                 rv.StylistId = (uint)rdr["stylistId"];
                 rv.UserBirthday = rdr["userBirthday"] as DateTime?;
                 rv.UserName = rdr["userName"] as string;

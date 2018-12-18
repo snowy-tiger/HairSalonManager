@@ -165,7 +165,7 @@ namespace HairSalonManager.ViewModel
             set {
                 _selDate = value;
                 OnPropertyChanged("SelDate");
-                SelectedRes.StartAt = SelDate.Date;
+               
             }
         }
 
@@ -176,8 +176,8 @@ namespace HairSalonManager.ViewModel
             get { return AvailableHour.IndexOf(_selHour); }
             set { _selHour = value;
                 OnPropertyChanged("SelHour");
-                TimeSpan ts = new TimeSpan(_selHour, 0, 0);
-                SelectedRes.StartAt += ts;
+                //TimeSpan ts = new TimeSpan(_selHour, 0, 0);
+                //SelectedRes.StartAt += ts;
             }
         }
 
@@ -189,15 +189,15 @@ namespace HairSalonManager.ViewModel
             set {
                 _selMinute = value;                
                 OnPropertyChanged("SelMinute");
-                TimeSpan ts = new TimeSpan(0,_selMinute, 0);
-                SelectedRes.StartAt += ts;
+                //TimeSpan ts = new TimeSpan(0,_selMinute, 0);
+                //SelectedRes.StartAt += ts;
             }
         }
         
 
         public DateTime StartDate
         {
-            get { return DateTime.Today; }           
+            get { return DateTime.Today.Date; }           
         }
 
         private readonly List<int> _availableHour;
@@ -226,7 +226,7 @@ namespace HairSalonManager.ViewModel
 
             _selectedRes = new ReservationVo();            
             SelectedRes.Gender = -1;
-            SelectedRes.StartAt = new DateTime();
+            SelectedRes.StartAt = new DateTime(1,1,1);
             SelectedRes.EndAt = new DateTime();
 
             ResList = new ObservableCollection<ReservationVo>(_reservationRepository.GetReservations());
@@ -288,7 +288,24 @@ namespace HairSalonManager.ViewModel
             {               
                 return;
             }
-            SelectedRes.ResNum =  _reservationRepository.InsertReservation(SelectedRes);
+            if (SelectedRes.StartAt.Year == 1) //선택날짜가 있는지 없는지 검사 (맨처음에 1로 다 초기화)
+            {
+                SelectedRes.StartAt = new DateTime();
+                SelectedRes.StartAt = DateTime.Today;
+            }
+            else
+            {
+                SelectedRes.StartAt = new DateTime();
+                SelectedRes.StartAt = SelDate.Date;
+            }
+            TimeSpan ts = new TimeSpan(SelHour, 0, 0);
+            SelectedRes.StartAt += ts;
+
+            ts = new TimeSpan(0, SelMinute, 0);
+            SelectedRes.StartAt += ts;
+
+            SelectedRes.EndAt = SelectedRes.StartAt;
+            SelectedRes.ResNum =  _reservationRepository.InsertReservation(SelectedRes);            
             ResList.Add(SelectedRes);
             _reservationRepository.RecentResNum = SelectedRes.ResNum;
         }
@@ -316,10 +333,22 @@ namespace HairSalonManager.ViewModel
                 return;
             }
             ReservedServiceVo rv = new ReservedServiceVo();
-            rv.ResNum = SelectedRes.ResNum;
+            rv.ResNum = SelectedRes.ResNum;            
             rv.SerId = SelectedService.ServiceId;
-            _reservedServiceRepository.InsertReservedService(rv);            
+            ServiceVo s = ServiceList.Single(x => x.ServiceId == rv.SerId);
+            ushort serviceTime = s.ServiceTime;
+            if (HasReservations(SelectedRes.StylistId, SelectedRes.StartAt + new TimeSpan(serviceTime / 60, serviceTime % 60, 0)))
+            {
+                MessageBox.Show("이미 예약이 존재한 시간대입니다.");
+                return;
+            }
+            _reservedServiceRepository.InsertReservedService(rv);
             ServiceCommands.Add(new DataCommandViewModel<ReservedServiceVo>(SelectedService.ServiceName, new Command(RemoveRS), rv));
+
+            TimeSpan ts = new TimeSpan(SelectedService.ServiceTime / 60, SelectedService.ServiceTime % 60, 0);
+            SelectedRes.EndAt = SelectedRes.EndAt + ts;
+            _reservationRepository.UpdateReservation(SelectedRes);
+
         }
 
         private bool CanExecuteMethod(object arg)
@@ -342,7 +371,14 @@ namespace HairSalonManager.ViewModel
         {
             ReservedServiceVo rsv = (ReservedServiceVo)obj;
             _reservedServiceRepository.RemoveReservedService(rsv.ResNum, rsv.SerId);
-            ServiceCommands.Remove(ServiceCommands.Single(x => (x.Data == rsv)));            
+            ServiceCommands.Remove(ServiceCommands.Single(x => (x.Data == rsv)));
+
+            ServiceVo s = ServiceList.Single(x => x.ServiceId == rsv.SerId);
+            ReservationVo r = ResList.Single(x => x.ResNum == rsv.ResNum);
+            TimeSpan ts = new TimeSpan(s.ServiceTime / 60, s.ServiceTime % 60, 0);
+            r.EndAt = r.EndAt - ts;
+            _reservationRepository.UpdateReservation(r);
+
         }
        
         private bool Check(ReservationVo rv)
@@ -369,6 +405,18 @@ namespace HairSalonManager.ViewModel
             }
         }
 
+        private bool HasReservations(uint? stylistId, DateTime time)
+        {
+            ResList = new ObservableCollection<ReservationVo>(_reservationRepository.GetReservations()); //다시 db상에서 데이터 받아옴
+            foreach (ReservationVo r in ResList.Where(x => x.StylistId == stylistId))
+            {
+                if (time.Ticks > r.StartAt.Ticks && time.Ticks < r.EndAt.Ticks)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
        
         #endregion
 
