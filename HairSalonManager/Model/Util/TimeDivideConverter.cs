@@ -17,9 +17,9 @@ namespace HairSalonManager.Model.Util
             if (values[1] == null)
                 return Binding.DoNothing;
             string info = parameter as string;
-            DateTime? timeValue = values[0] as DateTime?;
+            DateTime timeValue = (DateTime)values[0];
             List<int> times = values[1] as List<int>;
-            int resultValue = info.Equals("Hour")?timeValue.Value.Hour: timeValue.Value.Minute;
+            int resultValue = info.Equals("Hour")?timeValue.Hour: timeValue.Minute;
 
             return times.IndexOf(resultValue);
         }
