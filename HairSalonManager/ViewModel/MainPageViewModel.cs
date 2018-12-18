@@ -226,10 +226,20 @@ namespace HairSalonManager.ViewModel
 
             _selectedRes = new ReservationVo();            
             SelectedRes.Gender = -1;
+            SelectedRes.StartAt = new DateTime();
+            SelectedRes.EndAt = new DateTime();
+
             ResList = new ObservableCollection<ReservationVo>(_reservationRepository.GetReservations());
             ServiceList = new ObservableCollection<ServiceVo>(_serviceRepository.GetServicesFromLocal());
             ServiceCommands = new ObservableCollection<DataCommandViewModel<ReservedServiceVo>>();
             StylistList = new ObservableCollection<StylistVo>(_stylistRepository.GetStylistsFromLocal());
+
+            _availableHour = new List<int>();
+            for (int x = 0; x < 24; x++)
+            {
+                _availableHour.Add(x);
+            }
+            _availableMinute = new List<int>() {0,30};
 
             InsertCommand = new Command(ExecuteInsertMethod, CanExecuteMethod);
             ModifyCommand = new Command(ExecuteModifyMethod, CanExecuteMethod);
