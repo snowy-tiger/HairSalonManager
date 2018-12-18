@@ -221,10 +221,11 @@ namespace HairSalonManager.ViewModel
                     TimeSpan ts = item.EndAt.Value - item.StartAt.Value;
                     int result = (ts.Hours * 60) + ts.Minutes;
                     int block = result / 30;
+                    int i = 0;
 
-                    for (int i = 0; i < 48; i++)
+                    foreach (DataColumn column in _dataTable.Columns)
                     {
-                        if (_col.ColumnName.Equals(item.StartAt.Value.Hour + " : " + item.StartAt.Value.Minute))
+                        if (column.ColumnName.Equals(item.StartAt.Value.Hour.ToString("D2") + " : " + item.StartAt.Value.Minute.ToString("D2")))
                         {
                             for (int j = 0; j < block; j++)
                             {
@@ -232,12 +233,12 @@ namespace HairSalonManager.ViewModel
                                 i++;
                             }
                         }
+                        i++;
                     }
+                    _dataTable.Rows.Add(_row);
                 }
-                _dataTable.Rows.Add(_row);
             }
         }
-
 
 
         private bool CanExecuteMethod(object arg)
