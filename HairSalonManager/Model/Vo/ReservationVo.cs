@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace HairSalonManager.Model.Vo
 {
-    class ReservationVo
+    class ReservationVo:Notifier
     {
         public uint ResNum { get; set; }
 
@@ -20,7 +20,17 @@ namespace HairSalonManager.Model.Vo
 
         public DateTime? UserBirthday { get; set; }
 
-        public DateTime StartAt { get; set; }
+        private DateTime _startAt;
+
+        public DateTime StartAt
+        {
+            get { return _startAt; }
+            set
+            {
+                _startAt = value;
+                OnPropertyChanged("StartAt");
+            }
+        }
 
         public DateTime EndAt { get; set; }
 
