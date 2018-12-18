@@ -39,6 +39,13 @@
             <Setter Property="BorderThickness" Value="0"/>
             <Setter Property="Foreground" Value="White"/>
         </Style>
+        <Style TargetType="{x:Type DataGridColumnHeader}">
+            <Setter Property="Background" Value="#161616"/>
+            <Setter Property="Foreground" Value="White"/>
+        </Style>
+        <Style TargetType="{x:Type DataGridRowHeader}">
+            <Setter Property="Background" Value="Transparent"/>
+        </Style>
     </Page.Resources>
 
     <Grid>
@@ -46,19 +53,7 @@
             <ColumnDefinition Width="1.618*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <DataGrid IsReadOnly="True" Margin="5" Background="#1e1e1e" ItemsSource="{Binding ResList}" SelectedItem="{Binding SelectedRes}" SelectionUnit="FullRow" SelectionMode="Single" Grid.Column="0" Foreground="FloralWhite" RowBackground="#242424" AlternatingRowBackground="#191919" BorderThickness="0" HorizontalGridLinesBrush="#363636" VerticalGridLinesBrush="Transparent">
-            <DataGrid.ColumnHeaderStyle>
-                <Style TargetType="{x:Type DataGridColumnHeader}">
-                    <Setter Property="Background" Value="#161616"/>
-                    <Setter Property="Foreground" Value="White"/>
-                </Style>
-            </DataGrid.ColumnHeaderStyle>
-            <DataGrid.RowHeaderStyle>
-                <Style TargetType="{x:Type DataGridRowHeader}">
-                    <Setter Property="Background" Value="Transparent"/>
-                </Style>
-            </DataGrid.RowHeaderStyle>
-        </DataGrid>
+        <DataGrid IsReadOnly="True" Margin="5" Background="#1e1e1e" ItemsSource="{Binding ResList}" SelectedItem="{Binding SelectedRes}" SelectionUnit="FullRow" SelectionMode="Single" Grid.Column="0" Foreground="FloralWhite" RowBackground="#242424" AlternatingRowBackground="#191919" BorderThickness="0" HorizontalGridLinesBrush="#363636" VerticalGridLinesBrush="Transparent"/>
         <Grid Margin="5" Grid.Column="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
@@ -125,13 +120,20 @@
 
             <!-- 예약시간 -->
             <TextBlock Text="예약시간" Grid.Row="6" Grid.Column="0"/>
-            <TextBox Height="23" Text="{Binding SelectedRes.StartAt}" Grid.Row="6" Grid.Column="1">
-                <TextBox.Resources>
-                    <Style TargetType="{x:Type Border}">
-                        <Setter Property="CornerRadius" Value="5"/>
-                    </Style>
-                </TextBox.Resources>
-            </TextBox>
+            <Grid Grid.Row="6" Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="4*"/>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <DatePicker SelectedDate="{Binding SelDate}" DisplayDateStart="{Binding StartDate}" Grid.Column="0"/>
+                <ComboBox ItemsSource="{Binding AvailableHour}" SelectedItem="{Binding SelHour}" Grid.Column="1"/>
+                <TextBlock Text="시" Grid.Column="2"/>
+                <ComboBox ItemsSource="{Binding AvailableMinute}" SelectedItem="{Binding SelMinute}" Grid.Column="3"/>
+                <TextBlock Text="분" Grid.Column="4"/>
+            </Grid>
             <DataGrid IsReadOnly="True" Margin="0 5" Background="#1e1e1e"  SelectionUnit="Cell" SelectionMode="Single" Foreground="FloralWhite" RowBackground="#242424" AlternatingRowBackground="#191919" BorderBrush="Black" HorizontalGridLinesBrush="#363636" VerticalGridLinesBrush="Transparent" Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2">
                 <DataGrid.ColumnHeaderStyle>
                     <Style TargetType="{x:Type DataGridColumnHeader}">
