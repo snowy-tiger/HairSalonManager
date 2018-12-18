@@ -165,7 +165,7 @@ namespace HairSalonManager.ViewModel
             }
         }
 
-        public Command CheckCommand { get; set; }
+        public Command CheckResCommand { get; set; }
         #endregion //property
 
         #region ctor
@@ -184,12 +184,13 @@ namespace HairSalonManager.ViewModel
 
             ShowTimeTable();
 
-            CheckCommand = new Command(ExecuteCheckMethod, CanExecuteMethod);
+            CheckResCommand = new Command(ExecuteCheckResMethod, CanExecuteMethod);
         }
 
         #endregion
 
         #region method
+
         public void ShowTimeTable()
         {
             IEnumerable<ReservationVo> necessaryList;
@@ -215,38 +216,48 @@ namespace HairSalonManager.ViewModel
                 necessaryList = necessaryList.Where(x => x.StartAt.Value.ToString("d").Equals(SelectedDate.ToString("d")));
 
 
-                //각 예약을 집어넣기
-                foreach (var item in necessaryList)
-                {
-                    TimeSpan ts = item.EndAt.Value - item.StartAt.Value;
-                    int result = (ts.Hours * 60) + ts.Minutes;
-                    int block = result / 30;
-                    int i = 0;
-
-                    foreach (DataColumn column in _dataTable.Columns)
-                    {
-                        if (column.ColumnName.Equals(item.StartAt.Value.Hour.ToString("D2") + " : " + item.StartAt.Value.Minute.ToString("D2")))
-                        {
-                            for (int j = 0; j < block; j++)
-                            {
-                                _row[i] = item.ResNum;
-                                i++;
-                            }
-                        }
-                        i++;
-                    }
-                    _dataTable.Rows.Add(_row);
-                }
+                SaveResInColumn(necessaryList);
             }
         }
 
+        public void SaveResInColumn(IEnumerable<ReservationVo> necessaryList)
+        {
+            //각 예약을 집어넣기
+            foreach (var item in necessaryList)
+            {
+                TimeSpan ts = item.EndAt.Value - item.StartAt.Value;
+                int result = (ts.Hours * 60) + ts.Minutes;
+                int block = result / 30;
+                int i = 0;
+
+                foreach (DataColumn column in _dataTable.Columns)
+                {
+                    if (column.ColumnName.Equals(item.StartAt.Value.Hour.ToString("D2") + " : " + item.StartAt.Value.Minute.ToString("D2")))
+                    {
+                        for (int j = 0; j < block; j++)
+                        {
+                            _row[i] = item.ResNum;
+                            i++;
+                        }
+                    }
+                    i++;
+                }
+                _dataTable.Rows.Add(_row);
+            }
+        }
+
+        private void DetectChangedDate()
+        {
+            ShowTimeTable();
+        }
 
         private bool CanExecuteMethod(object arg)
         {
             return true;
         }
 
-        private void ExecuteCheckMethod(object obj)
+
+        private void ExecuteCheckResMethod(object obj)
         {
             _reservedServiceRepository.GetReservedServices(ResNum);
         }
