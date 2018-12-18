@@ -26,16 +26,18 @@ namespace HairSalonManager.Model.Util
 
         public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
         {
-            if (values[0] == null)
-                return Binding.DoNothing;
-            if (values[1] == null)
-                return Binding.DoNothing;
-            string info = parameter as string;
-            DateTime? timeValue = values[0] as DateTime?;
-            List<int> times = values[1] as List<int>;
-            int resultValue = info.Equals("Hour") ? timeValue.Value.Hour : timeValue.Value.Minute;
+            //if (values[0] == null)
+            //    return Binding.DoNothing;
+            //if (values[1] == null)
+            //    return Binding.DoNothing;
+            //string info = parameter as string;
+            //DateTime? timeValue = values[0] as DateTime?;
+            //List<int> times = values[1] as List<int>;
+            //int resultValue = info.Equals("Hour") ? timeValue.Value.Hour : timeValue.Value.Minute;
 
-            return times.IndexOf(resultValue);
+            //return times.IndexOf(resultValue);
+
+            throw new NotImplementedException();
         }
     }
 }
