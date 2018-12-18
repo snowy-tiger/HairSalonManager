@@ -110,10 +110,7 @@ namespace HairSalonManager.ViewModel
             get { return isMan; }
             set { isMan = value; if (value == true) SelectedRes.Gender = 0; OnPropertyChanged("IsMan"); }
         }
-
-
         
-
         private bool man;
 
         public bool Man
@@ -160,7 +157,63 @@ namespace HairSalonManager.ViewModel
             }
         }
 
+        private DateTime _selDate;
 
+        public DateTime SelDate
+        {
+            get { return _selDate; }
+            set {
+                _selDate = value;
+                OnPropertyChanged("SelDate");
+                SelectedRes.StartAt = SelDate.Date;
+            }
+        }
+
+        private int _selHour;
+
+        public int SelHour
+        {
+            get { return AvailableHour.IndexOf(_selHour); }
+            set { _selHour = value;
+                OnPropertyChanged("SelHour");
+                TimeSpan ts = new TimeSpan(_selHour, 0, 0);
+                SelectedRes.StartAt += ts;
+            }
+        }
+
+        private int _selMinute;
+
+        public int SelMinute
+        {
+            get { return AvailableMinute.IndexOf(_selMinute); }
+            set {
+                _selMinute = value;                
+                OnPropertyChanged("SelMinute");
+                TimeSpan ts = new TimeSpan(0,_selMinute, 0);
+                SelectedRes.StartAt += ts;
+            }
+        }
+        
+
+        public DateTime StartDate
+        {
+            get { return DateTime.Today; }           
+        }
+
+        private readonly List<int> _availableHour;
+
+        public List<int> AvailableHour
+        {
+            get { return _availableHour; }
+            
+        }
+
+        private readonly List<int> _availableMinute;
+
+        public  List<int> AvailableMinute
+        {
+            get { return _availableMinute; }           
+        }
         #endregion
 
         #region ctor
@@ -186,6 +239,7 @@ namespace HairSalonManager.ViewModel
 
             _noticeService = NoticeService.NS;
 
+            
             _timer = new DispatcherTimer();
             _timer.Interval = new System.TimeSpan(0, 0, 5);
             _timer.Tick += _timer_Tick;
@@ -304,7 +358,8 @@ namespace HairSalonManager.ViewModel
                 _noticeService.IsNewReservationExistent = false;
             }
         }
-        
+
+       
         #endregion
 
     }
