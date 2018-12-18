@@ -8,7 +8,6 @@
         <util:GenderRadioConverter x:Key="GenderConverter"/>
         <util:StylistIndexConverter x:Key="StylistIndexConverter"/>
         <util:TimeDivideConverter x:Key="TimeDivideConverter"/>
-        <util:TimeTableChangeEvent x:Key="TimeTableChangeEvent"/>
 
 
         <Style TargetType="TextBlock">
