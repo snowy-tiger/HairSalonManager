@@ -41,7 +41,7 @@
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="13*"/>
                 </Grid.RowDefinitions>
-                <DatePicker SelectedDate="{Binding SelectedDate}" SelectedDateChanged="DetectChangedDate"/>
+                <DatePicker SelectedDate="{Binding SelectedDate}" SelectedDateChanged="{StaticResource TimeTableChangeEvent}"/>
                 <DataGrid IsReadOnly="True" Margin="5" Background="#1e1e1e" ItemsSource="{Binding DataTable}" SelectionUnit="FullRow" SelectionMode="Single" Grid.Column="0" Foreground="FloralWhite" RowBackground="#242424" AlternatingRowBackground="#191919" BorderBrush="Black" HorizontalGridLinesBrush="#363636" VerticalGridLinesBrush="Transparent" Grid.Row="1">
                     <DataGrid.ColumnHeaderStyle>
                         <Style TargetType="{x:Type DataGridColumnHeader}">
