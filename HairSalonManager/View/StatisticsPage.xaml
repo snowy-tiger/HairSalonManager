@@ -8,9 +8,6 @@
       mc:Ignorable="d" 
       d:DesignHeight="515" d:DesignWidth="1000"
       Title="Statistics">
-    <Page.DataContext>
-        <local2:TimetableViewModel/>
-    </Page.DataContext>
 
     <TabControl Margin="10" BorderThickness="0" Background="#1e1e1e">
         <TabControl.Resources>
@@ -37,11 +34,14 @@
         </TabControl.Resources>
         <TabItem Header="전체 미용사 일정">
             <Grid>
+                <Grid.DataContext>
+                    <local2:TimetableViewModel/>
+                </Grid.DataContext>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="13*"/>
                 </Grid.RowDefinitions>
-                <DatePicker SelectedDate="{Binding SelectedDate}"/>
+                <DatePicker SelectedDate="{Binding SelectedDate}" SelectedDateChanged="{Binding DetectChangedDate}"/>
                 <DataGrid IsReadOnly="True" Margin="5" Background="#1e1e1e" ItemsSource="{Binding DataTable}" SelectionUnit="FullRow" SelectionMode="Single" Grid.Column="0" Foreground="FloralWhite" RowBackground="#242424" AlternatingRowBackground="#191919" BorderBrush="Black" HorizontalGridLinesBrush="#363636" VerticalGridLinesBrush="Transparent" Grid.Row="1">
                     <DataGrid.ColumnHeaderStyle>
                         <Style TargetType="{x:Type DataGridColumnHeader}">
