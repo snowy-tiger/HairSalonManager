@@ -43,6 +43,7 @@ namespace HairSalonManager.ViewModel
             {
                 _selectedDate = value;
                 OnPropertyChanged("SelectedDate");
+                DetectChangedDate(value);
             }
         }
 
@@ -246,8 +247,8 @@ namespace HairSalonManager.ViewModel
                     }
                     i++;
                 }
-                _dataTable.Rows.Add(_row);
             }
+            _dataTable.Rows.Add(_row);
         }
 
         private bool CanExecuteMethod(object arg)
@@ -261,18 +262,26 @@ namespace HairSalonManager.ViewModel
         }
 
         //이벤트
-        private void DetectChangedDate(object sender, SelectionChangedEventArgs e)
+        private void DetectChangedDate(DateTime date)
         {
-            var picker = sender as DatePicker;
-            DateTime? date = picker.SelectedDate;
             if (date == null)
             {
                 date = SelectedDate;
             }
             else
             {
-                ShowTimeTable(date.Value);
+                ShowTimeTable(date);
             }
+            //var picker = sender as DatePicker;
+            //DateTime? date = picker.SelectedDate;
+            //if (date == null)
+            //{
+            //    date = SelectedDate;
+            //}
+            //else
+            //{
+            //    ShowTimeTable(date.Value);
+            //}
         }
 
         #endregion
