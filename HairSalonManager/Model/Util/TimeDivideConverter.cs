@@ -10,6 +10,8 @@ namespace HairSalonManager.Model.Util
 {
     class TimeDivideConverter : IMultiValueConverter
     {
+        private DateTime _oldValue;
+        private List<int> _oldTimes;
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
             if (values[0]==null)
@@ -17,23 +19,31 @@ namespace HairSalonManager.Model.Util
             if (values[1] == null)
                 return Binding.DoNothing;
             string info = parameter as string;
-            DateTime timeValue = (DateTime)values[0];
-            List<int> times = values[1] as List<int>;
-            int resultValue = info.Equals("Hour")?timeValue.Hour: timeValue.Minute;
+            _oldValue = (DateTime)values[0];
+            _oldTimes = values[1] as List<int>;
+            int resultValue = info.Equals("Hour")?_oldValue.Hour: _oldValue.Minute;
 
-            return times.IndexOf(resultValue);
+            return _oldTimes.IndexOf(resultValue);
         }
 
         public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
         {
-            //string info = parameter as string;
-            //DateTime? timeValue = values[0] as DateTime?;
-            //List<int> times = values[1] as List<int>;
-            //int resultValue = info.Equals("Hour") ? timeValue.Value.Hour : timeValue.Value.Minute;
+            string info = parameter as string;
+            int index = (int)value;
+            
 
-            //return times.IndexOf(resultValue);
+            switch (parameter)
+            {
+                case "Hour":
+                    _oldValue = new DateTime(_oldValue.Year, _oldValue.Month, _oldValue.Day, _oldTimes[index], _oldValue.Minute, 0);
+                    break;
+                case "Minute":
+                    _oldValue = new DateTime(_oldValue.Year, _oldValue.Month, _oldValue.Day, _oldValue.Hour, _oldTimes[index], 0);
+                    break;
+            }
 
-            throw new InvalidCastException();
+            object[] obj = { _oldValue };
+            return obj;
         }
     }
 }
