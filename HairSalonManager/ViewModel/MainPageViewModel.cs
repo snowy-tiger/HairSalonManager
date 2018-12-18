@@ -206,6 +206,7 @@ namespace HairSalonManager.ViewModel
         {            
             _reservationRepository.RemoveReservation(SelectedRes.ResNum);
             ResList.Remove(SelectedRes);
+            SelectedRes = new ReservationVo(); //삭제되면 SelectedRes도 삭제 됨으로 다시 생성
         }
 
         private void ExecuteModifyMethod(object obj)
@@ -225,7 +226,7 @@ namespace HairSalonManager.ViewModel
             }
             SelectedRes.ResNum =  _reservationRepository.InsertReservation(SelectedRes);
             ResList.Add(SelectedRes);
-            _reservationRepository.RecentResNum++;
+            _reservationRepository.RecentResNum = SelectedRes.ResNum;
         }
 
         private void ExecuteRemoveMethod(ReservedServiceVo rsv)
@@ -277,7 +278,7 @@ namespace HairSalonManager.ViewModel
         {
             ReservedServiceVo rsv = (ReservedServiceVo)obj;
             _reservedServiceRepository.RemoveReservedService(rsv.ResNum, rsv.SerId);
-            ServiceCommands.Remove(ServiceCommands.Single(x => (x.Data == rsv)));
+            ServiceCommands.Remove(ServiceCommands.Single(x => (x.Data == rsv)));            
         }
        
         private bool Check(ReservationVo rv)
@@ -302,7 +303,6 @@ namespace HairSalonManager.ViewModel
                 ResList = new ObservableCollection<ReservationVo>(_reservationRepository.GetReservations());
                 _noticeService.IsNewReservationExistent = false;
             }
-
         }
         
         #endregion

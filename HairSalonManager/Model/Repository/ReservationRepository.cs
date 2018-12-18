@@ -160,17 +160,32 @@ namespace HairSalonManager.Model.Repository
 
         public bool RemoveReservation(uint resNum) //예약 삭제
         {
+            bool isRecent = false;
+
+            if (resNum == GetRecentNum()) //최근예약이 삭제시 최근 num을 삭제된 전의 resNum으로 바꿔야함
+            {
+                isRecent = true;
+            }
+
             _conn.Msc.Open();
             _sql = $"DELETE FROM reservation WHERE resNum = {resNum}";
             MySqlCommand cmd = new MySqlCommand(_sql, _conn.Msc);
-
+            
             if (cmd.ExecuteNonQuery() == -1) //실패시
             {
                 _conn.Msc.Close();
                 return false;                
             }
+            
             _conn.Msc.Close();
+
+            if (isRecent) //삭제된게 맨 마지막 번호일시
+            {
+                RecentResNum = GetRecentNum();
+            }
+
             return true; //성공시
+
         }
 
         public uint GetRecentNum()
