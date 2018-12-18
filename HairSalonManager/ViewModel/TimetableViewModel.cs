@@ -175,7 +175,8 @@ namespace HairSalonManager.ViewModel
         #region ctor
         public TimetableViewModel()
         {
-            SelectedDate = DateTime.Today;
+            DateTime _selectedTime = new DateTime();
+            _selectedTime = DateTime.Today;
 
             _timetableRepository = TimetableRepository.TR;
             _reservationRepository = ReservationRepository.Rr;
@@ -186,7 +187,7 @@ namespace HairSalonManager.ViewModel
             ReservationList = new ObservableCollection<ReservationVo>(_reservationRepository.GetReservations());
             StylistList = new ObservableCollection<StylistVo>(_stylistRepository.GetStylistsFromLocal());
 
-            ShowTimeTable(SelectedDate);
+            MakeTimeTable(_selectedTime);
 
             CheckResCommand = new Command(ExecuteCheckResMethod, CanExecuteMethod);
 
@@ -196,10 +197,8 @@ namespace HairSalonManager.ViewModel
 
         #region method
 
-        public void ShowTimeTable(DateTime selectedDate)
+        public void MakeTimeTable(DateTime SelectedDate)
         {
-            IEnumerable<ReservationVo> necessaryList;
-
             _col = _dataTable.Columns.Add();
             _col.ColumnName = "StylistName";
 
@@ -208,6 +207,13 @@ namespace HairSalonManager.ViewModel
                 _col = _dataTable.Columns.Add();
                 _col.ColumnName = (i / 2).ToString("D2") + " : " + (i % 2 * 30).ToString("D2");
             }
+
+            ShowTimeTable(SelectedDate);
+        }
+
+        public void ShowTimeTable(DateTime selectedDate)
+        {
+            IEnumerable<ReservationVo> necessaryList;
 
             for (int k = 0; k < StylistList.Count; k++) //미용사 리스트를 가져와서 한명씩 실행
             {
@@ -270,6 +276,7 @@ namespace HairSalonManager.ViewModel
             }
             else
             {
+                _dataTable.Clear();
                 ShowTimeTable(date);
             }
             //var picker = sender as DatePicker;
