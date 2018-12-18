@@ -30,8 +30,7 @@ namespace HairSalonManager.Model.Repository
         }
         #endregion
 
-        #region Timetable Methods
-        private DataSet _ds;
+        #region Timetable Methods       
 
         public List<TimeTableVo> GetTimeTables()
         {
