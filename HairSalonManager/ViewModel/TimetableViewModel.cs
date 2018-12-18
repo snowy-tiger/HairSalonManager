@@ -7,6 +7,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 
 namespace HairSalonManager.ViewModel
 {
@@ -26,6 +27,8 @@ namespace HairSalonManager.ViewModel
         DataRow _row;
 
         DataColumn _col;
+
+        //public event EventHandler<System.Windows.Controls.SelectionChangedEventArgs> DetectChangedDate;
 
         #endregion
 
@@ -182,16 +185,17 @@ namespace HairSalonManager.ViewModel
             ReservationList = new ObservableCollection<ReservationVo>(_reservationRepository.GetReservations());
             StylistList = new ObservableCollection<StylistVo>(_stylistRepository.GetStylistsFromLocal());
 
-            ShowTimeTable();
+            ShowTimeTable(SelectedDate);
 
             CheckResCommand = new Command(ExecuteCheckResMethod, CanExecuteMethod);
+
         }
 
         #endregion
 
         #region method
 
-        public void ShowTimeTable()
+        public void ShowTimeTable(DateTime selectedDate)
         {
             IEnumerable<ReservationVo> necessaryList;
 
@@ -213,7 +217,7 @@ namespace HairSalonManager.ViewModel
                 necessaryList = ReservationList.Where(x => x.StylistId == StylistList[k].StylistId);
 
                 //이 목록 중에서 선택한 날짜만 다시 불러오기
-                necessaryList = necessaryList.Where(x => x.StartAt.Value.ToString("d").Equals(SelectedDate.ToString("d")));
+                necessaryList = necessaryList.Where(x => x.StartAt.ToString("d").Equals(selectedDate.ToString("d")));
 
 
                 SaveResInColumn(necessaryList);
@@ -225,14 +229,14 @@ namespace HairSalonManager.ViewModel
             //각 예약을 집어넣기
             foreach (var item in necessaryList)
             {
-                TimeSpan ts = item.EndAt.Value - item.StartAt.Value;
+                TimeSpan ts = item.EndAt - item.StartAt;
                 int result = (ts.Hours * 60) + ts.Minutes;
                 int block = result / 30;
                 int i = 0;
 
                 foreach (DataColumn column in _dataTable.Columns)
                 {
-                    if (column.ColumnName.Equals(item.StartAt.Value.Hour.ToString("D2") + " : " + item.StartAt.Value.Minute.ToString("D2")))
+                    if (column.ColumnName.Equals(item.StartAt.Hour.ToString("D2") + " : " + item.StartAt.Minute.ToString("D2")))
                     {
                         for (int j = 0; j < block; j++)
                         {
@@ -246,20 +250,29 @@ namespace HairSalonManager.ViewModel
             }
         }
 
-        private void DetectChangedDate()
-        {
-            ShowTimeTable();
-        }
-
         private bool CanExecuteMethod(object arg)
         {
             return true;
         }
-
-
+        
         private void ExecuteCheckResMethod(object obj)
         {
             _reservedServiceRepository.GetReservedServices(ResNum);
+        }
+
+        //이벤트
+        private void DetectChangedDate(object sender, SelectionChangedEventArgs e)
+        {
+            var picker = sender as DatePicker;
+            DateTime? date = picker.SelectedDate;
+            if (date == null)
+            {
+                date = SelectedDate;
+            }
+            else
+            {
+                ShowTimeTable(date.Value);
+            }
         }
 
         #endregion
