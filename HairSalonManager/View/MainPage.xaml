@@ -128,7 +128,7 @@
                     <ColumnDefinition Width="2*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <DatePicker SelectedDate="{Binding SelDate}" DisplayDateStart="{Binding StartDate}" Grid.Column="0"/>
+                <DatePicker SelectedDate="{Binding SelDate}" DisplayDateStart="{Binding StartDate,Mode=OneWay}" Grid.Column="0"/>
                 <ComboBox ItemsSource="{Binding AvailableHour}" SelectedItem="{Binding SelHour}" Grid.Column="1"/>
                 <TextBlock Text="시" Grid.Column="2"/>
                 <ComboBox ItemsSource="{Binding AvailableMinute}" SelectedItem="{Binding SelMinute}" Grid.Column="3"/>
