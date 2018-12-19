@@ -42,7 +42,7 @@
                     <RowDefinition Height="13*"/>
                 </Grid.RowDefinitions>
                 <DatePicker SelectedDate="{Binding SelectedDate}" />
-                <DataGrid IsReadOnly="True" Margin="5" HeadersVisibility="Column" Background="#1e1e1e" ItemsSource="{Binding DataTable}"  RowHeight="50" SelectionUnit="Cell" SelectionMode="Single" Grid.Column="0" Foreground="FloralWhite" BorderThickness="0" HorizontalGridLinesBrush="#363636" VerticalGridLinesBrush="Transparent" Grid.Row="1" GridLinesVisibility="Horizontal">
+                <DataGrid IsReadOnly="True" Margin="5" Background="#1e1e1e" ItemsSource="{Binding DataTable}"  RowHeight="50" SelectionUnit="Cell" SelectionMode="Single" Grid.Column="0" Foreground="FloralWhite" BorderThickness="0" HorizontalGridLinesBrush="#363636" VerticalGridLinesBrush="Transparent" Grid.Row="1" GridLinesVisibility="Horizontal">
                     <DataGrid.ColumnHeaderStyle>
                         <Style TargetType="{x:Type DataGridColumnHeader}">
                             <Setter Property="Background" Value="#161616"/>
@@ -61,7 +61,6 @@
                             </Style.Triggers>
                         </Style>
                     </DataGrid.CellStyle>
-                    
                 </DataGrid>
             </Grid>
         </TabItem>
