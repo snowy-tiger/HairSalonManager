@@ -9,6 +9,117 @@
       Title="PayPage">
 
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1.618*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <DataGrid Margin="5" ItemsSource="{Binding ResList}"/>
+        <Grid Margin="5" Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="4*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="0.5*"/>
+                <RowDefinition Height="0.6*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="1.5*"/>
+                <RowDefinition Height="3*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="3*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- 글씨 -->
+            <TextBlock Text="RSERVATION PAYMENT" RenderOptions.ClearTypeHint="Enabled" FontSize="20" FontWeight="Bold" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"/>
+
+            <!-- 예약자 성함 -->
+            <TextBlock Text="성함" Grid.Row="1" Grid.Column="0"/>
+            <TextBox Height="23" Text="" Grid.Row="1" Grid.Column="1"/>
+
+            <!-- 예약 번호 -->
+            <TextBlock Text="예약번호" Grid.Row="2" Grid.Column="0"/>
+            <TextBlock Text="" Grid.Row="2" Grid.Column="61"/>
+
+            <!-- 미용사 -->
+            <TextBlock Text="미용사" Grid.Row="3" Grid.Column="0"/>
+            <ComboBox ItemsSource="{Binding StylistList}" SelectedIndex="{Binding SelectedRes.StylistId,Converter={StaticResource StylistIndexConverter}}" Grid.Row="3" Grid.Column="1">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding StylistName}"/>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+
+            <!-- 전화번호 -->
+            <TextBlock Text="전화번호" Grid.Row="4" Grid.Column="0"/>
+            <TextBox Text="" Height="23" Grid.Row="4" Grid.Column="1"/>
+
+            <!-- 성별 -->
+            <TextBlock Text="성별" Grid.Row="5" Grid.Column="0"/>
+            <StackPanel Orientation="Horizontal" Grid.Row="5" Grid.Column="1">
+                <RadioButton GroupName="Gender" Content="남성" Foreground="White" IsChecked="{Binding SelectedRes.Gender,Converter={StaticResource GenderConverter},ConverterParameter=0}"/>
+                <RadioButton GroupName="Gender" Content="여성" Foreground="White" IsChecked="{Binding SelectedRes.Gender,Converter={StaticResource GenderConverter},ConverterParameter=1}"/>
+            </StackPanel>
+            
+            <!-- 서비스 -->
+            <ListBox ItemsSource="{Binding ServiceCommands}" Padding="5" Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2" Margin="0 5" Background="#1e1e1e" Foreground="White" BorderThickness="0">
+                <ListBox.Resources>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="CornerRadius" Value="5"/>
+                    </Style>
+                </ListBox.Resources>
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="3*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="{Binding Path=DisplayName}" Grid.Column="0"/>
+                            <Button Content="X" Foreground="Red" Command="{Binding Command}" CommandParameter="{Binding Data}" Grid.Column="1"/>
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            <Grid Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <ComboBox ItemsSource="{Binding ServiceList}" SelectedItem="{Binding SelectedService}" IsEnabled="{Binding IsSelectedService}" Grid.Column="0">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding ServiceName}"/>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+                <Button Content="서비스 추가" Command="{Binding InsertRSCommand}" IsEnabled="{Binding IsSelectedService}" Height="25" Grid.Column="1"/>
+            </Grid>
+            
+            <!-- 총 금액 -->
+            <StackPanel Orientation="Horizontal" VerticalAlignment="top" HorizontalAlignment="Right" Grid.Row="9" Grid.Column="1">
+                <TextBlock Text="합계 " FontSize="15"/>
+                <TextBlock Text="0" FontWeight="Bold" FontSize="15"/>
+                <TextBlock Text=" 원" FontSize="15"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" VerticalAlignment="top" HorizontalAlignment="Right" Grid.Row="10" Grid.Column="1">
+                <TextBlock Text="(" FontSize="10"/>
+                <TextBlock Text="0" FontSize="10"/>
+                <TextBlock Text=" 포인트 적립)" FontSize="10"/>
+            </StackPanel>
+            
+            <!-- 버튼 -->
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Row="11" Grid.Column="0" Grid.ColumnSpan="2">
+                <Button Width="69.5" FontSize="17" Content="취소"/>
+                <Button Width="69.5" FontSize="17" Content="결제" Background="#23A86D"/>
+            </StackPanel>
+            
+        </Grid>
     </Grid>
 </Page>
