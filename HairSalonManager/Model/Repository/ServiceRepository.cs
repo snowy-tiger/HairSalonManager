@@ -26,7 +26,8 @@ namespace HairSalonManager.Model.Repository
 
         private ServiceRepository()
         {
-            _list = GetServices();
+            _sql = "SELECT * FROM service";
+            _list = GetServices();            
         }
         #endregion
 
@@ -51,7 +52,7 @@ namespace HairSalonManager.Model.Repository
 
             _ds = new DataSet();
 
-            _sql = "SELECT * FROM service";
+           
 
             MySqlDataAdapter adapter = new MySqlDataAdapter(_sql,_conn.Msc);
 
@@ -73,18 +74,19 @@ namespace HairSalonManager.Model.Repository
         }
 
         public bool UpdateService(ServiceVo s)
-        {
-            _sql = "UPDATE service SET(serviceName,servicePrice,serviceTime,serviceDescription) " +
-                "VALUES(@serviceName,@servicePrice,@serviceTime,@serviceDescription) WHERE serviceId = @serviceId";
+        {            
 
-            MySqlDataAdapter adapter = new MySqlDataAdapter(_sql,_conn.Msc);
+            MySqlDataAdapter adapter = new MySqlDataAdapter(_sql,_conn.Msc);         
 
-            adapter.UpdateCommand.Parameters.AddWithValue("@serviceId", s.ServiceId);
-            adapter.UpdateCommand.Parameters.AddWithValue("@serviceName", s.ServiceName);
-            adapter.UpdateCommand.Parameters.AddWithValue("@servicePrice", s.ServicePrice);
-            adapter.UpdateCommand.Parameters.AddWithValue("@serviceTime", s.ServiceTime);
-            adapter.UpdateCommand.Parameters.AddWithValue("@serviceDescription", s.ServiceDescription);
+            DataTable table = _ds.Tables[0];
 
+            DataRow row = table.Select().Single(x => (ushort)x["serviceId"] == s.ServiceId);
+           
+            row["serviceName"] = s.ServiceName;
+            row["servicePrice"] = s.ServicePrice;
+            row["serviceTime"] = s.ServiceTime;
+            row["serviceDescription"] = s.ServiceDescription;
+            
             if (Save(adapter) == -1)
                 return false;
             return true;
@@ -92,13 +94,15 @@ namespace HairSalonManager.Model.Repository
         }
 
         public bool DeleteService(int serviceId)
-        {
-            _sql = "DELETE FROM service WHERE serviceId = @serviceId";
+        {          
 
             MySqlDataAdapter adapter = new MySqlDataAdapter(_sql, _conn.Msc);
 
-            adapter.DeleteCommand.Parameters.AddWithValue("@serviceId", serviceId);
-            
+            DataTable table = _ds.Tables[0];
+
+            DataRow row = table.Select().Single(x => (ushort)x["serviceId"] == serviceId);
+
+            row.Delete();
 
             if (Save(adapter) == -1)
                 return false;
@@ -107,17 +111,21 @@ namespace HairSalonManager.Model.Repository
         }
 
         public bool InsertService(ServiceVo s)
-        {
-            _sql = "INSERT INTO service(serviceId,serviceName,servicePrice,serviceTime,serviceDescription) " +
-                "VALUES(@serviceId,@serviceName,@servicePrice,@serviceTime,@serviceDescription)";
+        {           
 
             MySqlDataAdapter adapter = new MySqlDataAdapter(_sql, _conn.Msc);
 
-            adapter.InsertCommand.Parameters.AddWithValue("@serviceId", s.ServiceId);
-            adapter.InsertCommand.Parameters.AddWithValue("@serviceName", s.ServiceName);
-            adapter.InsertCommand.Parameters.AddWithValue("@servicePrice", s.ServicePrice);
-            adapter.InsertCommand.Parameters.AddWithValue("@serviceTime", s.ServiceTime);
-            adapter.InsertCommand.Parameters.AddWithValue("@serviceDescription", s.ServiceDescription);
+            DataTable table = _ds.Tables[0];
+
+            DataRow row = table.NewRow();
+
+            row["serviceId"] = s.ServiceId;
+            row["serviceName"] = s.ServiceName;
+            row["servicePrice"] = s.ServicePrice;
+            row["serviceTime"] = s.ServiceTime;
+            row["serviceDescription"] = s.ServiceDescription;
+
+            table.Rows.Add(row);
 
             if (Save(adapter) == -1)
                 return false;

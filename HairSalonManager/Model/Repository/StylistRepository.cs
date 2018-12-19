@@ -28,7 +28,8 @@ namespace HairSalonManager.Model.Repository
 
         private StylistRepository()
         {
-            _list = GetStylists();
+            _sql = "SELECT * FROM stylist";
+            _list = GetStylists();            
         }
 
         public List<StylistVo> GetStylistsFromLocal()
@@ -61,9 +62,7 @@ namespace HairSalonManager.Model.Repository
         }
 
         public bool InsertStylist(StylistVo s)
-        {
-            //_sql = "INSERT INTO stylist(stylistId,stylistName,additionalPrice,personalDay) " +
-            //    "VALUES(@stylistId,@stylistName,@additionalPrice,@personalDay)";
+        {       
 
             MySqlDataAdapter adapter = new MySqlDataAdapter(_sql, _conn.Msc);
 
