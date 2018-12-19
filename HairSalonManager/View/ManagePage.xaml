@@ -105,12 +105,15 @@
             </Grid>
         </TabItem>
         <TabItem Header="서비스 관리">
+            <TabItem.DataContext>
+                <viewModel:ServiceViewModel/>
+            </TabItem.DataContext>
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <DataGrid Margin="5" Grid.Column="0"/>
+                <DataGrid ItemsSource="{Binding ServiceList}" SelectedItem="{Binding SelectedService}" Margin="5" Grid.Column="0"/>
                 <Grid Margin="5" Grid.Column="1">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
@@ -133,25 +136,24 @@
 
                     <!-- 서비스 ID -->
                     <TextBlock Text="서비스 ID" Grid.Row="1" Grid.Column="0"/>
-                    <TextBlock Text="" Grid.Row="1" Grid.Column="1"/>
+                    <TextBlock Text="{Binding SelectedService.ServiceId}" Grid.Row="1" Grid.Column="1"/>
 
                     <!-- 서비스 이름 -->
                     <TextBlock Text="서비스 이름" Grid.Row="2" Grid.Column="0"/>
-                    <TextBox Grid.Row="2" Grid.Column="1"/>
+                    <TextBox Text="{Binding SelectedService.ServiceName}" Grid.Row="2" Grid.Column="1"/>
 
                     <!-- 가격 -->
                     <TextBlock Text="가격" Grid.Row="3" Grid.Column="0"/>
-                    <TextBox Grid.Row="3" Grid.Column="1"/>
+                    <TextBox Text="{Binding SelectedService.ServicePrice}" Grid.Row="3" Grid.Column="1"/>
 
                     <!-- 소요시간 -->
                     <TextBlock Text="소요시간" Grid.Row="4" Grid.Column="0"/>
-                    <TextBox Grid.Row="4" Grid.Column="1"/>
+                    <TextBox Text="{Binding SelectedService.ServiceTime}" Grid.Row="4" Grid.Column="1"/>
                     
                     <!-- 서비스 설명 -->
                     <TextBlock Text="설명" Grid.Row="6" Grid.Column="0"/>
-                    <TextBox Height="Auto" Grid.Row="6" Grid.Column="1"/>
+                    <TextBox Text="{Binding SelectedService.ServiceDescription}" Height="Auto" Grid.Row="6" Grid.Column="1"/>
                     
-                    <!-- 버튼 -->
                     <!-- 버튼 -->
                     <Grid Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="2">
                         <Grid.ColumnDefinitions>
