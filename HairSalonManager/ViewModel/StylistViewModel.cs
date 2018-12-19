@@ -36,9 +36,28 @@ namespace HairSalonManager.ViewModel
             get { return _selectedStylist; }
             set {
                 _selectedStylist = value;
+                IsSelected = false;
                 OnPropertyChanged("SelectedStylist");
             }
         }
+
+        private bool _isSelected;
+
+        public bool IsSelected
+        {
+            get {
+                if(SelectedStylist == null)
+                {
+                    _isSelected = true;
+                }
+                return _isSelected;
+            }
+            set {
+                _isSelected = value;
+                OnPropertyChanged("IsSelected");
+            }
+        }
+
 
         //private uint _stylistId;
         public uint StylistId
@@ -57,25 +76,6 @@ namespace HairSalonManager.ViewModel
             set {
                 _selectedStylist.StylistName = value;
                 OnPropertyChanged("StylistName");
-            }
-        }
-
-        //private uint _additionalPrice;
-        public uint AdditionalPrice
-        {
-            get { return _selectedStylist.AdditionalPrice; }
-            set { _selectedStylist.AdditionalPrice = value;
-                OnPropertyChanged("AdditionalPrice");
-            }
-        }
-
-        //private byte _personalDay;
-        public byte PersonalDay
-        {
-            get { return _selectedStylist.PersonalDay; }
-            set {
-                _selectedStylist.PersonalDay = value;
-                OnPropertyChanged("PersonalDay");
             }
         }
 
@@ -106,6 +106,7 @@ namespace HairSalonManager.ViewModel
         private void ExecuteInitalizeMethod(object obj)
         {
             SelectedStylist = new StylistVo();
+            IsSelected = true;
         }
         private void ExecuteDeleteMethod(object obj)
         {
@@ -143,7 +144,7 @@ namespace HairSalonManager.ViewModel
 
         private bool Check(StylistVo sv)
         {
-            if(sv.StylistId!=null && sv.StylistName!=null && sv.AdditionalPrice!=null && sv.PersonalDay != null)
+            if(sv.StylistName!=null && sv.AdditionalPrice!=null && sv.PersonalDay != null)
             {
                 return true;
             }

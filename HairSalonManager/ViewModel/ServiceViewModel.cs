@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace HairSalonManager.ViewModel
 {
@@ -23,7 +24,10 @@ namespace HairSalonManager.ViewModel
         public ObservableCollection<ServiceVo> ServiceList
         {
             get { return _serviceList; }
-            set { _serviceList = value; }
+            set {
+                _serviceList = value;
+                OnPropertyChanged("ServiceList");
+            }
         }
 
         private ServiceVo _selectedService;
@@ -98,7 +102,9 @@ namespace HairSalonManager.ViewModel
         public ServiceViewModel()
         {
             _serviceRepository = ServiceRepository.SR;
+
             _selectedService = new ServiceVo();
+
             ServiceList = new ObservableCollection<ServiceVo>(_serviceRepository.GetServicesFromLocal());
 
             InsertCommand = new Command(ExecuteInsertMethod, CanExecuteMethod);
@@ -113,26 +119,50 @@ namespace HairSalonManager.ViewModel
         #region method
         private void ExecuteInitalizeMethod(object obj)
         {
-
+            SelectedService = new ServiceVo();
         }
         private void ExecuteDeleteMethod(object obj)
         {
+            _serviceRepository.DeleteService(SelectedService.ServiceId);
             ServiceList.Remove(SelectedService);
+            SelectedService = new ServiceVo();
         }
 
         private void ExecuteModifyMethod(object obj)
         {
-
+            if (!Check(SelectedService))
+            {
+                return;
+            }
+            _serviceRepository.UpdateService(SelectedService);
         }
 
         private void ExecuteInsertMethod(object obj)
         {
-            ServiceList.Add(SelectedService);
+            if (!Check(SelectedService))
+            {
+                return;
+            }
+            else
+            {
+                _serviceRepository.InsertService(SelectedService);
+                ServiceList.Add(SelectedService);
+            }
         }
 
         private bool CanExecuteMethod(object arg)
         {
             return true;
+        }
+
+        private bool Check(ServiceVo sv)
+        {
+            if (sv.ServiceId != null && sv.ServiceName != null && sv.ServicePrice != null && sv.ServiceTime != null && sv.ServiceDescription != null)
+            {
+                return true;
+            }
+            MessageBox.Show("빈칸이 존재합니다.");
+            return false;
         }
         
         #endregion
