@@ -33,7 +33,7 @@ namespace HairSalonManager.Model.Repository
 
         DataSet _ds;
 
-        readonly List<ServiceVo> _list;
+         List<ServiceVo> _list;
 
 
 
@@ -136,7 +136,9 @@ namespace HairSalonManager.Model.Repository
         public int Save(MySqlDataAdapter adapter)
         {
             MySqlCommandBuilder builder = new MySqlCommandBuilder(adapter);
-            return adapter.Update(_ds, "service");
+            adapter.Update(_ds, "service");
+            _list = new List<ServiceVo>(GetServices());
+            return 0;
         }
         #endregion
     }
