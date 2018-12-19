@@ -54,13 +54,7 @@
 
             <!-- 미용사 -->
             <TextBlock Text="미용사" Foreground="White" Grid.Row="3" Grid.Column="0"/>
-            <ComboBox ItemsSource="{Binding StylistList}" SelectedIndex="{Binding SelRes.StylistId,Converter={StaticResource StylistIndexConverter}}" Grid.Row="3" Grid.Column="1">
-                <ComboBox.ItemTemplate>
-                    <DataTemplate>
-                        <TextBlock Text="{Binding StylistName}"/>
-                    </DataTemplate>
-                </ComboBox.ItemTemplate>
-            </ComboBox>
+            <TextBlock Text="{Binding StylistAdditionalCost}" Foreground="White" Grid.Row="3" Grid.Column="1"/>
 
             <!-- 전화번호 -->
             <TextBlock Text="전화번호" Foreground="White" Grid.Row="4" Grid.Column="0"/>
