@@ -34,7 +34,7 @@ namespace HairSalonManager.ViewModel
 
         #region property
 
-        private DateTime _selectedDate;
+        private DateTime _selectedDate = DateTime.Today;
 
         public DateTime SelectedDate
         {
@@ -43,6 +43,7 @@ namespace HairSalonManager.ViewModel
             {
                 _selectedDate = value;
                 OnPropertyChanged("SelectedDate");
+                DetectChangedDate(value);
             }
         }
 
@@ -155,26 +156,15 @@ namespace HairSalonManager.ViewModel
                 OnPropertyChanged("SerId");
             }
         }
-
-        private string _selectedTime;
-
-        public string SelectedTime
-        {
-            get { return _selectedTime; }
-            set
-            {
-                _selectedTime = value;
-                OnPropertyChanged("SelectedTime");
-            }
-        }
-
-        public Command CheckResCommand { get; set; }
+        
+        
         #endregion //property
 
         #region ctor
         public TimetableViewModel()
         {
-            SelectedDate = DateTime.Today;
+            DateTime _selectedDate = new DateTime();
+            _selectedDate = DateTime.Today;
 
             _timetableRepository = TimetableRepository.TR;
             _reservationRepository = ReservationRepository.Rr;
@@ -185,9 +175,7 @@ namespace HairSalonManager.ViewModel
             ReservationList = new ObservableCollection<ReservationVo>(_reservationRepository.GetReservations());
             StylistList = new ObservableCollection<StylistVo>(_stylistRepository.GetStylistsFromLocal());
 
-            ShowTimeTable(SelectedDate);
-
-            CheckResCommand = new Command(ExecuteCheckResMethod, CanExecuteMethod);
+            MakeTimeTable(_selectedDate);
 
         }
 
@@ -195,10 +183,8 @@ namespace HairSalonManager.ViewModel
 
         #region method
 
-        public void ShowTimeTable(DateTime selectedDate)
+        public void MakeTimeTable(DateTime selectedDate)
         {
-            IEnumerable<ReservationVo> necessaryList;
-
             _col = _dataTable.Columns.Add();
             _col.ColumnName = "StylistName";
 
@@ -207,6 +193,13 @@ namespace HairSalonManager.ViewModel
                 _col = _dataTable.Columns.Add();
                 _col.ColumnName = (i / 2).ToString("D2") + " : " + (i % 2 * 30).ToString("D2");
             }
+
+            ShowTimeTable(selectedDate);
+        }
+
+        public void ShowTimeTable(DateTime selectedDate)
+        {
+            IEnumerable<ReservationVo> necessaryList;
 
             for (int k = 0; k < StylistList.Count; k++) //미용사 리스트를 가져와서 한명씩 실행
             {
@@ -246,33 +239,33 @@ namespace HairSalonManager.ViewModel
                     }
                     i++;
                 }
-                _dataTable.Rows.Add(_row);
             }
-        }
-
-        private bool CanExecuteMethod(object arg)
-        {
-            return true;
+            _dataTable.Rows.Add(_row);
         }
         
-        private void ExecuteCheckResMethod(object obj)
-        {
-            _reservedServiceRepository.GetReservedServices(ResNum);
-        }
 
         //이벤트
-        private void DetectChangedDate(object sender, SelectionChangedEventArgs e)
+        private void DetectChangedDate(DateTime date)
         {
-            var picker = sender as DatePicker;
-            DateTime? date = picker.SelectedDate;
             if (date == null)
             {
                 date = SelectedDate;
             }
             else
             {
-                ShowTimeTable(date.Value);
+                _dataTable.Clear();
+                ShowTimeTable(date);
             }
+            //var picker = sender as DatePicker;
+            //DateTime? date = picker.SelectedDate;
+            //if (date == null)
+            //{
+            //    date = SelectedDate;
+            //}
+            //else
+            //{
+            //    ShowTimeTable(date.Value);
+            //}
         }
 
         #endregion

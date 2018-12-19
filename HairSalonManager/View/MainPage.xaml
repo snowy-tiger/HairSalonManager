@@ -18,7 +18,7 @@
             <ColumnDefinition Width="1.618*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <DataGrid IsReadOnly="True" Margin="5" Background="#1e1e1e" ItemsSource="{Binding ResList}" SelectedItem="{Binding SelectedRes}" SelectionUnit="FullRow" SelectionMode="Single" Grid.Column="0" Foreground="FloralWhite" RowBackground="#242424" AlternatingRowBackground="#191919" BorderThickness="0" HorizontalGridLinesBrush="#363636" VerticalGridLinesBrush="Transparent"/>
+        <DataGrid Margin="5" ItemsSource="{Binding ResList}"/>
         <Grid Margin="5" Grid.Column="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>

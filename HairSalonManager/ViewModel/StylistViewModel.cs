@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace HairSalonManager.ViewModel
 {
@@ -22,7 +23,10 @@ namespace HairSalonManager.ViewModel
         public ObservableCollection<StylistVo> StylistList
         {
             get { return _stylistList; }
-            set { _stylistList = value; }
+            set {
+                _stylistList = value;
+                OnPropertyChanged("StylistList");
+            }
         }
 
         private StylistVo _selectedStylist;
@@ -32,9 +36,28 @@ namespace HairSalonManager.ViewModel
             get { return _selectedStylist; }
             set {
                 _selectedStylist = value;
+                IsSelected = false;
                 OnPropertyChanged("SelectedStylist");
             }
         }
+
+        private bool _isSelected;
+
+        public bool IsSelected
+        {
+            get {
+                if(SelectedStylist == null)
+                {
+                    _isSelected = true;
+                }
+                return _isSelected;
+            }
+            set {
+                _isSelected = value;
+                OnPropertyChanged("IsSelected");
+            }
+        }
+
 
         //private uint _stylistId;
         public uint StylistId
@@ -56,25 +79,6 @@ namespace HairSalonManager.ViewModel
             }
         }
 
-        //private uint _additionalPrice;
-        public uint AdditionalPrice
-        {
-            get { return _selectedStylist.AdditionalPrice; }
-            set { _selectedStylist.AdditionalPrice = value;
-                OnPropertyChanged("AdditionalPrice");
-            }
-        }
-
-        //private byte _personalDay;
-        public byte PersonalDay
-        {
-            get { return _selectedStylist.PersonalDay; }
-            set {
-                _selectedStylist.PersonalDay = value;
-                OnPropertyChanged("PersonalDay");
-            }
-        }
-
         public Command InsertCommand { get; set; }
         public Command ModifyCommand { get; set; }
         public Command DeleteCommand { get; set; }
@@ -88,7 +92,8 @@ namespace HairSalonManager.ViewModel
             _stylistRepository = StylistRepository.SR;
 
             _selectedStylist = new StylistVo();
-            StylistList = new ObservableCollection<StylistVo>(_stylistRepository.GetStylists());
+
+            StylistList = new ObservableCollection<StylistVo>(_stylistRepository.GetStylistsFromLocal());
 
             InsertCommand = new Command(ExecuteInsertMethod, CanExecuteMethod);
             ModifyCommand = new Command(ExecuteModifyMethod, CanExecuteMethod);
@@ -100,26 +105,51 @@ namespace HairSalonManager.ViewModel
         #region method
         private void ExecuteInitalizeMethod(object obj)
         {
-            
+            SelectedStylist = new StylistVo();
+            IsSelected = true;
         }
         private void ExecuteDeleteMethod(object obj)
         {
+            _stylistRepository.RemoveStylist(SelectedStylist.StylistId);
             StylistList.Remove(SelectedStylist);
+            SelectedStylist = new StylistVo();
         }
 
         private void ExecuteModifyMethod(object obj)
         {
-
+            if (!Check(SelectedStylist))
+            {
+                return;
+            }
+            _stylistRepository.UpdateStylist(SelectedStylist);
         }
 
         private void ExecuteInsertMethod(object obj)
         {
-            StylistList.Add(SelectedStylist);
+            if (!Check(SelectedStylist))
+            {
+                return;
+            }
+            else
+            {
+                _stylistRepository.InsertStylist(SelectedStylist);
+                StylistList.Add(SelectedStylist);
+            }
         }
 
         private bool CanExecuteMethod(object arg)
         {
             return true;
+        }
+
+        private bool Check(StylistVo sv)
+        {
+            if(sv.StylistName!=null && sv.AdditionalPrice!=null && sv.PersonalDay != null)
+            {
+                return true;
+            }
+            MessageBox.Show("빈칸이 존재합니다.");
+            return false;
         }
 
         #endregion

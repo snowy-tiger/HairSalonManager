@@ -12,8 +12,8 @@ namespace HairSalonManager.Model.Vo
 
         public string StylistName { get; set; }
 
-        public uint AdditionalPrice { get; set; }
+        public uint? AdditionalPrice { get; set; }
 
-        public byte PersonalDay { get; set; }
+        public byte? PersonalDay { get; set; }
     }
 }
