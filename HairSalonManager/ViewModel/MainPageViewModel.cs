@@ -4,6 +4,7 @@ using HairSalonManager.Model.Vo;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Data;
 using System.Linq;
 using System.Windows;
 using System.Windows.Threading;
@@ -29,6 +30,7 @@ namespace HairSalonManager.ViewModel
         NoticeService _noticeService;
 
         private DateTime formerDate;
+        
         #endregion
 
         #region property        
@@ -83,7 +85,19 @@ namespace HairSalonManager.ViewModel
                     onSelectedResChanged(SelectedRes.ResNum);
             }
         }
-              
+
+        private DataTable _dataTable;
+
+        public DataTable DataTable
+        {
+            get { return _dataTable; }
+            set {
+                _dataTable = value;
+                OnPropertyChanged("DataTable");
+            }
+        }
+
+
         public Command InsertCommand { get; set; }
         public Command ModifyCommand { get; set; }
         public Command DeleteCommand { get; set; }
@@ -140,8 +154,7 @@ namespace HairSalonManager.ViewModel
 
             set
             {
-                _isSelected = value;
-                //if()
+                _isSelected = value;         
                 OnPropertyChanged("IsSelected");
             }
            
@@ -158,17 +171,7 @@ namespace HairSalonManager.ViewModel
                 OnPropertyChanged("IsSelectedService");
             }
         }
-
-        private DateTime _selDate;
-
-        public DateTime SelDate
-        {
-            get { return _selDate; }
-            set {              
-                _selDate = value;
-                OnPropertyChanged("SelDate");               
-            }
-        }
+        
 
         
 
@@ -210,9 +213,11 @@ namespace HairSalonManager.ViewModel
 
             _selectedRes = new ReservationVo();            
             SelectedRes.Gender = -1;
-            SelectedRes.StartAt = new DateTime(1,1,1);
+            SelectedRes.StartAt = DateTime.Today;
             SelectedRes.EndAt = new DateTime();
             formerDate = new DateTime(1,1,1);
+            StartDate = new DateTime();
+            StartDate = DateTime.Today;
 
             ResList = new ObservableCollection<ReservationVo>(_reservationRepository.GetReservations());
             ServiceList = new ObservableCollection<ServiceVo>(_serviceRepository.GetServicesFromLocal());
@@ -302,13 +307,7 @@ namespace HairSalonManager.ViewModel
             if (!Check(SelectedRes))
             {               
                 return;
-            }
-
-            if (SelectedRes.StartAt.Year == 1)
-            {
-                SelectedRes.StartAt = DateTime.Today;
-            }
-
+            }           
             SelectedRes.EndAt = SelectedRes.StartAt;
             SelectedRes.ResNum =  _reservationRepository.InsertReservation(SelectedRes);            
             ResList.Add(SelectedRes);
@@ -438,6 +437,34 @@ namespace HairSalonManager.ViewModel
         private int ReturnTotalMin(DateTime time)
         {
             return time.Hour * 60 + time.Minute;
+        }
+
+        private void ShowTimeTable()
+        {
+            DataTable = new DataTable();
+
+            DataRow _row;
+            DataColumn _col;
+
+            IEnumerable<ReservationVo> necessaryList;
+            
+            for (int i = 0; i < 48; i++)
+            {
+                _col = _dataTable.Columns.Add();
+                _col.ColumnName = (i / 2).ToString("D2") + " : " + (i % 2 * 30).ToString("D2");
+            }
+
+            _row = _dataTable.NewRow(); //DataRow를 생성해서 그 사람의 예약 테이블을 채워야지
+
+            //예약 리스트 중에서 스타일리스트 아이디와 콤보박스에서 셀렉트한 미용사의 아이디 비교
+            necessaryList = ResList.Where(x => x.StylistId == SelectedRes.StylistId);
+
+            //이 목록 중에서 선택한 날짜만 다시 불러오기
+            necessaryList = necessaryList.Where(x => x.StartAt.ToString("d").Equals(SelectedRes.StartAt.ToString("d")));
+            
+            //SaveResInColumn(necessaryList);
+            SaveResInColumn.SaveReservationInColumn(necessaryList, _dataTable, _row);
+
         }
         #endregion
 
