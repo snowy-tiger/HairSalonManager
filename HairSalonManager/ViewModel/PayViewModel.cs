@@ -100,6 +100,16 @@ namespace HairSalonManager.ViewModel
             }
         }
 
+        private int _consumePoint;
+
+        public int ConsumePoint
+        {
+            get { return _consumePoint; }
+            set { _consumePoint = value;
+                OnPropertyChanged("ConsumePoint");
+            }
+        }
+
         public Command InsertCommand { get; set; }
 
         #endregion
