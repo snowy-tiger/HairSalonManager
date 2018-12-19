@@ -42,18 +42,13 @@
                     <RowDefinition Height="13*"/>
                 </Grid.RowDefinitions>
                 <DatePicker SelectedDate="{Binding SelectedDate}" />
-                <DataGrid IsReadOnly="True" Margin="5" Background="#1e1e1e" ItemsSource="{Binding DataTable}" MaxColumnWidth="15" RowHeight="50" SelectionUnit="Cell" SelectionMode="Single" Grid.Column="0" Foreground="FloralWhite" BorderThickness="0" HorizontalGridLinesBrush="#363636" VerticalGridLinesBrush="Transparent" Grid.Row="1" GridLinesVisibility="Horizontal">
+                <DataGrid IsReadOnly="True" Margin="5" HeadersVisibility="Column" Background="#1e1e1e" ItemsSource="{Binding DataTable}"  RowHeight="50" SelectionUnit="Cell" SelectionMode="Single" Grid.Column="0" Foreground="FloralWhite" BorderThickness="0" HorizontalGridLinesBrush="#363636" VerticalGridLinesBrush="Transparent" Grid.Row="1" GridLinesVisibility="Horizontal">
                     <DataGrid.ColumnHeaderStyle>
                         <Style TargetType="{x:Type DataGridColumnHeader}">
                             <Setter Property="Background" Value="#161616"/>
                             <Setter Property="Foreground" Value="White"/>
                         </Style>
                     </DataGrid.ColumnHeaderStyle>
-                    <DataGrid.RowHeaderStyle>
-                        <Style TargetType="{x:Type DataGridRowHeader}">
-                            
-                        </Style>
-                    </DataGrid.RowHeaderStyle>
                     <DataGrid.CellStyle>
                         <Style TargetType="{x:Type DataGridCell}">
                             <Setter Property="Background" Value="{Binding RelativeSource={RelativeSource Self}, Converter={StaticResource TimeTableColorConverter}, ConverterParameter=1}"/>

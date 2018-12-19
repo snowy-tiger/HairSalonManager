@@ -101,12 +101,12 @@
                 </ComboBox>
                 <TextBlock Text="분" Foreground="White" Grid.Column="4"/>
             </Grid>
-            <DataGrid IsReadOnly="True" Margin="5" Background="#1e1e1e" ItemsSource="{Binding TimeTable}" MaxColumnWidth="15" RowHeight="50" SelectionUnit="Cell" SelectionMode="Single" Foreground="FloralWhite" BorderThickness="0" HorizontalGridLinesBrush="#363636" VerticalGridLinesBrush="Transparent" GridLinesVisibility="None" Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2">
+            <DataGrid IsReadOnly="True" Margin="5" Background="#1e1e1e" ItemsSource="{Binding TimeTable}" MaxColumnWidth="9" RowHeight="50" SelectionUnit="Cell" SelectionMode="Single" Foreground="FloralWhite" BorderThickness="0" HorizontalGridLinesBrush="#363636" VerticalGridLinesBrush="Transparent" GridLinesVisibility="None" Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2">
                 <DataGrid.ColumnHeaderStyle>
                     <Style TargetType="{x:Type DataGridColumnHeader}">
                         <Setter Property="Background" Value="#161616"/>
                         <Setter Property="Foreground" Value="White"/>
-                        <Setter Property="FontSize" Value="9"/>
+                        <Setter Property="FontSize" Value="7"/>
                         <Setter Property="Height" Value="10"/>
                     </Style>
                 </DataGrid.ColumnHeaderStyle>
