@@ -30,12 +30,14 @@ namespace HairSalonManager.Model.Repository
             _sql = "SELECT * FROM user";
             MySqlDataAdapter adapter = new MySqlDataAdapter(_sql,_conn.Msc);
             adapter.Fill(_ds, "user");
+            _list = new List<UserVo>(GetUserList());
         }
         #endregion
 
         #region field
         DataSet _ds;
 
+        private List<UserVo> _list;
         #endregion
 
         #region method
@@ -56,6 +58,11 @@ namespace HairSalonManager.Model.Repository
         }
         public bool InsertUser(UserVo user)
         {
+            if (_list.Exists(x => x.UserTel == user.UserTel))
+            {
+                return false;
+            }
+
             MySqlDataAdapter adapter = new MySqlDataAdapter(_sql, _conn.Msc);
 
             DataTable table = _ds.Tables[0];

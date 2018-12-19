@@ -23,6 +23,8 @@ namespace HairSalonManager.ViewModel
 
         readonly StylistRepository _stylistRepository;
 
+        readonly UserRepository _userRepository;
+
         private ObservableCollection<ReservationVo> _resList;
 
         DispatcherTimer _timer;
@@ -210,6 +212,7 @@ namespace HairSalonManager.ViewModel
             _reservedServiceRepository = ReservedServiceRepository.RSR;
             _serviceRepository = ServiceRepository.SR;
             _stylistRepository = StylistRepository.SR;
+            _userRepository =  UserRepository.UR;
 
             _selectedRes = new ReservationVo();            
             SelectedRes.Gender = -1;
@@ -255,6 +258,7 @@ namespace HairSalonManager.ViewModel
             SelectedRes = new ReservationVo();
             IsSelected = true;
             IsSelectedService = false;
+            SelectedRes.StartAt = DateTime.Today;
         }
         private void ExecuteDeleteMethod(object obj)
         {            
@@ -311,6 +315,7 @@ namespace HairSalonManager.ViewModel
             SelectedRes.EndAt = SelectedRes.StartAt;
             SelectedRes.ResNum =  _reservationRepository.InsertReservation(SelectedRes);            
             ResList.Add(SelectedRes);
+            _userRepository.InsertUser(new UserVo() { UserTel = SelectedRes.UserTel, Point = 0 });
             _reservationRepository.RecentResNum = SelectedRes.ResNum;
         }
 
