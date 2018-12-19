@@ -29,10 +29,12 @@ namespace HairSalonManager.Model.Repository
         {
             _conn = Connection.Conn;
             _list = new List<ReservationVo>();
-            //RecentResNum = 0;            
+            RecentResNum = GetRecentNum();            
         }
         #endregion
 
+       
+       
         #region Fields
 
         private List<ReservationVo> _list;
@@ -70,7 +72,7 @@ namespace HairSalonManager.Model.Repository
                 rv.UserName = rdr["userName"] as string;
                 rv.UserTel = rdr["userTel"] as string;
                 list.Add(rv);
-                RecentResNum = rv.ResNum;
+                //RecentResNum = rv.ResNum;
             }            
             _conn.Msc.Close();
             List = list;
@@ -135,7 +137,7 @@ namespace HairSalonManager.Model.Repository
         {
             _conn.Msc.Open();
             _sql = "UPDATE reservation SET stylistId = @stylistId, userTel = @userTel, " +
-                "note = @note, gender = @gender, userBirthday = @userBirthday, startAt = @startAt, endAt = @endAt, userName = @userName WHERE resNum = @resNum";
+                "note = @note, gender = @gender, userBirthday = @userBirthday, startAt = @startAt, endAt = @endAt, userName = @userName, isPaid = @isPaid WHERE resNum = @resNum";
             
             MySqlCommand cmd = new MySqlCommand(_sql, _conn.Msc);
 
@@ -148,6 +150,7 @@ namespace HairSalonManager.Model.Repository
             cmd.Parameters.AddWithValue("@startAt", rv.StartAt);
             cmd.Parameters.AddWithValue("@endAt", rv.EndAt);
             cmd.Parameters.AddWithValue("@userName", rv.UserName);
+            cmd.Parameters.AddWithValue("@isPaid", rv.IsPaid);
 
             if (cmd.ExecuteNonQuery() == -1) //실패시
             {

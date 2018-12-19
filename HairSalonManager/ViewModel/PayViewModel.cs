@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace HairSalonManager.ViewModel
 {
@@ -36,6 +37,8 @@ namespace HairSalonManager.ViewModel
             _userList = new List<UserVo>(UserRepository.UR.GetUserList());
 
             _sum = 0;
+            _stylistadditionalCost = 0;
+            _consumePoint = 0;
             _selRes = new ReservationVo();
             InsertCommand = new Command(ExcuteInsertMethod);
         }
@@ -102,9 +105,9 @@ namespace HairSalonManager.ViewModel
             }
         }
 
-        private int _consumePoint;
+        private uint _consumePoint;
 
-        public int ConsumePoint
+        public uint ConsumePoint
         {
             get { return _consumePoint; }
             set { _consumePoint = value;
@@ -119,7 +122,7 @@ namespace HairSalonManager.ViewModel
             get { return _stylistadditionalCost; }
             set {
                 _stylistadditionalCost = value;
-                OnPropertyChanged("AditionalCost");
+                OnPropertyChanged("StylistAdditionalCost");
             }
         }
 
@@ -136,20 +139,36 @@ namespace HairSalonManager.ViewModel
             {
                 Sum += _serviceList.Single(x => x.ServiceId == rsv.SerId).ServicePrice;
             }
+            
             Point = Sum / 10;
             UserPoint = _userList.Single(x => x.UserTel == SelRes.UserTel).Point;
             StylistAdditionalCost = _stylistRepository.GetStylistsFromLocal().Single(x => x.StylistId == SelRes.StylistId).AdditionalPrice;
+            Sum += (uint)StylistAdditionalCost;
+            Sum -= ConsumePoint;
         }
 
         private void ExcuteInsertMethod(object obj)
         {
             LedgerVo l = new LedgerVo();
+
+            if (UserPoint < ConsumePoint)
+            {
+                MessageBox.Show("적립금이 부족합니다.");
+                return;
+            }
+
+            if (ConsumePoint > Sum)
+            {
+                MessageBox.Show("사용할 적립금이 실제 가격보다 더 많습니다.");
+                return;
+            }
             l.ResNum = SelRes.ResNum;
             l.Sum = Sum;
             _ledgerRepository.InsertLedger(l);
 
             UserVo user = _userList.Single(x => x.UserTel == SelRes.UserTel);
-            user.Point += Point;
+            user.Point += Point;            
+            user.Point -= ConsumePoint;
             _userRepository.UpdateUser(user);
 
             ReservationVo r = ResList.Single(x => x.ResNum == SelRes.ResNum);
