@@ -10,7 +10,6 @@
         <util:TimeDivideConverter x:Key="TimeDivideConverter"/>
         <util:TimeTableColorConverter x:Key="TimeTableColorConverter"/>
 
-
         <Style TargetType="{x:Type TextBlock}">
             <Setter Property="VerticalAlignment" Value="Center"/>
         </Style>
