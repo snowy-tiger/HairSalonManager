@@ -4,9 +4,13 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:HairSalonManager.View"
+      xmlns:viewModel="clr-namespace:HairSalonManager.ViewModel"
       mc:Ignorable="d" 
       d:DesignHeight="515" d:DesignWidth="1000"
       Title="SettingPage">
+    <Page.DataContext>
+        <viewModel:SettingViewModel/>
+    </Page.DataContext>
     <Page.Resources>
         <Style TargetType="{x:Type Button}">
             <Setter Property="Background" Value="#3f3f41"/>
@@ -31,14 +35,14 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <TextBlock Text="필터" Foreground="White" Margin="10" TextAlignment="Right" Grid.Row="0" Grid.Column="2"/>
-        <TextBox Height="25" Grid.Row="0" Grid.Column="3" Grid.ColumnSpan="2"/>
+        <TextBox Text="{Binding Search}" Height="25" Grid.Row="0" Grid.Column="3" Grid.ColumnSpan="2"/>
 
-        <DataGrid Margin="5" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="4"/>
+        <DataGrid Margin="5" ItemsSource="{Binding SettingList}" SelectedItem="{Binding SelectedSetting}" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="4"/>
         
-        <TextBlock Text="값" HorizontalAlignment="Center" Grid.Row="2" Grid.Column="1"/>
-        <TextBox Height="25" Grid.Row="2" Grid.Column="2"/>
-        <Button Content="적용" Grid.Row="2" Grid.Column="3"/>
-        <Button Content="취소" Grid.Row="2" Grid.Column="4"/>
+        <TextBlock Text="값" Foreground="White" HorizontalAlignment="Center" Grid.Row="2" Grid.Column="1"/>
+        <TextBox Text="{Binding SelectedSetting.Value}" Height="25" Grid.Row="2" Grid.Column="2"/>
+        <Button Content="적용" Command="{Binding ModifyCommand}" Grid.Row="2" Grid.Column="3"/>
+        <Button Content="취소" Command="{Binding InitalizeCommand}" Grid.Row="2" Grid.Column="4"/>
 
     </Grid>
 </Page>
