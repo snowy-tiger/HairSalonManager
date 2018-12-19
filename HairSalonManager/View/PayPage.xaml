@@ -56,7 +56,7 @@
             <TextBlock Text="미용사" Foreground="White" Grid.Row="3" Grid.Column="0"/>
             <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.Column="1">
                 <TextBlock Text="{Binding StylistAdditionalCost}" Foreground="White"/>
-                <TextBlock Text=" 원"/>
+                <TextBlock Text=" 원" Foreground="White"/>
             </StackPanel>
 
             <!-- 전화번호 -->
