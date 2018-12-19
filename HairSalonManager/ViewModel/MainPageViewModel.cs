@@ -30,6 +30,8 @@ namespace HairSalonManager.ViewModel
         NoticeService _noticeService;
 
         private DateTime formerDate;
+
+        DataTable _timeTable = new DataTable();
         
         #endregion
 
@@ -83,10 +85,9 @@ namespace HairSalonManager.ViewModel
                 OnPropertyChanged("SelectedRes");
                 if(SelectedRes != null)
                     onSelectedResChanged(SelectedRes.ResNum);
+                DetectChangedDate(value);
             }
         }
-
-        private DataTable _timeTable;
 
         public DataTable TimeTable
         {
@@ -171,9 +172,6 @@ namespace HairSalonManager.ViewModel
                 OnPropertyChanged("IsSelectedService");
             }
         }
-        
-
-        
 
         private DateTime _startDate;
 
@@ -244,6 +242,8 @@ namespace HairSalonManager.ViewModel
             _timer.Interval = new System.TimeSpan(0, 0, 5);
             _timer.Tick += _timer_Tick;
             _timer.Start();
+
+            MakeTimeTable(_selectedRes);
         }
        
 
@@ -439,20 +439,24 @@ namespace HairSalonManager.ViewModel
             return time.Hour * 60 + time.Minute;
         }
 
-        private void ShowTimeTable()
+        private void MakeTimeTable(ReservationVo reservation)
         {
-            TimeTable = new DataTable();
-
-            DataRow _row;
             DataColumn _col;
 
-            IEnumerable<ReservationVo> necessaryList;
-            
             for (int i = 0; i < 48; i++)
             {
                 _col = TimeTable.Columns.Add();
                 _col.ColumnName = (i / 2).ToString("D2") + " : " + (i % 2 * 30).ToString("D2");
             }
+
+            ShowTimeTable(reservation);
+        }
+
+        private void ShowTimeTable (ReservationVo reservation)
+        {
+            DataRow _row;
+
+            IEnumerable<ReservationVo> necessaryList;
 
             _row = TimeTable.NewRow(); //DataRow를 생성해서 그 사람의 예약 테이블을 채워야지
 
@@ -466,6 +470,22 @@ namespace HairSalonManager.ViewModel
             SaveResInColumn.SaveReservationInColumn(necessaryList, TimeTable, _row);
 
         }
+
+        //이벤트
+        private void DetectChangedDate(ReservationVo reservation)
+        {
+            if (reservation.StylistId == null || reservation.StartAt == null)
+            {
+                MessageBox.Show("스타일리스트 또는 예약 시간이 선택되지 않았습니다.");
+                return;
+            }
+            else
+            {
+                _timeTable.Clear();
+                ShowTimeTable(reservation);
+            }
+        }
+
         #endregion
 
     }
