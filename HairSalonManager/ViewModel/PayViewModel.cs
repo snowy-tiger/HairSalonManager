@@ -15,6 +15,8 @@ namespace HairSalonManager.ViewModel
         private readonly ReservationRepository _reservationRepository;
         private readonly ReservedServiceRepository _reservedServiceRepository;
         private readonly LedgerRepository _ledgerRepository;
+        private readonly UserRepository _userRepository;
+
         private List<ServiceVo> _serviceList;
         private List<UserVo> _userList;
         #endregion
@@ -26,6 +28,7 @@ namespace HairSalonManager.ViewModel
             _reservationRepository = ReservationRepository.Rr;
             _reservedServiceRepository = ReservedServiceRepository.RSR;
             _ledgerRepository = LedgerRepository.LR;
+            _userRepository = UserRepository.UR;
             _resList = new ObservableCollection<ReservationVo>(_reservationRepository.GetReservations());
             _serviceList = new List<ServiceVo>(ServiceRepository.SR.GetServicesFromLocal());
             _userList = new List<UserVo>(UserRepository.UR.GetUserList());
@@ -97,6 +100,16 @@ namespace HairSalonManager.ViewModel
             }
         }
 
+        private int _consumePoint;
+
+        public int ConsumePoint
+        {
+            get { return _consumePoint; }
+            set { _consumePoint = value;
+                OnPropertyChanged("ConsumePoint");
+            }
+        }
+
         public Command InsertCommand { get; set; }
 
         #endregion
@@ -119,6 +132,15 @@ namespace HairSalonManager.ViewModel
             l.ResNum = SelRes.ResNum;
             l.Sum = Sum;
             _ledgerRepository.InsertLedger(l);
+
+            UserVo user = _userList.Single(x => x.UserTel == SelRes.UserTel);
+            user.Point += Point;
+            _userRepository.UpdateUser(user);
+
+            ReservationVo r = ResList.Single(x => x.ResNum == SelRes.ResNum);
+            r.IsPaid = true;
+            _reservationRepository.UpdateReservation(r);
+
         }
 
         #endregion

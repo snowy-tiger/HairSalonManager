@@ -4,16 +4,19 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:HairSalonManager.View"
+      xmlns:viewModel="clr-namespace:HairSalonManager.ViewModel"
       mc:Ignorable="d" 
       d:DesignHeight="515" d:DesignWidth="1000"
       Title="PayPage">
-
+    <Page.DataContext>
+        <viewModel:PayViewModel/>
+    </Page.DataContext>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1.618*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <DataGrid Margin="5" ItemsSource="{Binding ResList}"/>
+        <DataGrid Margin="5" ItemsSource="{Binding ResList}" SelectedItem="{Binding SelRes}"/>
         <Grid Margin="5" Grid.Column="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
@@ -25,10 +28,13 @@
                 <RowDefinition Height="4*"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="0.5*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="0.5*"/>
+                <RowDefinition Height="0.5*"/>
                 <RowDefinition Height="0.6*"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="1.5*"/>
-                <RowDefinition Height="3*"/>
+                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
@@ -40,15 +46,15 @@
 
             <!-- 예약자 성함 -->
             <TextBlock Text="성함" Foreground="White" Grid.Row="1" Grid.Column="0"/>
-            <TextBox Height="23" Text="" Grid.Row="1" Grid.Column="1"/>
+            <TextBox Height="23" Text="{Binding SelRes.UserName}" Grid.Row="1" Grid.Column="1"/>
 
             <!-- 예약 번호 -->
             <TextBlock Text="예약번호" Foreground="White" Grid.Row="2" Grid.Column="0"/>
-            <TextBlock Text="" Grid.Row="2" Grid.Column="61"/>
+            <TextBlock Text="{Binding SelRes.ResNum}" Foreground="White" Grid.Row="2" Grid.Column="61"/>
 
             <!-- 미용사 -->
             <TextBlock Text="미용사" Foreground="White" Grid.Row="3" Grid.Column="0"/>
-            <ComboBox ItemsSource="{Binding StylistList}" SelectedIndex="{Binding SelectedRes.StylistId,Converter={StaticResource StylistIndexConverter}}" Grid.Row="3" Grid.Column="1">
+            <ComboBox ItemsSource="{Binding StylistList}" SelectedIndex="{Binding SelRes.StylistId,Converter={StaticResource StylistIndexConverter}}" Grid.Row="3" Grid.Column="1">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding StylistName}"/>
@@ -58,7 +64,7 @@
 
             <!-- 전화번호 -->
             <TextBlock Text="전화번호" Foreground="White" Grid.Row="4" Grid.Column="0"/>
-            <TextBox Text="" Height="23" Grid.Row="4" Grid.Column="1"/>
+            <TextBox Text="{Binding SelRes.UserTel}" Height="23" Grid.Row="4" Grid.Column="1"/>
 
             <!-- 성별 -->
             <TextBlock Text="성별" Foreground="White" Grid.Row="5" Grid.Column="0"/>
@@ -102,20 +108,29 @@
                 <Button Content="서비스 추가" Command="{Binding InsertRSCommand}" IsEnabled="{Binding IsSelectedService}" Height="25" Grid.Column="1"/>
             </Grid>
             
+            <!-- 사용할 포인트 -->
+            <TextBlock Text="사용할 포인트" Foreground="White" Grid.Row="9"/>
+            <TextBox Text="{Binding ConsumePoint}" Grid.Row="9" Grid.Column="1"/>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="right" Grid.Row="10" Grid.ColumnSpan="2">
+                <TextBlock Text="{Binding UserPoint}" Foreground="White"/>
+                <TextBlock Text="  포인트 사용가능" Foreground="White"/>
+            </StackPanel>
+            
+
             <!-- 총 금액 -->
-            <StackPanel Orientation="Horizontal" VerticalAlignment="top" HorizontalAlignment="Right" Grid.Row="9" Grid.Column="1">
+            <StackPanel Orientation="Horizontal" VerticalAlignment="top" HorizontalAlignment="Right" Grid.Row="12" Grid.Column="1">
                 <TextBlock Text="합계 " Foreground="White" FontSize="15"/>
-                <TextBlock Text="0" Foreground="White" FontWeight="Bold" FontSize="15"/>
+                <TextBlock Text="{Binding Sum}" Foreground="White" FontWeight="Bold" FontSize="15"/>
                 <TextBlock Text=" 원" Foreground="White" FontSize="15"/>
             </StackPanel>
-            <StackPanel Orientation="Horizontal" VerticalAlignment="top" HorizontalAlignment="Right" Grid.Row="10" Grid.Column="1">
+            <StackPanel Orientation="Horizontal" VerticalAlignment="top" HorizontalAlignment="Right" Grid.Row="13" Grid.Column="1">
                 <TextBlock Text="(" Foreground="White" FontSize="10"/>
-                <TextBlock Text="0" Foreground="White" FontSize="10"/>
+                <TextBlock Text="{Binding Point}" Foreground="White" FontSize="10"/>
                 <TextBlock Text=" 포인트 적립)" Foreground="White" FontSize="10"/>
             </StackPanel>
             
             <!-- 버튼 -->
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Row="11" Grid.Column="0" Grid.ColumnSpan="2">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Row="14" Grid.Column="0" Grid.ColumnSpan="2">
                 <Button Width="69.5" FontSize="17" Content="취소"/>
                 <Button Width="69.5" FontSize="17" Content="결제" Background="#23A86D"/>
             </StackPanel>
