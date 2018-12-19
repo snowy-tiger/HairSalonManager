@@ -479,8 +479,19 @@ namespace HairSalonManager.ViewModel
         //이벤트
         private void DetectChangedDate(ReservationVo reservation)
         {
-            //_timeTable.Clear();
-            //ShowTimeTable(reservation);
+            if (reservation == null)
+            {
+
+            }
+            else if (reservation.StylistId == null)
+            {
+                MessageBox.Show("스타일리스트가 선택되지 않았습니다.");
+            }
+            else
+            {
+                _timeTable.Clear();
+                ShowTimeTable(reservation);
+            }
         }
 
         #endregion
