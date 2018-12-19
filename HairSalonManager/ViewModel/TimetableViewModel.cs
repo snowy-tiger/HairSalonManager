@@ -184,7 +184,7 @@ namespace HairSalonManager.ViewModel
 
         #region method
 
-        public void MakeTimeTable(DateTime selectedDate)
+        private void MakeTimeTable(DateTime selectedDate)
         {
             _col = _dataTable.Columns.Add();
             _col.ColumnName = "StylistName";
@@ -198,7 +198,7 @@ namespace HairSalonManager.ViewModel
             ShowTimeTable(selectedDate);
         }
 
-        public void ShowTimeTable(DateTime selectedDate)
+        private void ShowTimeTable(DateTime selectedDate)
         {
             IEnumerable<ReservationVo> necessaryList;
 
@@ -219,7 +219,7 @@ namespace HairSalonManager.ViewModel
             }
         }
 
-        //public void SaveResInColumn(IEnumerable<ReservationVo> necessaryList)
+        //private void SaveResInColumn(IEnumerable<ReservationVo> necessaryList)
         //{
         //    //각 예약을 집어넣기
         //    foreach (var item in necessaryList)
@@ -244,7 +244,7 @@ namespace HairSalonManager.ViewModel
         //    }
         //    _dataTable.Rows.Add(_row);
         //}
-        
+
 
         //이벤트
         private void DetectChangedDate(DateTime date)
