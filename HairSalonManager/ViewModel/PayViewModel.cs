@@ -141,6 +141,10 @@ namespace HairSalonManager.ViewModel
         private void onSelResChanged()
         {
             Sum = 0;
+            //if (SelRes == null)
+            //{
+            //    SelRes = new ReservationVo();
+            //}
             ResServiceList = new ObservableCollection<ReservedServiceVo>(_reservedServiceRepository.GetReservedServices(SelRes.ResNum));
             foreach(ReservedServiceVo rsv in ResServiceList)
             {
@@ -186,7 +190,8 @@ namespace HairSalonManager.ViewModel
             ReservationVo r = ResList.Single(x => x.ResNum == SelRes.ResNum);
             r.IsPaid = true;
             _reservationRepository.UpdateReservation(r);
-            ResList = new ObservableCollection<ReservationVo>(_reservationRepository.GetReservations());
+           // ResList = new ObservableCollection<ReservationVo>(_reservationRepository.GetReservations());
+            
 
         }
 
