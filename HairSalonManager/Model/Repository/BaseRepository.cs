@@ -18,5 +18,7 @@ namespace HairSalonManager.Model.Repository
         {
             _conn = Connection.Conn;
         }
+
+        
     }
 }
