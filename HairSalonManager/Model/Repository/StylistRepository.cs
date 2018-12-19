@@ -13,7 +13,7 @@ namespace HairSalonManager.Model.Repository
     {
         DataSet _ds;
 
-        readonly List<StylistVo> _list;
+        List<StylistVo> _list;
 
         private static StylistRepository _stylistRepository;
 
@@ -57,7 +57,7 @@ namespace HairSalonManager.Model.Repository
                 s.PersonalDay = (byte)r["personalDay"];
                 list.Add(s);
             }
-
+ 
             return list;
         }
 
@@ -75,7 +75,7 @@ namespace HairSalonManager.Model.Repository
             row["personalDay"] = s.PersonalDay;
 
             table.Rows.Add(row);
-          
+                        
             if (Save(adapter) == -1)
                 return false;
             return true;
@@ -121,8 +121,9 @@ namespace HairSalonManager.Model.Repository
         public int Save(MySqlDataAdapter adapter)
         {
             MySqlCommandBuilder builder = new MySqlCommandBuilder(adapter);
-                
-            return adapter.Update(_ds,"stylist");
+            adapter.Update(_ds, "stylist");
+            _list = new List<StylistVo>(GetStylists());
+            return 0;
         }
     }
 }
