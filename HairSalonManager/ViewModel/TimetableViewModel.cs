@@ -205,7 +205,9 @@ namespace HairSalonManager.ViewModel
             for (int k = 0; k < StylistList.Count; k++) //미용사 리스트를 가져와서 한명씩 실행
             {
                 _row = _dataTable.NewRow(); //DataRow를 생성해서 그 사람의 예약 테이블을 채워야지
-                _row["StylistName"] = StylistList[k].StylistName;
+
+                //_row["StylistName"] = StylistList[k].StylistName;
+                _dataTable.Rows.Add(_row["StylistName"].ToString());
 
                 //예약 목록 중 StylistId와 StylistList[k].StylistId가 일치하는 사람 찾아서 예약목록 불러오기
                 necessaryList = ReservationList.Where(x => x.StylistId == StylistList[k].StylistId);
