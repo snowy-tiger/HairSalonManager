@@ -7,8 +7,34 @@
       mc:Ignorable="d" 
       d:DesignHeight="515" d:DesignWidth="1000"
       Title="SettingPage">
+    <Page.Resources>
+        <Style TargetType="{x:Type Button}">
+            <Setter Property="Background" Value="#3f3f41"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Height" Value="25"/>
+        </Style>
+    </Page.Resources>
 
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="5*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="5*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <DataGrid Margin="5" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="4"/>
         
+        <TextBlock Text="값" HorizontalAlignment="Center" Grid.Row="1" Grid.Column="1"/>
+        <TextBox Height="25" Grid.Row="1" Grid.Column="2"/>
+        <Button Content="적용" Grid.Row="1" Grid.Column="3"/>
+        <Button Content="취소" Grid.Row="1" Grid.Column="4"/>
+
     </Grid>
 </Page>
