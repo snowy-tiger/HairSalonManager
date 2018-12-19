@@ -99,7 +99,7 @@ namespace HairSalonManager.Model.Repository
 
         }
 
-        public bool RemoveStylist(int stylistId)
+        public bool RemoveStylist(uint stylistId)
         {
             _sql = "DELETE FROM stylist WHERE stylistId = @stylistId)";
 

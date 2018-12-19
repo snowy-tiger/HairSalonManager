@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace HairSalonManager.ViewModel
 {
@@ -22,7 +23,10 @@ namespace HairSalonManager.ViewModel
         public ObservableCollection<StylistVo> StylistList
         {
             get { return _stylistList; }
-            set { _stylistList = value; }
+            set {
+                _stylistList = value;
+                OnPropertyChanged("StylistList");
+            }
         }
 
         private StylistVo _selectedStylist;
@@ -88,7 +92,8 @@ namespace HairSalonManager.ViewModel
             _stylistRepository = StylistRepository.SR;
 
             _selectedStylist = new StylistVo();
-            StylistList = new ObservableCollection<StylistVo>(_stylistRepository.GetStylists());
+
+            StylistList = new ObservableCollection<StylistVo>(_stylistRepository.GetStylistsFromLocal());
 
             InsertCommand = new Command(ExecuteInsertMethod, CanExecuteMethod);
             ModifyCommand = new Command(ExecuteModifyMethod, CanExecuteMethod);
@@ -100,26 +105,50 @@ namespace HairSalonManager.ViewModel
         #region method
         private void ExecuteInitalizeMethod(object obj)
         {
-            
+            SelectedStylist = new StylistVo();
         }
         private void ExecuteDeleteMethod(object obj)
         {
+            _stylistRepository.RemoveStylist(SelectedStylist.StylistId);
             StylistList.Remove(SelectedStylist);
+            SelectedStylist = new StylistVo();
         }
 
         private void ExecuteModifyMethod(object obj)
         {
-
+            if (!Check(SelectedStylist))
+            {
+                return;
+            }
+            _stylistRepository.UpdateStylist(SelectedStylist);
         }
 
         private void ExecuteInsertMethod(object obj)
         {
-            StylistList.Add(SelectedStylist);
+            if (!Check(SelectedStylist))
+            {
+                return;
+            }
+            else
+            {
+                _stylistRepository.InsertStylist(SelectedStylist);
+                StylistList.Add(SelectedStylist);
+            }
         }
 
         private bool CanExecuteMethod(object arg)
         {
             return true;
+        }
+
+        private bool Check(StylistVo sv)
+        {
+            if(sv.StylistId!=null && sv.StylistName!=null && sv.AdditionalPrice!=null && sv.PersonalDay != null)
+            {
+                return true;
+            }
+            MessageBox.Show("빈칸이 존재합니다.");
+            return false;
         }
 
         #endregion
