@@ -45,14 +45,16 @@ namespace HairSalonManager.ViewModel
 
         public bool IsSelected
         {
-            get {
-                if(SelectedStylist == null)
+            get
+            {
+                if (SelectedStylist == null)
                 {
                     _isSelected = true;
                 }
                 return _isSelected;
             }
-            set {
+            set
+            {
                 _isSelected = value;
                 OnPropertyChanged("IsSelected");
             }

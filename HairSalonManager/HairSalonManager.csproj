@@ -66,6 +66,7 @@
     <Compile Include="Model\Util\GenderRadioConverter.cs" />
     <Compile Include="Model\Util\NavigationServiceProvider.cs" />
     <Compile Include="Model\Util\NoticeService.cs" />
+    <Compile Include="Model\Util\SaveResInColumn.cs" />
     <Compile Include="Model\Util\StylistIndexConverter.cs" />
     <Compile Include="Model\Util\TimeDivideConverter.cs" />
     <Compile Include="RelayCommand.cs" />

@@ -1,4 +1,5 @@
 ﻿using HairSalonManager.Model.Repository;
+using HairSalonManager.Model.Util;
 using HairSalonManager.Model.Vo;
 using System;
 using System.Collections.Generic;
@@ -213,35 +214,36 @@ namespace HairSalonManager.ViewModel
                 necessaryList = necessaryList.Where(x => x.StartAt.ToString("d").Equals(selectedDate.ToString("d")));
 
 
-                SaveResInColumn(necessaryList);
+                //SaveResInColumn(necessaryList);
+                SaveResInColumn.SaveReservationInColumn(necessaryList, _dataTable, _row);
             }
         }
 
-        public void SaveResInColumn(IEnumerable<ReservationVo> necessaryList)
-        {
-            //각 예약을 집어넣기
-            foreach (var item in necessaryList)
-            {
-                TimeSpan ts = item.EndAt - item.StartAt;
-                int result = (ts.Hours * 60) + ts.Minutes;
-                int block = result / 30;
-                int i = 0;
+        //public void SaveResInColumn(IEnumerable<ReservationVo> necessaryList)
+        //{
+        //    //각 예약을 집어넣기
+        //    foreach (var item in necessaryList)
+        //    {
+        //        TimeSpan ts = item.EndAt - item.StartAt;
+        //        int result = (ts.Hours * 60) + ts.Minutes;
+        //        int block = result / 30;
+        //        int i = 0;
 
-                foreach (DataColumn column in _dataTable.Columns)
-                {
-                    if (column.ColumnName.Equals(item.StartAt.Hour.ToString("D2") + " : " + item.StartAt.Minute.ToString("D2")))
-                    {
-                        for (int j = 0; j < block; j++)
-                        {
-                            _row[i] = item.ResNum;
-                            i++;
-                        }
-                    }
-                    i++;
-                }
-            }
-            _dataTable.Rows.Add(_row);
-        }
+        //        foreach (DataColumn column in _dataTable.Columns)
+        //        {
+        //            if (column.ColumnName.Equals(item.StartAt.Hour.ToString("D2") + " : " + item.StartAt.Minute.ToString("D2")))
+        //            {
+        //                for (int j = 0; j < block; j++)
+        //                {
+        //                    _row[i] = item.ResNum;
+        //                    i++;
+        //                }
+        //            }
+        //            i++;
+        //        }
+        //    }
+        //    _dataTable.Rows.Add(_row);
+        //}
         
 
         //이벤트

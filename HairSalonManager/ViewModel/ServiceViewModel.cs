@@ -37,6 +37,7 @@ namespace HairSalonManager.ViewModel
             get { return _selectedService; }
             set {
                 _selectedService = value;
+                IsSelected = false;
                 OnPropertyChanged("SelectedService");
             }
         }
@@ -90,6 +91,25 @@ namespace HairSalonManager.ViewModel
                 OnPropertyChanged("ServiceDescription");
             }
         }
+        
+        private bool _isSelected;
+
+        public bool IsSelected
+        {
+            get
+            {
+                if (SelectedService == null)
+                {
+                    _isSelected = true;
+                }
+                return _isSelected;
+            }
+            set
+            {
+                _isSelected = value;
+                OnPropertyChanged("IsSelected");
+            }
+        }
 
         public Command InsertCommand { get; set; }
         public Command ModifyCommand { get; set; }
@@ -120,6 +140,7 @@ namespace HairSalonManager.ViewModel
         private void ExecuteInitalizeMethod(object obj)
         {
             SelectedService = new ServiceVo();
+            IsSelected = true;
         }
         private void ExecuteDeleteMethod(object obj)
         {
@@ -157,7 +178,7 @@ namespace HairSalonManager.ViewModel
 
         private bool Check(ServiceVo sv)
         {
-            if (sv.ServiceId != null && sv.ServiceName != null && sv.ServicePrice != null && sv.ServiceTime != null && sv.ServiceDescription != null)
+            if (sv.ServiceName != null && sv.ServiceDescription != null)
             {
                 return true;
             }
