@@ -292,7 +292,7 @@ namespace HairSalonManager.ViewModel
 
             DateTime endAt = new DateTime();//임시로 저장해놓은 endat;
             endAt = SelectedRes.EndAt.AddHours(sumTime / 60);
-            endAt = SelectedRes.EndAt.AddMinutes(sumTime % 60);
+            endAt = endAt.AddMinutes(sumTime % 60);
 
             if (HasReservations(SelectedRes.StylistId, SelectedRes.StartAt, endAt))
             {
@@ -430,9 +430,11 @@ namespace HairSalonManager.ViewModel
                     continue;
                 if (r.StartAt.Date == startTime.Date)
                 {
-                    if (rstartTimeTotalM <= startTimeTotalM && rendTimeTotalM >= endTimeTotalM) //다른 예약에 의해 포함될때
+                    if (rstartTimeTotalM <= startTimeTotalM && rendTimeTotalM > endTimeTotalM) //다른 예약에 의해 포함될때
                         return true;
                     else if (startTimeTotalM <= rstartTimeTotalM && endTimeTotalM >= rendTimeTotalM) //한 예약을 포함할때
+                        return true;
+                    else if (startTimeTotalM < rstartTimeTotalM && endTimeTotalM < rendTimeTotalM && endTimeTotalM != rstartTimeTotalM) // 일부분이 겹칠때
                         return true;
                 }
             }           
