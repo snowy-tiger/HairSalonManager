@@ -96,7 +96,8 @@ namespace HairSalonManager.Model.Repository
         public int Save(MySqlDataAdapter adapter)
         {
             MySqlCommandBuilder builder = new MySqlCommandBuilder(adapter);
-            adapter.Update(_ds, "user");            
+            adapter.Update(_ds, "user");
+            _list = GetUserList();
             return 0;
         }
         #endregion

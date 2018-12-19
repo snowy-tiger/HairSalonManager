@@ -67,7 +67,8 @@ namespace HairSalonManager.Model.Util
         {     
             if (_rr.RecentResNum != _rr.GetRecentNum())
             {
-                MessageBox.Show("새로운 예약이 도착했습니다.");             
+                MessageBox.Show("새로운 예약이 도착했습니다.");
+                _rr.RecentResNum = _rr.GetRecentNum();
                 IsNewReservationExistent = true;
             }                                   
         }

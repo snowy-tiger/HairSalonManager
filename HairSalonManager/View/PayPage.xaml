@@ -129,7 +129,7 @@
             <!-- 버튼 -->
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Row="14" Grid.Column="0" Grid.ColumnSpan="2">
                 <Button Width="69.5" FontSize="17" Content="취소"/>
-                <Button Width="69.5" FontSize="17" Content="결제" Background="#23A86D"/>
+                <Button Width="69.5" FontSize="17" Content="결제" Background="#23A86D" Command="{Binding InsertCommand}"/>
             </StackPanel>
             
         </Grid>
