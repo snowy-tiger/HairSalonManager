@@ -36,18 +36,18 @@
             </Grid.ColumnDefinitions>
 
             <!-- 글씨 -->
-            <TextBlock Text="RSERVATION PAYMENT" RenderOptions.ClearTypeHint="Enabled" FontSize="20" FontWeight="Bold" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"/>
+            <TextBlock Text="RSERVATION PAYMENT" Foreground="White" RenderOptions.ClearTypeHint="Enabled" FontSize="20" FontWeight="Bold" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"/>
 
             <!-- 예약자 성함 -->
-            <TextBlock Text="성함" Grid.Row="1" Grid.Column="0"/>
+            <TextBlock Text="성함" Foreground="White" Grid.Row="1" Grid.Column="0"/>
             <TextBox Height="23" Text="" Grid.Row="1" Grid.Column="1"/>
 
             <!-- 예약 번호 -->
-            <TextBlock Text="예약번호" Grid.Row="2" Grid.Column="0"/>
+            <TextBlock Text="예약번호" Foreground="White" Grid.Row="2" Grid.Column="0"/>
             <TextBlock Text="" Grid.Row="2" Grid.Column="61"/>
 
             <!-- 미용사 -->
-            <TextBlock Text="미용사" Grid.Row="3" Grid.Column="0"/>
+            <TextBlock Text="미용사" Foreground="White" Grid.Row="3" Grid.Column="0"/>
             <ComboBox ItemsSource="{Binding StylistList}" SelectedIndex="{Binding SelectedRes.StylistId,Converter={StaticResource StylistIndexConverter}}" Grid.Row="3" Grid.Column="1">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
@@ -57,11 +57,11 @@
             </ComboBox>
 
             <!-- 전화번호 -->
-            <TextBlock Text="전화번호" Grid.Row="4" Grid.Column="0"/>
+            <TextBlock Text="전화번호" Foreground="White" Grid.Row="4" Grid.Column="0"/>
             <TextBox Text="" Height="23" Grid.Row="4" Grid.Column="1"/>
 
             <!-- 성별 -->
-            <TextBlock Text="성별" Grid.Row="5" Grid.Column="0"/>
+            <TextBlock Text="성별" Foreground="White" Grid.Row="5" Grid.Column="0"/>
             <StackPanel Orientation="Horizontal" Grid.Row="5" Grid.Column="1">
                 <RadioButton GroupName="Gender" Content="남성" Foreground="White" IsChecked="{Binding SelectedRes.Gender,Converter={StaticResource GenderConverter},ConverterParameter=0}"/>
                 <RadioButton GroupName="Gender" Content="여성" Foreground="White" IsChecked="{Binding SelectedRes.Gender,Converter={StaticResource GenderConverter},ConverterParameter=1}"/>
@@ -104,14 +104,14 @@
             
             <!-- 총 금액 -->
             <StackPanel Orientation="Horizontal" VerticalAlignment="top" HorizontalAlignment="Right" Grid.Row="9" Grid.Column="1">
-                <TextBlock Text="합계 " FontSize="15"/>
-                <TextBlock Text="0" FontWeight="Bold" FontSize="15"/>
-                <TextBlock Text=" 원" FontSize="15"/>
+                <TextBlock Text="합계 " Foreground="White" FontSize="15"/>
+                <TextBlock Text="0" Foreground="White" FontWeight="Bold" FontSize="15"/>
+                <TextBlock Text=" 원" Foreground="White" FontSize="15"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" VerticalAlignment="top" HorizontalAlignment="Right" Grid.Row="10" Grid.Column="1">
-                <TextBlock Text="(" FontSize="10"/>
-                <TextBlock Text="0" FontSize="10"/>
-                <TextBlock Text=" 포인트 적립)" FontSize="10"/>
+                <TextBlock Text="(" Foreground="White" FontSize="10"/>
+                <TextBlock Text="0" Foreground="White" FontSize="10"/>
+                <TextBlock Text=" 포인트 적립)" Foreground="White" FontSize="10"/>
             </StackPanel>
             
             <!-- 버튼 -->

@@ -11,7 +11,6 @@
 
 
         <Style TargetType="{x:Type TextBlock}">
-            <Setter Property="Foreground" Value="White"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
         </Style>
         <Style TargetType="RadioButton">
@@ -38,6 +37,7 @@
         </Style>
         <Style TargetType="{x:Type ComboBoxItem}">
             <Setter Property="Background" Value="#1e1e1e"/>
+            <Setter Property="Foreground" Value="White"/>
             <Setter Property="BorderThickness" Value="0"/>
         </Style>
         <Style TargetType="{x:Type DataGrid}">
