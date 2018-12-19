@@ -57,9 +57,7 @@
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="3*"/>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
@@ -85,7 +83,45 @@
         </TabItem>
         <TabItem Header="서비스 관리">
             <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <DataGrid Margin="5" Grid.Column="0"/>
+                <Grid Margin="5" Grid.Column="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="0.3*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="2*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="3*"/>
+                    </Grid.ColumnDefinitions>
+                    <!-- 글씨 -->
+                    <TextBlock Text="DETAILED SERVICE INFOMATION" RenderOptions.ClearTypeHint="Enabled" FontSize="20" FontWeight="Bold" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"/>
 
+                    <!-- 서비스 이름 -->
+                    <TextBlock Text="서비스 이름" Grid.Row="1" Grid.Column="0"/>
+                    <TextBox Grid.Row="1" Grid.Column="1"/>
+
+                    <!-- 가격 -->
+                    <TextBlock Text="가격" Grid.Row="2" Grid.Column="0"/>
+                    <TextBox Grid.Row="2" Grid.Column="1"/>
+
+                    <!-- 소요시간 -->
+                    <TextBlock Text="소요시간" Grid.Row="3" Grid.Column="0"/>
+                    <TextBox Grid.Row="3" Grid.Column="1"/>
+                    
+                    <!-- 서비스 설명 -->
+                    <TextBlock Text="설명" Grid.Row="5" Grid.Column="0"/>
+                    <TextBox Height="Auto" Grid.Row="5" Grid.Column="1"/>
+
+                </Grid>
             </Grid>
         </TabItem>
     </TabControl>
