@@ -265,6 +265,7 @@ namespace HairSalonManager.ViewModel
             _reservationRepository.RemoveReservation(SelectedRes.ResNum);
             ResList.Remove(SelectedRes);
             SelectedRes = new ReservationVo(); //삭제되면 SelectedRes도 삭제 됨으로 다시 생성
+            SelectedRes.StartAt = DateTime.Today;
         }
 
         private void ExecuteModifyMethod(object obj)
