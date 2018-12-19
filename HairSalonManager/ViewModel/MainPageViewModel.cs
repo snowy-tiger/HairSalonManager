@@ -479,16 +479,8 @@ namespace HairSalonManager.ViewModel
         //이벤트
         private void DetectChangedDate(ReservationVo reservation)
         {
-            if (reservation.StylistId == null || reservation.StartAt == null)
-            {
-                MessageBox.Show("스타일리스트 또는 예약 시간이 선택되지 않았습니다.");
-                return;
-            }
-            else
-            {
-                _timeTable.Clear();
-                ShowTimeTable(reservation);
-            }
+            //_timeTable.Clear();
+            //ShowTimeTable(reservation);
         }
 
         #endregion
