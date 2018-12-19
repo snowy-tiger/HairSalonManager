@@ -19,17 +19,22 @@ namespace HairSalonManager.Model.Util
         //DATA -> CONVERTER -> TimeTable
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (ConverterCount == 50)
+            if (ConverterCount == 49)
+            {
                 ConverterCount = 0;
-            if(parameter.Equals("1"))
+            }
+            if (parameter.Equals("1") && ConverterCount == 0)
+            {
+                ConverterCount++;
                 return Binding.DoNothing;
-
+            }
+                
             DataGridCell cell = (DataGridCell)value;
             DataRowView row = (DataRowView)cell.DataContext;
             object[] data = row.Row.ItemArray;
 
             if (data[ConverterCount++] is string)
-                return Brushes.Gray;
+                return "#2196F3";
             else return Binding.DoNothing;
         }
 
