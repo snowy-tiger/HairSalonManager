@@ -40,18 +40,18 @@
             </Grid.ColumnDefinitions>
 
             <!-- 글씨 -->
-            <TextBlock Text="DETAILED INFORMATION" RenderOptions.ClearTypeHint="Enabled" FontSize="20" FontWeight="Bold" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"/>
+            <TextBlock Text="DETAILED INFORMATION" Foreground="White" RenderOptions.ClearTypeHint="Enabled" FontSize="20" FontWeight="Bold" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"/>
 
             <!-- 예약자 성함 -->
-            <TextBlock Text="예약자 성함" Grid.Row="1" Grid.Column="0"/>
+            <TextBlock Text="예약자 성함" Foreground="White" Grid.Row="1" Grid.Column="0"/>
             <TextBox Height="23" Text="{Binding SelectedRes.UserName}" Grid.Row="1" Grid.Column="1"/>
 
             <!-- 예약 번호 -->
-            <TextBlock Text="예약번호" Grid.Row="2" Grid.Column="0"/>
-            <TextBlock Text="{Binding SelectedRes.ResNum}" Grid.Row="2" Grid.Column="61"/>
+            <TextBlock Text="예약번호" Foreground="White" Grid.Row="2" Grid.Column="0"/>
+            <TextBlock Text="{Binding SelectedRes.ResNum}" Foreground="White" Grid.Row="2" Grid.Column="61"/>
 
             <!-- 미용사 -->
-            <TextBlock Text="미용사" Grid.Row="3" Grid.Column="0"/>
+            <TextBlock Text="미용사" Foreground="White" Grid.Row="3" Grid.Column="0"/>
             <ComboBox ItemsSource="{Binding StylistList}" SelectedIndex="{Binding SelectedRes.StylistId,Converter={StaticResource StylistIndexConverter}}" Grid.Row="3" Grid.Column="1">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
@@ -61,18 +61,18 @@
             </ComboBox>
 
             <!-- 전화번호 -->
-            <TextBlock Text="전화번호" Grid.Row="4" Grid.Column="0"/>
+            <TextBlock Text="전화번호" Foreground="White" Grid.Row="4" Grid.Column="0"/>
             <TextBox Text="{Binding SelectedRes.UserTel}" Height="23" Grid.Row="4" Grid.Column="1"/>
 
             <!-- 성별 -->
-            <TextBlock Text="성별" Grid.Row="5" Grid.Column="0"/>
+            <TextBlock Text="성별" Foreground="White" Grid.Row="5" Grid.Column="0"/>
             <StackPanel Orientation="Horizontal" Grid.Row="5" Grid.Column="1">
                 <RadioButton GroupName="Gender" Content="남성" Foreground="White" IsChecked="{Binding SelectedRes.Gender,Converter={StaticResource GenderConverter},ConverterParameter=0}"/>
                 <RadioButton GroupName="Gender" Content="여성" Foreground="White" IsChecked="{Binding SelectedRes.Gender,Converter={StaticResource GenderConverter},ConverterParameter=1}"/>
             </StackPanel>
 
             <!-- 예약시간 -->
-            <TextBlock Text="예약시간" Grid.Row="6" Grid.Column="0"/>
+            <TextBlock Text="예약시간" Foreground="White" Grid.Row="6" Grid.Column="0"/>
             <Grid Grid.Row="6" Grid.Column="1">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="4*"/>
@@ -90,7 +90,7 @@
                         </MultiBinding> 
                     </ComboBox.SelectedItem>
                 </ComboBox>
-                <TextBlock Text="시" Grid.Column="2"/>
+                <TextBlock Text="시" Foreground="White" Grid.Column="2"/>
                 <ComboBox ItemsSource="{Binding AvailableMinute}" Grid.Column="3">
                     <ComboBox.SelectedItem>
                         <MultiBinding Converter="{StaticResource TimeDivideConverter}" ConverterParameter="Minute">
@@ -99,9 +99,9 @@
                         </MultiBinding>
                     </ComboBox.SelectedItem>
                 </ComboBox>
-                <TextBlock Text="분" Grid.Column="4"/>
+                <TextBlock Text="분" Foreground="White" Grid.Column="4"/>
             </Grid>
-            <DataGrid IsReadOnly="True" Margin="0 5" Background="#1e1e1e"  SelectionUnit="Cell" SelectionMode="Single" Foreground="FloralWhite" RowBackground="#242424" AlternatingRowBackground="#191919" BorderBrush="Black" HorizontalGridLinesBrush="#363636" VerticalGridLinesBrush="Transparent" Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2">
+            <DataGrid ItemsSource="{Binding TimeTable}" IsReadOnly="True" Margin="0 5" Background="#1e1e1e"  SelectionUnit="Cell" SelectionMode="Single" Foreground="FloralWhite" RowBackground="#242424" AlternatingRowBackground="#191919" BorderBrush="Black" HorizontalGridLinesBrush="#363636" VerticalGridLinesBrush="Transparent" Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2">
                 <DataGrid.ColumnHeaderStyle>
                     <Style TargetType="{x:Type DataGridColumnHeader}">
                         <Setter Property="Background" Value="#161616"/>
@@ -115,7 +115,7 @@
                 </DataGrid.RowHeaderStyle>
             </DataGrid>
             <!-- 메모 -->
-            <TextBlock Text="전달사항" Grid.Row="8" Grid.Column="0"/>
+            <TextBlock Text="전달사항" Foreground="White" Grid.Row="8" Grid.Column="0"/>
             <TextBox Text="{Binding SelectedRes.Note}" Margin="5" Grid.Row="8" Grid.Column="1"/>
             <!-- 버튼 -->
             <Grid Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="2">

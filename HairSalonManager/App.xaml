@@ -10,8 +10,7 @@
         <util:TimeDivideConverter x:Key="TimeDivideConverter"/>
 
 
-        <Style TargetType="TextBlock">
-            <Setter Property="Foreground" Value="White"/>
+        <Style TargetType="{x:Type TextBlock}">
             <Setter Property="VerticalAlignment" Value="Center"/>
         </Style>
         <Style TargetType="RadioButton">
@@ -35,17 +34,11 @@
         </Style>
         <Style TargetType="ComboBox">
             <Setter Property="Height" Value="25"/>
-            <Setter Property="Foreground" Value="Black"/>
-            <Style.Triggers>
-                <Trigger Property="IsSelected" Value="True">
-                    <Setter Property="Foreground" Value="Black"/>
-                </Trigger>
-            </Style.Triggers>
         </Style>
-        <Style TargetType="ComboBoxItem">
+        <Style TargetType="{x:Type ComboBoxItem}">
             <Setter Property="Background" Value="#1e1e1e"/>
-            <Setter Property="BorderThickness" Value="0"/>
             <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderThickness" Value="0"/>
         </Style>
         <Style TargetType="{x:Type DataGrid}">
             <Setter Property="Background" Value="#1E1E1E"/>

@@ -30,7 +30,7 @@
             <RowDefinition Height="5*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <TextBlock Text="필터" Margin="10" TextAlignment="Right" Grid.Row="0" Grid.Column="2"/>
+        <TextBlock Text="필터" Foreground="White" Margin="10" TextAlignment="Right" Grid.Row="0" Grid.Column="2"/>
         <TextBox Height="25" Grid.Row="0" Grid.Column="3" Grid.ColumnSpan="2"/>
 
         <DataGrid Margin="5" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="4"/>

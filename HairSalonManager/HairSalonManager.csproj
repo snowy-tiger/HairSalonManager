@@ -84,6 +84,7 @@
     <Compile Include="ViewModel\Notifier.cs" />
     <Compile Include="ViewModel\PayViewModel.cs" />
     <Compile Include="ViewModel\ServiceViewModel.cs" />
+    <Compile Include="ViewModel\SettingViewModel.cs" />
     <Compile Include="ViewModel\StylistViewModel.cs" />
     <Compile Include="ViewModel\TimetableViewModel.cs" />
     <Compile Include="ViewModel\ViewModelBase.cs" />
