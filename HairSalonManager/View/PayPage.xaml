@@ -54,7 +54,10 @@
 
             <!-- 미용사 -->
             <TextBlock Text="미용사" Foreground="White" Grid.Row="3" Grid.Column="0"/>
-            <TextBlock Text="{Binding StylistAdditionalCost}" Foreground="White" Grid.Row="3" Grid.Column="1"/>
+            <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.Column="1">
+                <TextBlock Text="{Binding StylistAdditionalCost}" Foreground="White"/>
+                <TextBlock Text=" 원"/>
+            </StackPanel>
 
             <!-- 전화번호 -->
             <TextBlock Text="전화번호" Foreground="White" Grid.Row="4" Grid.Column="0"/>
