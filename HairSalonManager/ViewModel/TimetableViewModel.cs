@@ -186,9 +186,9 @@ namespace HairSalonManager.ViewModel
 
         private void MakeTimeTable(DateTime selectedDate)
         {
-            //_col = _dataTable.Columns.Add();
-            //_col.ColumnName = "StylistName";
-            _dataTable.Rows.Add(_row["StylistName"].ToString());
+            _col = _dataTable.Columns.Add();
+            _col.ColumnName = "StylistName";
+            //_dataTable.Rows.Add(_row["StylistName"].ToString());
 
             for (int i = 0; i < 48; i++)
             {
