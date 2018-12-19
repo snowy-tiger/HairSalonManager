@@ -140,8 +140,7 @@ namespace HairSalonManager.ViewModel
 
             set
             {
-                _isSelected = value;
-                //if()
+                _isSelected = value;         
                 OnPropertyChanged("IsSelected");
             }
            
@@ -158,17 +157,7 @@ namespace HairSalonManager.ViewModel
                 OnPropertyChanged("IsSelectedService");
             }
         }
-
-        private DateTime _selDate;
-
-        public DateTime SelDate
-        {
-            get { return _selDate; }
-            set {              
-                _selDate = value;
-                OnPropertyChanged("SelDate");               
-            }
-        }
+        
 
         
 
@@ -210,9 +199,11 @@ namespace HairSalonManager.ViewModel
 
             _selectedRes = new ReservationVo();            
             SelectedRes.Gender = -1;
-            SelectedRes.StartAt = new DateTime(1,1,1);
+            SelectedRes.StartAt = DateTime.Today;
             SelectedRes.EndAt = new DateTime();
             formerDate = new DateTime(1,1,1);
+            StartDate = new DateTime();
+            StartDate = DateTime.Today;
 
             ResList = new ObservableCollection<ReservationVo>(_reservationRepository.GetReservations());
             ServiceList = new ObservableCollection<ServiceVo>(_serviceRepository.GetServicesFromLocal());
@@ -302,13 +293,7 @@ namespace HairSalonManager.ViewModel
             if (!Check(SelectedRes))
             {               
                 return;
-            }
-
-            if (SelectedRes.StartAt.Year == 1)
-            {
-                SelectedRes.StartAt = DateTime.Today;
-            }
-
+            }           
             SelectedRes.EndAt = SelectedRes.StartAt;
             SelectedRes.ResNum =  _reservationRepository.InsertReservation(SelectedRes);            
             ResList.Add(SelectedRes);
