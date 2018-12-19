@@ -140,8 +140,7 @@ namespace HairSalonManager.ViewModel
 
             set
             {
-                _isSelected = value;
-                //if()
+                _isSelected = value;         
                 OnPropertyChanged("IsSelected");
             }
            
