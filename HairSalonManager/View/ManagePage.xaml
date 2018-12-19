@@ -30,10 +30,57 @@
                     </Setter.Value>
                 </Setter>
             </Style>
+            <Style TargetType="TextBox">
+                <Setter Property="Background" Value="#2D2F31"/>
+                <Setter Property="Foreground" Value="White"/>
+                <Setter Property="BorderThickness" Value="0"/>
+                <Setter Property="Padding" Value="5 2 0 5"/>
+                <Setter Property="Height" Value="25"/>
+                <Setter Property="Margin" Value="5 0"/>
+                <Style.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="5"/>
+                    </Style>
+                </Style.Resources>
+            </Style>
         </TabControl.Resources>
         <TabItem Header="미용사 관리">
             <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <DataGrid Margin="5" Grid.Column="0"/>
+                <Grid Margin="5" Grid.Column="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="3*"/>
+                    </Grid.ColumnDefinitions>
+                    <!-- 글씨 -->
+                    <TextBlock Text="DETAILED STYLIST INFOMATION" RenderOptions.ClearTypeHint="Enabled" FontSize="20" FontWeight="Bold" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"/>
+                    
+                    <!-- 이름 -->
+                    <TextBlock Text="이름" Grid.Row="1" Grid.Column="0"/>
+                    <TextBox Grid.Row="1" Grid.Column="1"/>
 
+                    <!-- 미용사별 추가금액 -->
+                    <TextBlock Text="미용사별 추가금액" Grid.Row="2" Grid.Column="0"/>
+                    <TextBox Grid.Row="2" Grid.Column="1"/>
+                    
+                    <!-- 미용사별 휴무일 -->
+                    <TextBlock Text="미용사 휴무일" Grid.Row="3" Grid.Column="0"/>
+                    <TextBox Grid.Row="3" Grid.Column="1"/>
+                    
+                </Grid>
             </Grid>
         </TabItem>
         <TabItem Header="서비스 관리">
