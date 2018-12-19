@@ -87,7 +87,7 @@
                         <MultiBinding Converter="{StaticResource TimeDivideConverter}" ConverterParameter="Hour">
                             <Binding Path="SelectedRes.StartAt"/>
                             <Binding Path="AvailableHour" Mode="OneWay"/>
-                        </MultiBinding> 
+                        </MultiBinding>
                     </ComboBox.SelectedItem>
                 </ComboBox>
                 <TextBlock Text="시" Foreground="White" Grid.Column="2"/>
@@ -101,18 +101,28 @@
                 </ComboBox>
                 <TextBlock Text="분" Foreground="White" Grid.Column="4"/>
             </Grid>
-            <DataGrid ItemsSource="{Binding TimeTable}" IsReadOnly="True" Margin="0 5" Background="#1e1e1e"  SelectionUnit="Cell" SelectionMode="Single" Foreground="FloralWhite" RowBackground="#242424" AlternatingRowBackground="#191919" BorderBrush="Black" HorizontalGridLinesBrush="#363636" VerticalGridLinesBrush="Transparent" Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2">
+            <DataGrid IsReadOnly="True" Margin="5" Background="#1e1e1e" ItemsSource="{Binding TimeTable}" MaxColumnWidth="15" RowHeight="50" SelectionUnit="Cell" SelectionMode="Single" Foreground="FloralWhite" BorderThickness="0" HorizontalGridLinesBrush="#363636" VerticalGridLinesBrush="Transparent" GridLinesVisibility="None" Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2">
                 <DataGrid.ColumnHeaderStyle>
                     <Style TargetType="{x:Type DataGridColumnHeader}">
                         <Setter Property="Background" Value="#161616"/>
                         <Setter Property="Foreground" Value="White"/>
+                        <Setter Property="FontSize" Value="9"/>
+                        <Setter Property="Height" Value="10"/>
                     </Style>
                 </DataGrid.ColumnHeaderStyle>
-                <DataGrid.RowHeaderStyle>
-                    <Style TargetType="{x:Type DataGridRowHeader}">
-                        <Setter Property="Background" Value="Transparent"/>
+                <DataGrid.CellStyle>
+                    <Style TargetType="{x:Type DataGridCell}">
+                        <Setter Property="Background" Value="{Binding RelativeSource={RelativeSource Self}, Converter={StaticResource TimeTableColorConverter}, ConverterParameter=0}"/>
+                        <Setter Property="BorderThickness" Value="0"/>
+                        <Setter Property="Margin" Value="0 8"/>
+                        <Style.Triggers>
+                            <Trigger Property="DataGridCell.IsSelected" Value="True">
+                                <Setter Property="Background" Value="Aquamarine"/>
+                            </Trigger>
+                        </Style.Triggers>
                     </Style>
-                </DataGrid.RowHeaderStyle>
+                </DataGrid.CellStyle>
+
             </DataGrid>
             <!-- 메모 -->
             <TextBlock Text="전달사항" Foreground="White" Grid.Row="8" Grid.Column="0"/>

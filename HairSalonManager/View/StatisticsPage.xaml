@@ -51,7 +51,7 @@
                     </DataGrid.ColumnHeaderStyle>
                     <DataGrid.RowHeaderStyle>
                         <Style TargetType="{x:Type DataGridRowHeader}">
-                            <Setter Property="Background" Value="Transparent"/>
+                            
                         </Style>
                     </DataGrid.RowHeaderStyle>
                     <DataGrid.CellStyle>

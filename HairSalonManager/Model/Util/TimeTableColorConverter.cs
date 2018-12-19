@@ -14,26 +14,29 @@ namespace HairSalonManager.Model.Util
     
     class TimeTableColorConverter : IValueConverter
     {
-        static int ConverterCount = 0;
-
+        int _converterCount = 0;
+        string _param = "-1";
         //DATA -> CONVERTER -> TimeTable
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (ConverterCount == 49)
+            if (!_param.Equals(parameter as string))
+                _converterCount = 0;
+            _param = parameter as string;
+            if (_param.Equals("1") && (_converterCount > 48 || _converterCount == 0))
             {
-                ConverterCount = 0;
-            }
-            if (parameter.Equals("1") && ConverterCount == 0)
-            {
-                ConverterCount++;
+                _converterCount = 1;
                 return Binding.DoNothing;
+            }
+            else if (_param.Equals("0") && _converterCount > 47)
+            {
+                _converterCount = 0;
             }
                 
             DataGridCell cell = (DataGridCell)value;
             DataRowView row = (DataRowView)cell.DataContext;
             object[] data = row.Row.ItemArray;
 
-            if (data[ConverterCount++] is string)
+            if (data[_converterCount++] is string)
                 return "#2196F3";
             else return Binding.DoNothing;
         }
