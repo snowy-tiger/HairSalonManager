@@ -43,6 +43,5 @@
         <TextBox Text="{Binding SelectedSetting.Value}" Height="25" Grid.Row="2" Grid.Column="2"/>
         <Button Content="적용" Command="{Binding ModifyCommand}" Grid.Row="2" Grid.Column="3"/>
         <Button Content="취소" Command="{Binding InitalizeCommand}" Grid.Row="2" Grid.Column="4"/>
-
     </Grid>
 </Page>
