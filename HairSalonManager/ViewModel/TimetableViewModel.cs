@@ -186,8 +186,9 @@ namespace HairSalonManager.ViewModel
 
         private void MakeTimeTable(DateTime selectedDate)
         {
-            _col = _dataTable.Columns.Add();
-            _col.ColumnName = "StylistName";
+            //_col = _dataTable.Columns.Add();
+            //_col.ColumnName = "StylistName";
+            _dataTable.Rows.Add(_row["StylistName"].ToString());
 
             for (int i = 0; i < 48; i++)
             {
@@ -206,8 +207,8 @@ namespace HairSalonManager.ViewModel
             {
                 _row = _dataTable.NewRow(); //DataRow를 생성해서 그 사람의 예약 테이블을 채워야지
 
-                //_row["StylistName"] = StylistList[k].StylistName;
-                _dataTable.Rows.Add(_row["StylistName"].ToString());
+                _row["StylistName"] = StylistList[k].StylistName;
+                //_dataTable.Rows.Add(_row["StylistName"].ToString());
 
                 //예약 목록 중 StylistId와 StylistList[k].StylistId가 일치하는 사람 찾아서 예약목록 불러오기
                 necessaryList = ReservationList.Where(x => x.StylistId == StylistList[k].StylistId);
