@@ -86,14 +86,14 @@ namespace HairSalonManager.ViewModel
             }
         }
 
-        private DataTable _dataTable;
+        private DataTable _timeTable;
 
-        public DataTable DataTable
+        public DataTable TimeTable
         {
-            get { return _dataTable; }
+            get { return _timeTable; }
             set {
-                _dataTable = value;
-                OnPropertyChanged("DataTable");
+                _timeTable = value;
+                OnPropertyChanged("TimeTable");
             }
         }
 
@@ -441,7 +441,7 @@ namespace HairSalonManager.ViewModel
 
         private void ShowTimeTable()
         {
-            DataTable = new DataTable();
+            TimeTable = new DataTable();
 
             DataRow _row;
             DataColumn _col;
@@ -450,11 +450,11 @@ namespace HairSalonManager.ViewModel
             
             for (int i = 0; i < 48; i++)
             {
-                _col = _dataTable.Columns.Add();
+                _col = TimeTable.Columns.Add();
                 _col.ColumnName = (i / 2).ToString("D2") + " : " + (i % 2 * 30).ToString("D2");
             }
 
-            _row = _dataTable.NewRow(); //DataRow를 생성해서 그 사람의 예약 테이블을 채워야지
+            _row = TimeTable.NewRow(); //DataRow를 생성해서 그 사람의 예약 테이블을 채워야지
 
             //예약 리스트 중에서 스타일리스트 아이디와 콤보박스에서 셀렉트한 미용사의 아이디 비교
             necessaryList = ResList.Where(x => x.StylistId == SelectedRes.StylistId);
@@ -463,7 +463,7 @@ namespace HairSalonManager.ViewModel
             necessaryList = necessaryList.Where(x => x.StartAt.ToString("d").Equals(SelectedRes.StartAt.ToString("d")));
             
             //SaveResInColumn(necessaryList);
-            SaveResInColumn.SaveReservationInColumn(necessaryList, _dataTable, _row);
+            SaveResInColumn.SaveReservationInColumn(necessaryList, TimeTable, _row);
 
         }
         #endregion
