@@ -467,12 +467,12 @@ namespace HairSalonManager.ViewModel
 
             _row = TimeTable.NewRow(); //DataRow를 생성해서 그 사람의 예약 테이블을 채워야지
 
-            //예약 리스트 중에서 스타일리스트 아이디와 콤보박스에서 셀렉트한 미용사의 아이디 비교
-            necessaryList = ResList.Where(x => x.StylistId == SelectedRes.StylistId);
+            //예약 리스트 중에서 선택한 날짜만 불러오기
+            necessaryList = ResList.Where(x => x.StartAt.ToString("d").Equals(SelectedRes.StartAt.ToString("d")));
 
-            //이 목록 중에서 선택한 날짜만 다시 불러오기
-            necessaryList = necessaryList.Where(x => x.StartAt.ToString("d").Equals(SelectedRes.StartAt.ToString("d")));
-            
+            //이 목록 중에서 스타일리스트 아이디와 콤보박스에서 셀렉트한 미용사의 아이디 비교
+            necessaryList = necessaryList.Where(x => x.StylistId == SelectedRes.StylistId);
+
             //SaveResInColumn(necessaryList);
             SaveResInColumn.SaveReservationInColumn(necessaryList, TimeTable, _row);
 
@@ -481,18 +481,14 @@ namespace HairSalonManager.ViewModel
         //이벤트
         private void DetectChangedDate(ReservationVo reservation)
         {
-            if (reservation == null)
-            {
-
-            }
-            else if (reservation.StylistId == null)
-            {
-                MessageBox.Show("스타일리스트가 선택되지 않았습니다.");
-            }
-            else
+            if (reservation != null)
             {
                 _timeTable.Clear();
                 ShowTimeTable(reservation);
+            }
+            else
+            {
+
             }
         }
 
