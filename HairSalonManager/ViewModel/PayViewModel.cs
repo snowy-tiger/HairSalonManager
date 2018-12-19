@@ -14,7 +14,9 @@ namespace HairSalonManager.ViewModel
         #region field
         private readonly ReservationRepository _reservationRepository;
         private readonly ReservedServiceRepository _reservedServiceRepository;
+        private readonly LedgerRepository _ledgerRepository;
         private List<ServiceVo> _serviceList;
+        private List<UserVo> _userList;
         #endregion
 
         #region ctor
@@ -22,14 +24,20 @@ namespace HairSalonManager.ViewModel
         public PayViewModel()
         {
             _reservationRepository = ReservationRepository.Rr;
-            _reservedServiceRepository = ReservedServiceRepository.RSR;            
+            _reservedServiceRepository = ReservedServiceRepository.RSR;
+            _ledgerRepository = LedgerRepository.LR;
             _resList = new ObservableCollection<ReservationVo>(_reservationRepository.GetReservations());
             _serviceList = new List<ServiceVo>(ServiceRepository.SR.GetServicesFromLocal());
+            _userList = new List<UserVo>(UserRepository.UR.GetUserList());
+
             _sum = 0;
+            _selRes = new ReservationVo();
+            InsertCommand = new Command(ExcuteInsertMethod);
         }
+        
         #endregion
 
-        
+
         #region property
 
         private readonly ObservableCollection<ReservationVo> _resList;
@@ -89,6 +97,8 @@ namespace HairSalonManager.ViewModel
             }
         }
 
+        public Command InsertCommand { get; set; }
+
         #endregion
 
         #region method
@@ -99,6 +109,16 @@ namespace HairSalonManager.ViewModel
             {
                 Sum += _serviceList.Single(x => x.ServiceId == rsv.SerId).ServicePrice;
             }
+            Point = Sum / 10;
+            UserPoint = _userList.Single(x => x.UserTel == SelRes.UserTel).Point;
+        }
+
+        private void ExcuteInsertMethod(object obj)
+        {
+            LedgerVo l = new LedgerVo();
+            l.ResNum = SelRes.ResNum;
+            l.Sum = Sum;
+            _ledgerRepository.InsertLedger(l);
         }
 
         #endregion

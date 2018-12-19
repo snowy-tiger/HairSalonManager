@@ -11,9 +11,9 @@ namespace HairSalonManager.Model.Repository
     class LedgerRepository : BaseRepository
     {
         #region singleTon
-        private LedgerRepository _ledgerRepository;
+        private static LedgerRepository _ledgerRepository;
 
-        public LedgerRepository LR
+        public static LedgerRepository LR
         {
             get
             {

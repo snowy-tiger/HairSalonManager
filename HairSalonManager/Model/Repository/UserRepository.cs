@@ -12,9 +12,9 @@ namespace HairSalonManager.Model.Repository
     class UserRepository : BaseRepository
     {
         #region singleTon
-        private UserRepository _userRepository;
+        private static UserRepository _userRepository;
 
-        public UserRepository UR
+        public static UserRepository UR
         {
             get {
                 if (_userRepository == null)
@@ -39,6 +39,21 @@ namespace HairSalonManager.Model.Repository
         #endregion
 
         #region method
+
+        public List<UserVo> GetUserList()
+        {
+            List<UserVo> list = new List<UserVo>();
+
+            foreach (DataRow row in _ds.Tables[0].Rows)
+            {
+                UserVo u = new UserVo();
+                u.UserTel = row["userTel"] as string;
+                u.Point = (uint)row["point"];
+                list.Add(u);
+            }
+
+            return list;
+        }
         public bool InsertUser(UserVo user)
         {
             MySqlDataAdapter adapter = new MySqlDataAdapter(_sql, _conn.Msc);
