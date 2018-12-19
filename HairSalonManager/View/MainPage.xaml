@@ -101,7 +101,7 @@
                 </ComboBox>
                 <TextBlock Text="분" Grid.Column="4"/>
             </Grid>
-            <DataGrid IsReadOnly="True" Margin="0 5" Background="#1e1e1e"  SelectionUnit="Cell" SelectionMode="Single" Foreground="FloralWhite" RowBackground="#242424" AlternatingRowBackground="#191919" BorderBrush="Black" HorizontalGridLinesBrush="#363636" VerticalGridLinesBrush="Transparent" Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2">
+            <DataGrid ItemsSource="{Binding TimeTable}" IsReadOnly="True" Margin="0 5" Background="#1e1e1e"  SelectionUnit="Cell" SelectionMode="Single" Foreground="FloralWhite" RowBackground="#242424" AlternatingRowBackground="#191919" BorderBrush="Black" HorizontalGridLinesBrush="#363636" VerticalGridLinesBrush="Transparent" Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2">
                 <DataGrid.ColumnHeaderStyle>
                     <Style TargetType="{x:Type DataGridColumnHeader}">
                         <Setter Property="Background" Value="#161616"/>
