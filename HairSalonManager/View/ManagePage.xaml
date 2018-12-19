@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:HairSalonManager.View"
+      xmlns:viewModel="clr-namespace:HairSalonManager.ViewModel"
       mc:Ignorable="d" 
       d:DesignHeight="515" d:DesignWidth="1000"
       Title="ManagePage">
@@ -45,19 +46,24 @@
             </Style>
         </TabControl.Resources>
         <TabItem Header="미용사 관리">
+            <TabItem.DataContext>
+                <viewModel:StylistViewModel/>
+            </TabItem.DataContext>
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <DataGrid Margin="5" Grid.Column="0"/>
+                <DataGrid ItemsSource="{Binding StylistList}" SelectedItem="{Binding SelectedStylist}" Margin="5" Grid.Column="0"/>
                 <Grid Margin="5" Grid.Column="1">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="*"/>
-                        <RowDefinition Height="3*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="0.5*"/>
+                        <RowDefinition Height="1.5*"/>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
@@ -66,18 +72,36 @@
                     <!-- 글씨 -->
                     <TextBlock Text="DETAILED STYLIST INFOMATION" RenderOptions.ClearTypeHint="Enabled" FontSize="20" FontWeight="Bold" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"/>
                     
+                    <!-- 미용사 ID -->
+                    <TextBlock Text="미용사 ID" Grid.Row="1" Grid.Column="0"/>
+                    <TextBlock Text="{Binding SelectedStylist.StylistId}" Grid.Row="1" Grid.Column="1"/>
+
                     <!-- 이름 -->
-                    <TextBlock Text="이름" Grid.Row="1" Grid.Column="0"/>
-                    <TextBox Grid.Row="1" Grid.Column="1"/>
+                    <TextBlock Text="이름" Grid.Row="2" Grid.Column="0"/>
+                    <TextBox Text="{Binding SelectedStylist.StylistName}" Grid.Row="2" Grid.Column="1"/>
 
                     <!-- 미용사별 추가금액 -->
-                    <TextBlock Text="미용사별 추가금액" Grid.Row="2" Grid.Column="0"/>
-                    <TextBox Grid.Row="2" Grid.Column="1"/>
+                    <TextBlock Text="미용사별 추가금액" Grid.Row="3" Grid.Column="0"/>
+                    <TextBox Text="{Binding SelectedStylist.AdditionalPrice}" Grid.Row="3" Grid.Column="1"/>
                     
                     <!-- 미용사별 휴무일 -->
-                    <TextBlock Text="미용사 휴무일" Grid.Row="3" Grid.Column="0"/>
-                    <TextBox Grid.Row="3" Grid.Column="1"/>
+                    <TextBlock Text="미용사 휴무일" Grid.Row="4" Grid.Column="0"/>
+                    <TextBox Text="{Binding SelectedStylist.PersonalDay}" Grid.Row="4" Grid.Column="1"/>
                     
+                    <!-- 버튼 -->
+                    <!-- 버튼 -->
+                    <Grid Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Button Content="추가" IsEnabled="{Binding IsSelected}" Command="{Binding InsertCommand}" Grid.Column="0"/>
+                        <Button Content="수정" Command="{Binding ModifyCommand}" Grid.Column="1"/>
+                        <Button Content="삭제" Command="{Binding DeleteCommand}" Grid.Column="2"/>
+                        <Button Content="비우기" Command="{Binding InitalizeCommand}" Grid.Column="3"/>
+                    </Grid>
                 </Grid>
             </Grid>
         </TabItem>
