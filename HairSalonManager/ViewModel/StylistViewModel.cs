@@ -135,7 +135,8 @@ namespace HairSalonManager.ViewModel
             else
             {
                 _stylistRepository.InsertStylist(SelectedStylist);
-                StylistList.Add(SelectedStylist);
+                StylistList = new ObservableCollection<StylistVo>(_stylistRepository.GetStylists());
+                
             }
         }
 

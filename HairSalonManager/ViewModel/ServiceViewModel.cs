@@ -168,6 +168,7 @@ namespace HairSalonManager.ViewModel
             {
                 _serviceRepository.InsertService(SelectedService);
                 ServiceList.Add(SelectedService);
+                ServiceList = new ObservableCollection<ServiceVo>(_serviceRepository.GetServices());
             }
         }
 

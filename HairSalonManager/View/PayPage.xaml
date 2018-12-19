@@ -46,7 +46,7 @@
 
             <!-- 예약자 성함 -->
             <TextBlock Text="성함" Foreground="White" Grid.Row="1" Grid.Column="0"/>
-            <TextBox Height="23" Text="{Binding SelRes.UserName}" Grid.Row="1" Grid.Column="1"/>
+            <TextBox IsReadOnly="True" Height="23" Text="{Binding SelRes.UserName}" Grid.Row="1" Grid.Column="1"/>
 
             <!-- 예약 번호 -->
             <TextBlock Text="예약번호" Foreground="White" Grid.Row="2" Grid.Column="0"/>
@@ -61,11 +61,11 @@
 
             <!-- 전화번호 -->
             <TextBlock Text="전화번호" Foreground="White" Grid.Row="4" Grid.Column="0"/>
-            <TextBox Text="{Binding SelRes.UserTel}" Height="23" Grid.Row="4" Grid.Column="1"/>
+            <TextBox  IsReadOnly="True" Text="{Binding SelRes.UserTel}" Height="23" Grid.Row="4" Grid.Column="1"/>
 
             <!-- 성별 -->
             <TextBlock Text="성별" Foreground="White" Grid.Row="5" Grid.Column="0"/>
-            <StackPanel Orientation="Horizontal" Grid.Row="5" Grid.Column="1">
+            <StackPanel Orientation="Horizontal" Grid.Row="5" Grid.Column="1" >
                 <RadioButton GroupName="Gender" Content="남성" Foreground="White" IsChecked="{Binding SelectedRes.Gender,Converter={StaticResource GenderConverter},ConverterParameter=0}"/>
                 <RadioButton GroupName="Gender" Content="여성" Foreground="White" IsChecked="{Binding SelectedRes.Gender,Converter={StaticResource GenderConverter},ConverterParameter=1}"/>
             </StackPanel>

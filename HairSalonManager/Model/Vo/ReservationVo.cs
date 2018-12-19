@@ -32,7 +32,16 @@ namespace HairSalonManager.Model.Vo
             }
         }
 
-        public DateTime EndAt { get; set; }
+        private DateTime _endAt;
+
+        public DateTime EndAt
+        {
+            get { return _endAt; }
+            set { _endAt = value;
+                OnPropertyChanged("EndAt");
+            }
+        }
+
 
         public string UserName { get; set; }
 

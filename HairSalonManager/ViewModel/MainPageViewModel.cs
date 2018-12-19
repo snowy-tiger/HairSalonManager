@@ -435,7 +435,7 @@ namespace HairSalonManager.ViewModel
                         return true;
                     else if (startTimeTotalM <= rstartTimeTotalM && endTimeTotalM >= rendTimeTotalM) //한 예약을 포함할때
                         return true;
-                    else if (startTimeTotalM < rstartTimeTotalM && endTimeTotalM < rendTimeTotalM && endTimeTotalM != rstartTimeTotalM) // 일부분이 겹칠때
+                    else if (startTimeTotalM < rstartTimeTotalM && endTimeTotalM < rendTimeTotalM && endTimeTotalM != rstartTimeTotalM && endTimeTotalM > rstartTimeTotalM) // 일부분이 겹칠때
                         return true;
                 }
             }           

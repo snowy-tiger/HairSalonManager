@@ -40,6 +40,8 @@ namespace HairSalonManager.ViewModel
             _stylistadditionalCost = 0;
             _consumePoint = 0;
             _selRes = new ReservationVo();
+            _selRes.StylistId = 0;
+
             InsertCommand = new Command(ExcuteInsertMethod);
         }
         
@@ -48,11 +50,16 @@ namespace HairSalonManager.ViewModel
 
         #region property
 
-        private readonly ObservableCollection<ReservationVo> _resList;
+        private ObservableCollection<ReservationVo> _resList;
 
         public ObservableCollection<ReservationVo> ResList
         {
             get { return _resList; }
+            set
+            {
+                _resList = value;
+                OnPropertyChanged("ResList");
+            }
         }
 
         private ObservableCollection<ReservedServiceVo> _resServiceList;
@@ -149,8 +156,13 @@ namespace HairSalonManager.ViewModel
 
         private void ExcuteInsertMethod(object obj)
         {
+            if (SelRes.StylistId == 0)
+            {
+                MessageBox.Show("선택된 예약이 없습니다.");
+                return;
+            }
             LedgerVo l = new LedgerVo();
-
+            
             if (UserPoint < ConsumePoint)
             {
                 MessageBox.Show("적립금이 부족합니다.");
@@ -174,6 +186,7 @@ namespace HairSalonManager.ViewModel
             ReservationVo r = ResList.Single(x => x.ResNum == SelRes.ResNum);
             r.IsPaid = true;
             _reservationRepository.UpdateReservation(r);
+            ResList = new ObservableCollection<ReservationVo>(_reservationRepository.GetReservations());
 
         }
 
