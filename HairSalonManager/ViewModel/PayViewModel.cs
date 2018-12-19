@@ -16,6 +16,7 @@ namespace HairSalonManager.ViewModel
         private readonly ReservedServiceRepository _reservedServiceRepository;
         private readonly LedgerRepository _ledgerRepository;
         private readonly UserRepository _userRepository;
+        private readonly StylistRepository _stylistRepository;
 
         private List<ServiceVo> _serviceList;
         private List<UserVo> _userList;
@@ -29,6 +30,7 @@ namespace HairSalonManager.ViewModel
             _reservedServiceRepository = ReservedServiceRepository.RSR;
             _ledgerRepository = LedgerRepository.LR;
             _userRepository = UserRepository.UR;
+            _stylistRepository = StylistRepository.SR;
             _resList = new ObservableCollection<ReservationVo>(_reservationRepository.GetReservations());
             _serviceList = new List<ServiceVo>(ServiceRepository.SR.GetServicesFromLocal());
             _userList = new List<UserVo>(UserRepository.UR.GetUserList());
@@ -110,6 +112,17 @@ namespace HairSalonManager.ViewModel
             }
         }
 
+        private uint? _stylistadditionalCost;
+
+        public uint? StylistAdditionalCost
+        {
+            get { return _stylistadditionalCost; }
+            set {
+                _stylistadditionalCost = value;
+                OnPropertyChanged("AditionalCost");
+            }
+        }
+
         public Command InsertCommand { get; set; }
 
         #endregion
@@ -117,6 +130,7 @@ namespace HairSalonManager.ViewModel
         #region method
         private void onSelResChanged()
         {
+            Sum = 0;
             ResServiceList = new ObservableCollection<ReservedServiceVo>(_reservedServiceRepository.GetReservedServices(SelRes.ResNum));
             foreach(ReservedServiceVo rsv in ResServiceList)
             {
@@ -124,6 +138,7 @@ namespace HairSalonManager.ViewModel
             }
             Point = Sum / 10;
             UserPoint = _userList.Single(x => x.UserTel == SelRes.UserTel).Point;
+            StylistAdditionalCost = _stylistRepository.GetStylistsFromLocal().Single(x => x.StylistId == SelRes.StylistId).AdditionalPrice;
         }
 
         private void ExcuteInsertMethod(object obj)
