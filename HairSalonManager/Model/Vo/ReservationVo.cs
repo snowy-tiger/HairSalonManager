@@ -10,9 +10,31 @@ namespace HairSalonManager.Model.Vo
     {
         public uint ResNum { get; set; }
 
-        public uint? StylistId { get; set; }
 
-        public string UserTel { get; set; }
+        private uint? _stylistId;
+
+        public uint? StylistId
+        {
+            get { return _stylistId; }
+            set { _stylistId = value;
+                OnPropertyChanged("StylistId");
+            }
+        }
+
+        //public uint? StylistId { get; set; }
+
+
+        private string _userTel;
+
+        public string UserTel
+        {
+            get { return _userTel; }
+            set { _userTel = value;
+                OnPropertyChanged("UserTel");
+            }
+        }
+
+        //public string UserTel { get; set; }
 
         public string Note { get; set; }       
 

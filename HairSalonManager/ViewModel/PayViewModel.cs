@@ -190,6 +190,7 @@ namespace HairSalonManager.ViewModel
             ReservationVo r = ResList.Single(x => x.ResNum == SelRes.ResNum);
             r.IsPaid = true;
             _reservationRepository.UpdateReservation(r);
+            MessageBox.Show("결제 완료");
            // ResList = new ObservableCollection<ReservationVo>(_reservationRepository.GetReservations());
             
 

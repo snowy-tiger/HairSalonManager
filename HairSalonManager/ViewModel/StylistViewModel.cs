@@ -94,6 +94,7 @@ namespace HairSalonManager.ViewModel
             _stylistRepository = StylistRepository.SR;
 
             _selectedStylist = new StylistVo();
+            _selectedStylist.StylistId = 0;
 
             StylistList = new ObservableCollection<StylistVo>(_stylistRepository.GetStylistsFromLocal());
 
@@ -112,6 +113,11 @@ namespace HairSalonManager.ViewModel
         }
         private void ExecuteDeleteMethod(object obj)
         {
+            if (SelectedStylist.StylistId == 0)
+            {
+                MessageBox.Show("미용사를 선택해주세요");
+                return;
+            }
             _stylistRepository.RemoveStylist(SelectedStylist.StylistId);
             StylistList.Remove(SelectedStylist);
             SelectedStylist = new StylistVo();

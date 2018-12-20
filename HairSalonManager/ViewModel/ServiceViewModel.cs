@@ -124,7 +124,7 @@ namespace HairSalonManager.ViewModel
             _serviceRepository = ServiceRepository.SR;
 
             _selectedService = new ServiceVo();
-
+            _selectedService.ServiceId = 0;
             ServiceList = new ObservableCollection<ServiceVo>(_serviceRepository.GetServicesFromLocal());
 
             InsertCommand = new Command(ExecuteInsertMethod, CanExecuteMethod);
@@ -144,6 +144,11 @@ namespace HairSalonManager.ViewModel
         }
         private void ExecuteDeleteMethod(object obj)
         {
+            if (SelectedService.ServiceId == 0)
+            {
+                MessageBox.Show("서비스를 선택해주세요");
+                return;
+            }
             _serviceRepository.DeleteService(SelectedService.ServiceId);
             ServiceList.Remove(SelectedService);
             SelectedService = new ServiceVo();
