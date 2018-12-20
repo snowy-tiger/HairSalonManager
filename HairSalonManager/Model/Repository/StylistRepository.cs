@@ -79,7 +79,6 @@ namespace HairSalonManager.Model.Repository
             if (Save(adapter) == -1)
                 return false;
             return true;
-
             
         }
 
